@@ -1024,12 +1024,13 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         gap: 12px !important;
-        margin: 0 -20px;
-        padding: 4px 20px 14px;
+        margin: 0;
+        padding: 4px 6vw 14px;
         scrollbar-width: none;
+        scroll-padding-inline: 6vw;
       }
       .pricing__grid::-webkit-scrollbar { display: none; }
-      .pricing__grid > * { flex: 0 0 88vw !important; max-width: 320px; scroll-snap-align: start; }
+      .pricing__grid > * { flex: 0 0 88vw !important; max-width: 320px; scroll-snap-align: center; }
       .pricing-card__cta,
       #formules a[href] {
         min-height: 52px;
@@ -1075,19 +1076,24 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         gap: 0;
         margin: 0 -20px;
         padding: 8px 0 16px;
         scrollbar-width: none;
+        overscroll-behavior-x: contain;
       }
       .studio__phones::-webkit-scrollbar { display: none; }
       .studio__phones .phone-wrap {
         flex: 0 0 100vw;
         scroll-snap-align: center;
+        scroll-snap-stop: always;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
       }
 
       /* ── Coach ── */
@@ -1265,13 +1271,13 @@
             <div class="phone-inner">
               <div class="phone-shell">
                 <div class="phone-screen">
-                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
+                  <img src="app-studio.png" alt="App Studio Gym 360 — Studio & contenus">
                 </div>
                 <div class="phone-notch" aria-hidden="true"></div>
               </div>
             </div>
           </div>
-          <p class="phone-label">Tes séances du jour</p>
+          <p class="phone-label">Vidéos &amp; ressources</p>
         </div>
 
         <div class="phone-wrap">
@@ -1293,13 +1299,13 @@
             <div class="phone-inner">
               <div class="phone-shell">
                 <div class="phone-screen">
-                  <img src="app-studio.png" alt="App Studio Gym 360 — Studio & contenus">
+                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
                 </div>
                 <div class="phone-notch" aria-hidden="true"></div>
               </div>
             </div>
           </div>
-          <p class="phone-label">Vidéos &amp; ressources</p>
+          <p class="phone-label">Tes séances du jour</p>
         </div>
       </div>
     </div>
