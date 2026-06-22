@@ -858,42 +858,73 @@
     /* RESPONSIVE — mobile ≤ 720px                       */
     /* ══════════════════════════════════════════════════ */
     @media (max-width: 720px) {
-      /* Nav */
-      .nav { padding: 0 20px; }
+
+      /* ── Offer band ── */
+      .offer-band { font-size: 12px; padding: 8px 16px; gap: 6px; }
+      .offer-band__text { display: none; }
+
+      /* ── Nav ── */
+      .nav { padding: 0 16px; height: 56px; }
+      .nav__name { font-size: 14px; }
       .nav__links { display: none; }
       .nav__cta-full { display: none; }
-      .nav__cta-short { display: inline-block; }
+      .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
-      /* Hero */
-      .hero { min-height: 480px; }
-      .hero__content { padding: 28px 20px 32px; }
-      .hero__title { font-size: 36px; }
-      .hero__title em { font-size: 30px; }
-      .hero__subtitle { font-size: 15px; }
-      .hero__ctas { flex-direction: column; }
-      .hero__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
-      .hero__badge { right: 12px; bottom: 16px; }
+      /* ── Hero ── */
+      .hero { min-height: calc(100svh - 88px); align-items: flex-end; }
+      .hero__bg { object-position: center 40%; }
+      .hero__content { padding: 24px 20px 100px; max-width: 100%; }
+      .hero__region { font-size: 9px; margin-bottom: 10px; }
+      .hero__title {
+        font-size: clamp(32px, 9vw, 42px);
+        line-height: 1.08;
+        margin-bottom: 14px;
+      }
+      .hero__title em { font-size: clamp(28px, 8vw, 38px); }
+      .hero__subtitle { font-size: 15px; margin-bottom: 22px; max-width: 100%; }
+      .hero__ctas { flex-direction: column; gap: 10px; }
+      .hero__ctas a {
+        width: 100%;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      /* Badge en bas à gauche, hors du flux des CTA */
+      .hero__badge {
+        right: auto;
+        left: 20px;
+        bottom: 20px;
+        font-size: 13px;
+      }
+      .hero__badge-text { padding: 10px 14px; }
+      .hero__badge-title { font-size: 13px; }
+      .hero__badge-sub { font-size: 11px; }
+      .hero__badge-accent { display: none; }
 
-      /* Mobile offer */
+      /* ── Mobile offer band ── */
       .offer-mobile { display: flex; }
 
-      /* Section inner */
-      .section-inner { padding: 52px 20px; }
+      /* ── H2 général ── */
+      .h2 { font-size: clamp(26px, 7.5vw, 36px); }
 
-      /* Grids → 1 column */
+      /* ── Section inner ── */
+      .section-inner { padding: 48px 20px; }
+
+      /* ── Carousels swipeables ── */
       .problem__grid,
       .process__grid,
       .benefits__grid,
       .testimonials__grid {
-        /* swipeable carousel */
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 14px !important;
+        gap: 12px !important;
         margin: 0 -20px;
-        padding: 4px 20px 10px;
+        padding: 4px 20px 14px;
         scroll-padding-left: 20px;
         scrollbar-width: none;
       }
@@ -905,25 +936,25 @@
       .process__grid > *,
       .benefits__grid > *,
       .testimonials__grid > * {
-        flex: 0 0 84% !important;
+        flex: 0 0 88vw !important;
+        max-width: 320px;
         scroll-snap-align: start;
       }
 
-      /* Pricing carousel */
+      /* ── Pricing carousel ── */
       .pricing__grid {
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 14px !important;
+        gap: 12px !important;
         margin: 0 -20px;
-        padding: 4px 20px 10px;
+        padding: 4px 20px 14px;
         scrollbar-width: none;
       }
       .pricing__grid::-webkit-scrollbar { display: none; }
-      .pricing__grid > * { flex: 0 0 84% !important; scroll-snap-align: start; }
-
+      .pricing__grid > * { flex: 0 0 88vw !important; max-width: 320px; scroll-snap-align: start; }
       .pricing-card__cta,
       #formules a[href] {
         min-height: 52px;
@@ -932,36 +963,55 @@
         justify-content: center;
       }
 
-      /* Solution */
-      .solution__inner { flex-direction: column; }
-      .solution__img { width: 100%; height: 240px; }
+      /* ── Solution ── */
+      .solution__inner { flex-direction: column; gap: 28px; align-items: stretch; }
+      .solution__img { width: 100%; height: 220px; }
       .solution__ctas { flex-direction: column; }
       .solution__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
 
-      /* Studio phones */
-      .studio__inner { flex-direction: column; }
+      /* ── App phones ── */
+      .app__phones .phone-wrap:nth-child(2) { margin-top: 0; }
+      .app__phones {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 24px;
+        margin: 0 -20px;
+        padding: 8px calc(50% - 105px) 16px;
+        scrollbar-width: none;
+        align-items: flex-start;
+      }
+      .app__phones::-webkit-scrollbar { display: none; }
+      .app__phones .phone-wrap { scroll-snap-align: center; flex-shrink: 0; }
+
+      /* ── Studio phones ── */
+      .studio__inner { flex-direction: column; gap: 28px; align-items: stretch; }
+      .studio__body { width: 100%; }
       .studio__phones {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        gap: 14px;
+        -webkit-overflow-scrolling: touch;
+        gap: 24px;
         margin: 0 -20px;
-        padding: 4px 20px 10px;
+        padding: 8px calc(50% - 105px) 16px;
         scrollbar-width: none;
       }
       .studio__phones::-webkit-scrollbar { display: none; }
-      .studio__phones .phone-wrap { scroll-snap-align: start; }
+      .studio__phones .phone-wrap { scroll-snap-align: center; flex-shrink: 0; }
 
-      /* Coach */
-      .coach__card { flex-direction: column; padding: 28px 24px; }
-      .coach__photo { width: 90px; height: 110px; }
+      /* ── Coach ── */
+      .coach__card { flex-direction: column; padding: 28px 20px; gap: 20px; }
+      .coach__photo { width: 80px; height: 100px; }
 
-      /* CTA final */
+      /* ── CTA final ── */
       .cta-final { padding: 40px 20px; }
-
-      /* H2 max */
-      .hero__title { max-width: 100%; }
+      .cta-final__title { font-size: clamp(26px, 7vw, 36px); }
+      .cta-final__sub { font-size: 15px; margin-bottom: 28px; }
+      .cta-final__cta { width: 100%; display: block; text-align: center; }
     }
   </style>
 </head>
