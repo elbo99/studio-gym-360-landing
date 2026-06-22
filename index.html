@@ -1659,6 +1659,7 @@
             dots.appendChild(d);
           });
           carousel.after(dots);
+          carousel.scrollLeft = 0;
 
           carousel.addEventListener('scroll', function () {
             var itemW = items[0].offsetWidth;
