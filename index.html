@@ -873,6 +873,28 @@
       margin: 0 auto 36px;
     }
 
+    /* ─── Swipe dots ─────────────────────────────────── */
+    .swipe-dots {
+      display: none;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+    .swipe-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--beige-dark);
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+    .swipe-dot--active {
+      width: 18px;
+      background: var(--sage);
+    }
+    @media (max-width: 720px) {
+      .swipe-dots { display: flex; }
+    }
+
     /* ─── Footer ─────────────────────────────────────── */
     .footer {
       text-align: center;
@@ -1154,7 +1176,7 @@
       <h2 class="h2" style="margin-bottom:40px" data-reveal id="problem-title">
         Beaucoup s'entraînent.<br><em>Peu progressent vraiment.</em>
       </h2>
-      <div class="problem__grid">
+      <div class="problem__grid" data-carousel>
         <div class="problem__card" data-reveal>
           <h3>Tu t'entraînes, mais tu n'avances pas.</h3>
           <p>Un programme acheté en ligne, quelques semaines de motivation, puis plus rien. Pas parce que tu manques de volonté — sans vrai suivi, la motivation seule ne suffit pas.</p>
@@ -1208,7 +1230,7 @@
       <p style="font-size:16px;color:var(--text-muted);line-height:1.65;max-width:520px;margin-bottom:48px">
         Tes séances, ta progression, tes échanges avec ton coach — disponibles où que tu sois, quand tu veux.
       </p>
-      <div class="app__phones">
+      <div class="app__phones" data-carousel>
         <div class="phone-wrap">
           <div class="phone-frame">
             <div class="phone-inner">
@@ -1263,7 +1285,7 @@
       <h2 class="h2" style="margin-bottom:40px" id="process-title">
         Simple à démarrer.<br><em>Sérieux dans le suivi.</em>
       </h2>
-      <div class="process__grid">
+      <div class="process__grid" data-carousel>
         <div class="process__card">
           <div class="process__num">01</div>
           <h3>Tu partages ton univers</h3>
@@ -1292,7 +1314,7 @@
       <h2 class="h2" style="margin-bottom:40px" id="benefits-title">
         Tout ce dont tu as besoin.<br><em>Rien de superflu.</em>
       </h2>
-      <div class="benefits__grid">
+      <div class="benefits__grid" data-carousel>
         <div class="benefit-card">
           <div class="benefit-card__num">01</div>
           <h3 class="benefit-card__title">Un programme qui te ressemble.</h3>
@@ -1336,7 +1358,7 @@
       <h2 class="h2" style="margin-bottom:32px" id="testimonials-title">
         Ils ont essayé.<br><em>Ils ne s'arrêtent plus.</em>
       </h2>
-      <div class="testimonials__grid">
+      <div class="testimonials__grid" data-carousel>
         <article class="testimonial-card">
           <div class="testimonial-card__stars" aria-label="5 étoiles">
             <span class="star" aria-hidden="true">★</span>
@@ -1399,7 +1421,7 @@
         Deux formules.<br><em>Un seul objectif.</em>
       </h2>
       <p style="font-size:16px;color:var(--text-muted);margin-bottom:40px">Sans engagement. Sans surprise.</p>
-      <div class="pricing__grid">
+      <div class="pricing__grid" data-carousel>
 
         <!-- Studio Online -->
         <div class="pricing-card pricing-card--active">
@@ -1503,7 +1525,7 @@
             </li>
           </ul>
         </div>
-        <div class="studio__phones">
+        <div class="studio__phones" data-carousel>
           <div class="phone-wrap">
             <div class="phone-frame">
               <div class="phone-inner">
@@ -1592,6 +1614,37 @@
       }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
       cards.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <script>
+    // Swipe dots — générés automatiquement pour chaque carousel [data-carousel]
+    (function () {
+      if (window.matchMedia('(max-width: 720px)').matches) {
+        document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
+          var items = Array.from(carousel.children);
+          if (items.length < 2) return;
+
+          var dots = document.createElement('div');
+          dots.className = 'swipe-dots';
+          dots.setAttribute('aria-hidden', 'true');
+          items.forEach(function (_, i) {
+            var d = document.createElement('span');
+            d.className = 'swipe-dot' + (i === 0 ? ' swipe-dot--active' : '');
+            dots.appendChild(d);
+          });
+          carousel.after(dots);
+
+          carousel.addEventListener('scroll', function () {
+            var itemW = items[0].offsetWidth;
+            if (!itemW) return;
+            var idx = Math.min(Math.round(carousel.scrollLeft / itemW), items.length - 1);
+            dots.querySelectorAll('.swipe-dot').forEach(function (d, i) {
+              d.classList.toggle('swipe-dot--active', i === idx);
+            });
+          }, { passive: true });
+        });
+      }
     })();
   </script>
 
