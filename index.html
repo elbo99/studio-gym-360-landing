@@ -977,14 +977,19 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 24px;
+        gap: 0;
         margin: 0 -20px;
-        padding: 8px calc(50% - 105px) 16px;
+        padding: 8px 0 16px;
         scrollbar-width: none;
         align-items: flex-start;
       }
       .app__phones::-webkit-scrollbar { display: none; }
-      .app__phones .phone-wrap { scroll-snap-align: center; flex-shrink: 0; }
+      .app__phones .phone-wrap {
+        flex: 0 0 100vw;
+        scroll-snap-align: center;
+        display: flex;
+        justify-content: center;
+      }
 
       /* ── Studio phones ── */
       .studio__inner { flex-direction: column; gap: 28px; align-items: stretch; }
@@ -995,13 +1000,18 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 24px;
+        gap: 0;
         margin: 0 -20px;
-        padding: 8px calc(50% - 105px) 16px;
+        padding: 8px 0 16px;
         scrollbar-width: none;
       }
       .studio__phones::-webkit-scrollbar { display: none; }
-      .studio__phones .phone-wrap { scroll-snap-align: center; flex-shrink: 0; }
+      .studio__phones .phone-wrap {
+        flex: 0 0 100vw;
+        scroll-snap-align: center;
+        display: flex;
+        justify-content: center;
+      }
 
       /* ── Coach ── */
       .coach__card { flex-direction: column; padding: 28px 20px; gap: 20px; }
