@@ -591,6 +591,19 @@
       margin-bottom: 14px;
     }
     .benefit-card--founder .benefit-card__num { color: rgba(255,255,255,0.5); }
+    .benefit-card__badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
     .benefit-card__title {
       font-size: 20px;
       font-weight: 800;
@@ -931,7 +944,8 @@
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
       /* ── Hero ── */
-      .hero { min-height: calc(100svh - 88px); align-items: flex-end; }
+      .hero { min-height: calc(100svh - 88px); align-items: flex-start; }
+      .hero__content { padding-top: 48px; }
       .hero__bg { object-position: center 40%; }
       .hero__content { padding: 28px 20px 28px; max-width: 100%; }
       .hero__region { font-size: 9px; letter-spacing: 0.1em; margin-bottom: 14px; }
@@ -958,7 +972,7 @@
         display: flex;
         gap: 8px;
         margin-top: 20px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
       }
 
       /* ── Mobile offer band ── */
@@ -1097,7 +1111,7 @@
   <!-- ② NAV ──────────────────────────────────────── -->
   <nav class="nav" aria-label="Navigation principale">
     <a href="https://studiogym360.ch" class="nav__brand">
-      <img src="GYM.png" alt="" width="38" height="38" style="width:38px;height:38px;object-fit:contain;flex-shrink:0">
+      <img src="GYM.png" alt="" width="38" height="38" style="width:38px;height:38px;object-fit:contain;flex-shrink:0;border-radius:10px">
       <span class="nav__name">Studio Gym 360</span>
     </a>
     <nav class="nav__links" aria-label="Sections">
@@ -1240,7 +1254,7 @@
         Tout ton coaching,<br><em>dans une seule app.</em>
       </h2>
       <p style="font-size:16px;color:var(--text-muted);line-height:1.65;max-width:520px;margin-bottom:48px">
-        Tes séances, ta progression, tes échanges avec ton coach — disponibles où que tu sois, quand tu veux.
+        Tes séances, tes performances, ton suivi. Tout est centralisé et accessible où que tu sois, quand tu veux.
       </p>
       <div class="app__phones" data-carousel>
         <div class="phone-wrap">
@@ -1254,7 +1268,7 @@
               </div>
             </div>
           </div>
-          <p class="phone-label">Séances du jour</p>
+          <p class="phone-label">Tes séances du jour</p>
         </div>
 
         <div class="phone-wrap">
@@ -1282,7 +1296,7 @@
               </div>
             </div>
           </div>
-          <p class="phone-label">Espace de connexion</p>
+          <p class="phone-label">Vidéos &amp; ressources</p>
         </div>
       </div>
     </div>
@@ -1301,17 +1315,17 @@
         <div class="process__card">
           <div class="process__num">01</div>
           <h3>Tu partages ton univers</h3>
-          <p>Tes objectifs, tes contraintes, ton quotidien. Pas un formulaire générique — une vraie base pour que ton coach construise quelque chose qui te ressemble.</p>
+          <p>Tes objectifs, tes contraintes, ton quotidien. Pas un formulaire générique, une vraie base pour que ton coach construise quelque chose qui te ressemble.</p>
         </div>
         <div class="process__card">
           <div class="process__num">02</div>
           <h3>Ton programme t'attend</h3>
-          <p>Dès la semaine suivante, tout est dans l'app. Tu sais quoi faire, pourquoi, et comment. Plus d'hésitation, plus de temps perdu.</p>
+          <p>Dès la semaine suivante, tout est dans l'app. Tu sais quoi faire, pourquoi, et comment. Plus d'hésitation avant de t'entraîner.</p>
         </div>
         <div class="process__card">
           <div class="process__num">03</div>
           <h3>On ne te lâche pas</h3>
-          <p>Ton coach suit chaque séance, chaque progression. Il ajuste, il s'adapte. Tu n'es jamais seul face à tes objectifs.</p>
+          <p>Ton coach suit chaque séance. Il voit ce qui fonctionne, ce qui coince. Il ajuste en fonction de tes besoins.</p>
         </div>
       </div>
     </div>
@@ -1340,22 +1354,22 @@
         <div class="benefit-card">
           <div class="benefit-card__num">03</div>
           <h3 class="benefit-card__title">Tout au même endroit.</h3>
-          <p class="benefit-card__desc">Tes séances, tes performances, tes échanges avec ton coach — une seule app, aucune dispersion. Tu gardes le cap.</p>
+          <p class="benefit-card__desc">Tes séances, tes charges, ton historique. Plus besoin de noter sur un carnet ou de chercher dans tes photos. Tout est là.</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-card__num">04</div>
-          <h3 class="benefit-card__title">Tu vois où tu en es.</h3>
-          <p class="benefit-card__desc">Chaque séance enregistrée, chaque progrès tracé. Tu mesures ta progression au lieu de juste la ressentir.</p>
+          <h3 class="benefit-card__title">Tu vois où tu vas.</h3>
+          <p class="benefit-card__desc">Les chiffres ne mentent pas. Charges, répétitions, régularité, tu mesures ta progression au lieu de juste la ressentir.</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-card__num">05</div>
           <h3 class="benefit-card__title">Un coach qui te connaît.</h3>
-          <p class="benefit-card__desc">Il sait que tu voyages souvent. Que tu as eu une semaine difficile. Il s'adapte. C'est ça, le coaching.</p>
+          <p class="benefit-card__desc">Il sait que tu voyages souvent. Que tu as eu une semaine difficile. Il s'adapte. C'est ça la différence avec une app.</p>
         </div>
         <div class="benefit-card benefit-card--founder">
-          <div class="benefit-card__num">06</div>
+          <div class="benefit-card__num">06 <span class="benefit-card__badge">Si coaché par Guillaume, fondateur</span></div>
           <h3 class="benefit-card__title">La méthode Studio Gym, chez toi.</h3>
-          <p class="benefit-card__desc">Ce que Guillaume applique chaque jour en studio, la méthode Studio Gym — disponible depuis n'importe où.</p>
+          <p class="benefit-card__desc">Ce que Guillaume applique chaque jour en studio, la même rigueur, le même niveau d'exigence, disponible depuis ton salon.</p>
         </div>
       </div>
     </div>
@@ -1366,9 +1380,9 @@
   <!-- ⑨ TÉMOIGNAGES ──────────────────────────────── -->
   <section aria-labelledby="testimonials-title">
     <div class="section-inner">
-      <span class="section-label">Vos retours</span>
+      <span class="section-label">Ils ont progressé</span>
       <h2 class="h2" style="margin-bottom:32px" id="testimonials-title">
-        Ils ont essayé.<br><em>Ils ne s'arrêtent plus.</em>
+        Vos retours
       </h2>
       <div class="testimonials__grid" data-carousel>
         <article class="testimonial-card">
@@ -1379,10 +1393,9 @@
             <span class="star" aria-hidden="true">★</span>
             <span class="star" aria-hidden="true">★</span>
           </div>
-          <p class="testimonial-card__text">Un professionnalisme incroyable de la part de Guillaume. Il vous aidera à dépasser vos limites tout en restant à votre écoute. Je recommande vivement.</p>
+          <p class="testimonial-card__text">Un professionnalisme incroyable de la part de Guillaume. Il vous aidera à atteindre vos objectifs sans aucun doute !</p>
           <div>
-            <div class="testimonial-card__author">Client Google</div>
-            <div class="testimonial-card__date">Avis Google</div>
+            <div class="testimonial-card__author">Gabriel.M</div>
           </div>
         </article>
         <article class="testimonial-card">
@@ -1393,10 +1406,9 @@
             <span class="star" aria-hidden="true">★</span>
             <span class="star" aria-hidden="true">★</span>
           </div>
-          <p class="testimonial-card__text">Guillaume est génial, toujours disponible et à l'écoute. Ses programmes sont efficaces et adaptés à chaque profil. Vraiment top.</p>
+          <p class="testimonial-card__text">Guillaume est génial, motivant et à l'écoute, on se sent super bien encadré. Un vrai plaisir d'y aller, je recommande !</p>
           <div>
-            <div class="testimonial-card__author">Client Google</div>
-            <div class="testimonial-card__date">Avis Google</div>
+            <div class="testimonial-card__author">Marion.D</div>
           </div>
         </article>
         <article class="testimonial-card">
@@ -1407,16 +1419,15 @@
             <span class="star" aria-hidden="true">★</span>
             <span class="star" aria-hidden="true">★</span>
           </div>
-          <p class="testimonial-card__text">Un coach au top, des programmes au top, des résultats au top. Ce qui change ici c'est le suivi — il est vraiment présent.</p>
+          <p class="testimonial-card__text">un coach au top, à l'écoute, professionnel et disponible !</p>
           <div>
-            <div class="testimonial-card__author">Client Google</div>
-            <div class="testimonial-card__date">Avis Google</div>
+            <div class="testimonial-card__author">Maxime.B</div>
           </div>
         </article>
       </div>
       <div style="text-align:center">
         <a href="https://g.page/r/studiogym360/review" class="testimonials__link" rel="noopener noreferrer" target="_blank">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5C4.41 1.5 1.5 4.41 1.5 8S4.41 14.5 8 14.5 14.5 11.59 14.5 8 11.59 1.5 8 1.5zm.5 7.65l-3-1.75V5h1v2.1l2.5 1.45-.5.6z" fill="currentColor"/></svg>
+          <span aria-hidden="true" style="color:#f5c518;letter-spacing:1px">★★★★★</span>
           Voir tous les avis Google
         </a>
       </div>
@@ -1440,19 +1451,19 @@
           <span class="pricing-card__badge pricing-card__badge--available">Disponible</span>
           <div class="pricing-card__name">Studio Online</div>
           <div class="pricing-card__price"><sup>CHF</sup> 89 <span>/ mois</span></div>
-          <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que vous soyez.</p>
+          <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que tu t'entraînes.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              Programme personnalisé
+              Programme d'entraînement personnalisé
             </li>
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              Accès à l'app de suivi
+              Accès complet à l'app de suivi
             </li>
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
@@ -1472,34 +1483,28 @@
 
         <!-- Studio Suivi -->
         <div class="pricing-card">
-          <span class="pricing-card__badge pricing-card__badge--soon">Bientôt</span>
+          <span class="pricing-card__badge pricing-card__badge--soon">Bientôt disponible</span>
           <div class="pricing-card__name">Studio Suivi</div>
           <div class="pricing-card__price"><sup>CHF</sup> 149 <span>/ mois</span></div>
-          <p class="pricing-card__desc">L'expérience coaching complète — suivi rapproché, ajustements en continu, disponibilité maximale.</p>
+          <p class="pricing-card__desc">L'expérience coaching complète — comme si tu étais au studio, à distance.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Suivi">
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              Tout de Studio Online
+              Tout Studio Online
             </li>
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              Check-in hebdomadaire avec ton coach
+              Accompagnement nutritionnel
             </li>
             <li class="pricing-card__feature">
               <div class="check-icon" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              Ajustements illimités du programme
-            </li>
-            <li class="pricing-card__feature">
-              <div class="check-icon" aria-hidden="true">
-                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              Messagerie directe avec ton coach
+              Accès complet à Studio Work (vidéos, ebooks, conseils…)
             </li>
           </ul>
           <a href="#" class="pricing-card__cta pricing-card__cta--disabled" aria-disabled="true" tabindex="-1">Bientôt disponible</a>
@@ -1514,43 +1519,30 @@
   <!-- ⑪ EN STUDIO / COACHS ───────────────────────── -->
   <section aria-labelledby="studio-title">
     <div class="section-inner">
-      <span class="section-label">Studio Gym</span>
+      <span class="section-label">En studio</span>
       <h2 class="h2" style="margin-bottom:32px" id="studio-title">
-        Bientôt disponible<br><em style="color:#84a8b0">pour les coachs</em>
+        Bientôt disponible <em style="color:#84a8b0">pour les coachs</em>
       </h2>
       <div class="studio__inner">
         <div class="studio__body">
-          <p><em><strong>Créé par un coach, pour les coachs.</strong></em></p>
-          <p>Une application pensée pour les coachs : créez les programmes de vos membres, suivez leurs séances, gérez votre activité dans une seule application.</p>
+          <p><em><strong>Créé par un coach, pour les coachs</strong></em></p>
+          <p>Une application pensée pour les coachs : crée les programmes de tes membres, suis leurs séances en temps réel et ajuste leur plan à distance. Toute ta méthode, structurée dans une seule application.</p>
           <ul class="studio__features" aria-label="Fonctionnalités pour les coachs">
             <li class="studio__feature">
               <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Créez et personnalisez les programmes de vos membres
+              Tableau de bord de tous tes membres
             </li>
             <li class="studio__feature">
               <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Suivez les séances et la progression en temps réel
+              Programmes personnalisés en quelques clics
             </li>
             <li class="studio__feature">
               <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Gérez votre clientèle depuis une seule interface
+              Suivi des progrès en temps réel
             </li>
           </ul>
         </div>
         <div class="studio__phones" data-carousel>
-          <div class="phone-wrap">
-            <div class="phone-frame">
-              <div class="phone-inner">
-                <div class="phone-shell">
-                  <div class="phone-screen">
-                    <img src="coach-login.png" alt="App Studio Gym 360 coachs — Connexion">
-                  </div>
-                  <div class="phone-notch" aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-            <p class="phone-label">Connexion coach</p>
-          </div>
           <div class="phone-wrap">
             <div class="phone-frame">
               <div class="phone-inner">
@@ -1562,7 +1554,20 @@
                 </div>
               </div>
             </div>
-            <p class="phone-label">Tableau de bord</p>
+            <p class="phone-label">Tableau de bord coach</p>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone-frame">
+              <div class="phone-inner">
+                <div class="phone-shell">
+                  <div class="phone-screen">
+                    <img src="coach-login.png" alt="App Studio Gym 360 coachs — Connexion">
+                  </div>
+                  <div class="phone-notch" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+            <p class="phone-label">Espace de connexion</p>
           </div>
         </div>
       </div>
@@ -1581,14 +1586,11 @@
           <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center top">
         </div>
         <div class="coach__body">
-          <div class="coach__name">Guillaume Libert</div>
-          <div class="coach__role">Coach personnel · Studio Gym 360 · Fribourg, Suisse</div>
           <blockquote class="coach__quote">
-            « Ce que j'applique chaque jour en studio, je veux le rendre accessible à tous — depuis n'importe où. »
+            « J'ai créé Studio Gym 360 pour une raison simple : je voulais pouvoir accompagner des personnes motivées, même à distance, avec le même niveau d'exigence que chez Studio Gym. »
           </blockquote>
-          <p class="coach__bio">
-            Avec plus de 7 ans d'expérience en coaching sportif, Guillaume a fondé Studio Gym 360 avec une conviction simple : chacun mérite un programme qui lui ressemble, accompagné par quelqu'un qui suit vraiment. Studio Gym 360, c'est cette méthode — rendue accessible en ligne.
-          </p>
+          <div class="coach__name">Guillaume Libert</div>
+          <div class="coach__role">Coach personnel · Fondateur de Studio Gym</div>
         </div>
       </div>
     </div>
