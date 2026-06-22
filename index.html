@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Gym 360 — Le sport s'adapte à votre quotidien.</title>
+  <meta name="description" content="Votre application mobile de coaching privé. Un vrai coach, un programme personnalisé, un suivi réel. Depuis n'importe où.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Design tokens ─────────────────────────────── */
+    :root {
+      --sage:       #6b8f71;
+      --sage-dark:  #4a6b50;
+      --sage-light: #eaf2eb;
+      --beige:      #f0ede6;
+      --beige-dark: #e0dbd1;
+      --text:       #1a1a1a;
+      --text-muted: #7a7166;
+      --white:      #ffffff;
+      --launch:     #1a1a1a;
+    }
+
+    /* ─── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--beige);
+      color: var(--text);
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── Utility ────────────────────────────────────── */
+    .section-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 16px;
+    }
+    .section-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 32px;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--beige-dark);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .h2 {
+      font-size: clamp(27px, 4.5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+    .h2 em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--text);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background 0.18s;
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid var(--beige-dark);
+      transition: border-color 0.18s;
+    }
+    .btn-secondary:hover { border-color: #bbb; }
+    .btn-sage {
+      display: inline-block;
+      background: var(--sage);
+      color: var(--white);
+      padding: 15px 34px;
+      border-radius: 99px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: background 0.18s;
+    }
+    .btn-sage:hover { background: var(--sage-dark); }
+
+    /* ─── Phone mockup ───────────────────────────────── */
+    .phone-wrap {
+      flex: none;
+      width: 210px;
+    }
+    .phone-frame {
+      width: 210px;
+      height: 439px;
+      overflow: hidden;
+      filter: drop-shadow(0 18px 28px rgba(42,42,42,0.16));
+    }
+    .phone-inner {
+      width: 340px;
+      transform: scale(0.6176);
+      transform-origin: top left;
+    }
+    .phone-shell {
+      position: relative;
+      background: #1a1a1a;
+      border-radius: 54px;
+      padding: 11px;
+    }
+    .phone-screen {
+      position: relative;
+      border-radius: 44px;
+      overflow: hidden;
+      aspect-ratio: 9/19.5;
+      background: #e9e6df;
+    }
+    .phone-screen img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 104px;
+      height: 28px;
+      background: #1a1a1a;
+      border-radius: 99px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .phone-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 14px;
+    }
+
+    /* ─── Placeholder image ──────────────────────────── */
+    .img-placeholder {
+      background: var(--beige-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* ─── Checkmark icon ─────────────────────────────── */
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── Reveal animation ───────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      [data-reveal].revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SECTIONS                                           */
+    /* ══════════════════════════════════════════════════ */
+
+    /* ─── 1. Offer band ──────────────────────────────── */
+    .offer-band {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: var(--launch);
+      color: #fdfbf7;
+      padding: 9px 20px;
+      font-size: 13px;
+      line-height: 1.3;
+      text-align: center;
+    }
+    .offer-band__tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+    .offer-band__text { color: rgba(253,251,247,0.85); }
+    .offer-band__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      color: var(--sage);
+    }
+
+    /* ─── 2. Nav ─────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(240,237,230,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--beige-dark);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--text);
+    }
+    .nav__logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav__name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .nav__cta {
+      background: var(--text);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.18s;
+    }
+    .nav__cta:hover { background: #333; }
+    .nav__cta-short { display: none; }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav__link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.18s;
+    }
+    .nav__link:hover { color: var(--text); }
+
+    /* ─── 3. Hero ────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.35) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 34px 20px 38px;
+      max-width: 680px;
+      width: 100%;
+    }
+    .hero__region {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+    .hero__title {
+      font-size: clamp(40px, 6vw, 62px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #fdfbf7;
+      margin-bottom: 22px;
+    }
+    .hero__title em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--sage);
+      font-size: clamp(34px, 5vw, 58px);
+    }
+    .hero__subtitle {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(253,251,247,0.85);
+      max-width: 520px;
+      margin-bottom: 30px;
+    }
+    .hero__ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero__cta-primary {
+      display: inline-block;
+      background: var(--sage);
+      color: var(--white);
+      padding: 15px 30px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background 0.18s;
+    }
+    .hero__cta-primary:hover { background: var(--sage-dark); }
+    .hero__cta-secondary {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      padding: 15px 28px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      transition: background 0.18s;
+    }
+    .hero__cta-secondary:hover { background: rgba(255,255,255,0.15); }
+    .hero__badge {
+      position: absolute;
+      right: 24px;
+      bottom: 28px;
+      z-index: 3;
+      display: flex;
+      align-items: stretch;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .hero__badge-text { padding: 12px 18px; }
+    .hero__badge-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fdfbf7;
+      margin-bottom: 1px;
+    }
+    .hero__badge-sub {
+      font-size: 11.5px;
+      color: rgba(253,251,247,0.65);
+    }
+    .hero__badge-accent {
+      width: 5px;
+      background: var(--sage);
+      flex-shrink: 0;
+    }
+
+    /* Mobile offer band */
+    .offer-mobile {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 20px 0;
+      background: var(--sage-light);
+      border: 1px solid #d7e6d9;
+      border-radius: 10px;
+      padding: 7px 12px;
+    }
+    .offer-mobile__text {
+      flex: 1;
+      font-size: 11.5px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .offer-mobile__cta {
+      flex-shrink: 0;
+      color: var(--sage);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* ─── 4. Problème ────────────────────────────────── */
+    .problem__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .problem__card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px 24px;
+    }
+    .problem__card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .problem__card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── 5. Solution ────────────────────────────────── */
+    .solution__inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .solution__img {
+      flex: none;
+      width: 260px;
+      height: 320px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .solution__body { flex: 1; min-width: 240px; }
+    .solution__body p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .solution__ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── 6. Application ─────────────────────────────── */
+    .app__phones {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .app__phones .phone-wrap:nth-child(2) { margin-top: -14px; }
+
+    /* ─── 7. Processus ───────────────────────────────── */
+    .process__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .process__card {
+      background: #e5edef;
+      border-radius: 20px;
+      padding: 30px 26px;
+    }
+    .process__num {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+    .process__card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+    .process__card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── 8. Bénéfices ───────────────────────────────── */
+    .benefits__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .benefit-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 30px 28px;
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .benefit-card:hover {
+      box-shadow: 0 8px 24px rgba(42,42,42,0.07);
+      transform: translateY(-2px);
+    }
+    .benefit-card--founder {
+      background: var(--sage);
+      color: var(--white);
+    }
+    .benefit-card--founder .benefit-card__desc {
+      color: rgba(255,255,255,0.85);
+    }
+    .benefit-card__num {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+    .benefit-card--founder .benefit-card__num { color: rgba(255,255,255,0.5); }
+    .benefit-card__title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .benefit-card--founder .benefit-card__title { color: var(--white); }
+    .benefit-card__desc {
+      font-size: 14.5px;
+      color: #6b6358;
+      line-height: 1.65;
+    }
+
+    /* ─── 9. Témoignages ─────────────────────────────── */
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-card__stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 14px;
+    }
+    .star { color: #fbbc04; font-size: 14px; }
+    .testimonial-card__text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .testimonial-card__author {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .testimonial-card__date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .testimonials__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      border: 1.5px solid var(--beige-dark);
+      border-radius: 99px;
+      padding: 9px 18px;
+      transition: border-color 0.18s;
+    }
+    .testimonials__link:hover { border-color: #bbb; }
+
+    /* ─── 10. Formules ───────────────────────────────── */
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 30px;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card--active { border-color: var(--text); }
+    .pricing-card__badge {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+    .pricing-card__badge--available {
+      background: var(--text);
+      color: var(--white);
+    }
+    .pricing-card__badge--soon {
+      background: var(--beige-dark);
+      color: var(--text-muted);
+    }
+    .pricing-card__name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .pricing-card__price {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+    .pricing-card__price sup {
+      font-size: 20px;
+      font-weight: 700;
+      vertical-align: super;
+    }
+    .pricing-card__price span {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .pricing-card__desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+    .pricing-card__features {
+      flex: 1;
+      margin-bottom: 26px;
+    }
+    .pricing-card__feature {
+      font-size: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--beige);
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+    .pricing-card__feature:last-child { border-bottom: none; }
+    .pricing-card__cta {
+      display: block;
+      text-align: center;
+      background: var(--text);
+      color: var(--white);
+      padding: 14px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background 0.18s;
+    }
+    .pricing-card__cta:hover { background: #333; }
+    .pricing-card__cta--disabled {
+      background: var(--beige-dark);
+      color: var(--text-muted);
+      cursor: default;
+    }
+    .pricing-card__cta--disabled:hover { background: var(--beige-dark); }
+
+    /* ─── 11. En studio ──────────────────────────────── */
+    .studio__inner {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .studio__body { flex: 1; min-width: 240px; }
+    .studio__body h2 em {
+      font-style: italic;
+      font-weight: 700;
+      color: #84a8b0;
+    }
+    .studio__body p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .studio__features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .studio__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .studio__feature-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      color: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+    .studio__phones {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ─── 12. Coach ──────────────────────────────────── */
+    .coach__card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px 36px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    .coach__photo {
+      flex-shrink: 0;
+      width: 120px;
+      height: 150px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .coach__body { flex: 1; }
+    .coach__name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .coach__role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .coach__quote {
+      font-size: clamp(18px, 2.6vw, 23px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.45;
+      font-style: italic;
+      margin-bottom: 24px;
+      color: var(--text);
+      border: none;
+    }
+    .coach__bio {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ─── 13. CTA final ──────────────────────────────── */
+    .cta-final {
+      background: var(--text);
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .cta-final__label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 18px;
+    }
+    .cta-final__title {
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .cta-final__title em {
+      font-style: italic;
+      color: var(--sage);
+    }
+    .cta-final__sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--beige-dark);
+    }
+    .footer a { color: var(--text-muted); text-decoration: underline; }
+    .footer a:hover { color: var(--text); }
+
+    /* ══════════════════════════════════════════════════ */
+    /* RESPONSIVE — mobile ≤ 720px                       */
+    /* ══════════════════════════════════════════════════ */
+    @media (max-width: 720px) {
+      /* Nav */
+      .nav { padding: 0 20px; }
+      .nav__links { display: none; }
+      .nav__cta-full { display: none; }
+      .nav__cta-short { display: inline-block; }
+
+      /* Hero */
+      .hero { min-height: 480px; }
+      .hero__content { padding: 28px 20px 32px; }
+      .hero__title { font-size: 36px; }
+      .hero__title em { font-size: 30px; }
+      .hero__subtitle { font-size: 15px; }
+      .hero__ctas { flex-direction: column; }
+      .hero__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+      .hero__badge { right: 12px; bottom: 16px; }
+
+      /* Mobile offer */
+      .offer-mobile { display: flex; }
+
+      /* Section inner */
+      .section-inner { padding: 52px 20px; }
+
+      /* Grids → 1 column */
+      .problem__grid,
+      .process__grid,
+      .benefits__grid,
+      .testimonials__grid {
+        /* swipeable carousel */
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px !important;
+        margin: 0 -20px;
+        padding: 4px 20px 10px;
+        scroll-padding-left: 20px;
+        scrollbar-width: none;
+      }
+      .problem__grid::-webkit-scrollbar,
+      .process__grid::-webkit-scrollbar,
+      .benefits__grid::-webkit-scrollbar,
+      .testimonials__grid::-webkit-scrollbar { display: none; }
+      .problem__grid > *,
+      .process__grid > *,
+      .benefits__grid > *,
+      .testimonials__grid > * {
+        flex: 0 0 84% !important;
+        scroll-snap-align: start;
+      }
+
+      /* Pricing carousel */
+      .pricing__grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px !important;
+        margin: 0 -20px;
+        padding: 4px 20px 10px;
+        scrollbar-width: none;
+      }
+      .pricing__grid::-webkit-scrollbar { display: none; }
+      .pricing__grid > * { flex: 0 0 84% !important; scroll-snap-align: start; }
+
+      .pricing-card__cta,
+      #formules a[href] {
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Solution */
+      .solution__inner { flex-direction: column; }
+      .solution__img { width: 100%; height: 240px; }
+      .solution__ctas { flex-direction: column; }
+      .solution__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+
+      /* Studio phones */
+      .studio__inner { flex-direction: column; }
+      .studio__phones {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 14px;
+        margin: 0 -20px;
+        padding: 4px 20px 10px;
+        scrollbar-width: none;
+      }
+      .studio__phones::-webkit-scrollbar { display: none; }
+      .studio__phones .phone-wrap { scroll-snap-align: start; }
+
+      /* Coach */
+      .coach__card { flex-direction: column; padding: 28px 24px; }
+      .coach__photo { width: 90px; height: 110px; }
+
+      /* CTA final */
+      .cta-final { padding: 40px 20px; }
+
+      /* H2 max */
+      .hero__title { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ① BANDE OFFRE ───────────────────────────────── -->
+  <a href="https://studiogym360.ch/inscription" class="offer-band" aria-label="Offre de lancement — 1 mois offert. J'en profite">
+    <span class="offer-band__tag">Offre de lancement</span>
+    <span class="offer-band__text">Les 20 premiers inscrits reçoivent <strong style="font-weight:700;color:#fdfbf7">1 mois offert</strong></span>
+    <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+
+  <!-- ② NAV ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="https://studiogym360.ch" class="nav__brand">
+      <img src="GYM.png" alt="" width="38" height="38" style="width:38px;height:38px;object-fit:contain;flex-shrink:0">
+      <span class="nav__name">Studio Gym 360</span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#probleme" class="nav__link">Problème</a>
+      <a href="#solution" class="nav__link">Solution</a>
+      <a href="#formules" class="nav__link">Formules</a>
+      <a href="#coach" class="nav__link">Le coach</a>
+    </nav>
+    <a href="https://studiogym360.ch/inscription" class="nav__cta nav__cta-full">Démarrer mon programme</a>
+    <a href="https://studiogym360.ch/inscription" class="nav__cta nav__cta-short">Commencer</a>
+  </nav>
+
+  <!-- ③ HERO ─────────────────────────────────────── -->
+  <header>
+    <div class="hero">
+      <img class="hero__bg" src="hero.jpg" alt="" aria-hidden="true">
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="hero__region">🇨🇭 Suisse romande</p>
+        <h1 class="hero__title">
+          Studio gym 360<br>
+          <em>une app, un vrai coach.</em>
+        </h1>
+        <p class="hero__subtitle">Votre application mobile de coaching privé, conçue pour s'adapter à votre quotidien.</p>
+        <div class="hero__ctas">
+          <a href="https://studiogym360.ch/inscription" class="hero__cta-primary">Démarrer mon programme</a>
+          <a href="#formules" class="hero__cta-secondary">Voir les formules</a>
+        </div>
+      </div>
+
+      <!-- Preuve sociale -->
+      <div class="hero__badge" aria-label="Un vrai coach, +7 ans d'expérience">
+        <div class="hero__badge-text">
+          <div class="hero__badge-title">Un vrai coach</div>
+          <div class="hero__badge-sub">+7 ans d'expérience</div>
+        </div>
+        <div class="hero__badge-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Offre de lancement mobile -->
+    <a href="https://studiogym360.ch/inscription" class="offer-mobile" aria-label="Offre de lancement — 1 mois offert">
+      <span class="offer-mobile__text"><strong style="color:var(--sage)">Offre de lancement</strong> — 1 mois offert</span>
+      <span class="offer-mobile__cta">→</span>
+    </a>
+  </header>
+
+  <hr class="section-divider">
+
+  <!-- ④ PROBLÈME ──────────────────────────────────── -->
+  <section id="probleme" aria-labelledby="problem-title">
+    <div class="section-inner">
+      <span class="section-label" data-reveal>Le problème</span>
+      <h2 class="h2" style="margin-bottom:40px" data-reveal id="problem-title">
+        Beaucoup s'entraînent.<br><em>Peu progressent vraiment.</em>
+      </h2>
+      <div class="problem__grid">
+        <div class="problem__card" data-reveal>
+          <h3>Tu t'entraînes, mais tu n'avances pas.</h3>
+          <p>Un programme acheté en ligne, quelques semaines de motivation, puis plus rien. Pas parce que tu manques de volonté — sans vrai suivi, la motivation seule ne suffit pas.</p>
+        </div>
+        <div class="problem__card" data-reveal>
+          <h3>Ton emploi du temps ne te laisse pas le choix.</h3>
+          <p>Un déplacement, une semaine chargée, et tout s'arrête. Il te faut un programme qui s'adapte à toi — pas l'inverse.</p>
+        </div>
+        <div class="problem__card" data-reveal>
+          <h3>Tu as déjà essayé. Seul.</h3>
+          <p>Sans retour, sans ajustement, sans quelqu'un qui comprend vraiment ta situation. Le coaching à distance peut être différent — à condition d'être bien fait.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑤ SOLUTION ──────────────────────────────────── -->
+  <section id="solution" aria-labelledby="solution-title">
+    <div class="section-inner">
+      <span class="section-label">La solution</span>
+      <h2 class="h2" style="margin-bottom:32px" id="solution-title">
+        Notre approche,<br><em>notre différence.</em>
+      </h2>
+      <div class="solution__inner">
+        <div class="solution__img" style="overflow:hidden;border-radius:20px">
+          <img src="solution.jpg" alt="Séance de coaching Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 40%">
+        </div>
+        <div class="solution__body">
+          <p><strong>Studio Gym 360</strong> est né d'une conviction simple : le sport doit s'adapter à votre quotidien, pas l'inverse.</p>
+          <p>De vrais coachs, une vraie relation, un vrai suivi — le tout accessible depuis n'importe où, quand vous le souhaitez.</p>
+          <div class="solution__ctas">
+            <a href="https://studiogym360.ch/inscription" class="btn-primary">Découvrir le coaching</a>
+            <a href="https://studiogym.ch" class="btn-secondary">Découvrir Studio Gym</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑥ L'APPLICATION ─────────────────────────────── -->
+  <section aria-labelledby="app-title">
+    <div class="section-inner">
+      <span class="section-label">L'application</span>
+      <h2 class="h2" style="margin-bottom:14px" id="app-title">
+        Tout ton coaching,<br><em>dans une seule app.</em>
+      </h2>
+      <p style="font-size:16px;color:var(--text-muted);line-height:1.65;max-width:520px;margin-bottom:48px">
+        Tes séances, ta progression, tes échanges avec ton coach — disponibles où que tu sois, quand tu veux.
+      </p>
+      <div class="app__phones">
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Séances du jour</p>
+        </div>
+
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="app-progres.png" alt="App Studio Gym 360 — Ta progression">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Ta progression</p>
+        </div>
+
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="app-studio.png" alt="App Studio Gym 360 — Studio & contenus">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Espace de connexion</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑦ PROCESSUS ────────────────────────────────── -->
+  <section aria-labelledby="process-title">
+    <div class="section-inner">
+      <span class="section-label">Le processus</span>
+      <h2 class="h2" style="margin-bottom:40px" id="process-title">
+        Simple à démarrer.<br><em>Sérieux dans le suivi.</em>
+      </h2>
+      <div class="process__grid">
+        <div class="process__card">
+          <div class="process__num">01</div>
+          <h3>Tu partages ton univers</h3>
+          <p>Tes objectifs, tes contraintes, ton quotidien. Pas un formulaire générique — une vraie base pour que ton coach construise quelque chose qui te ressemble.</p>
+        </div>
+        <div class="process__card">
+          <div class="process__num">02</div>
+          <h3>Ton programme t'attend</h3>
+          <p>Dès la semaine suivante, tout est dans l'app. Tu sais quoi faire, pourquoi, et comment. Plus d'hésitation, plus de temps perdu.</p>
+        </div>
+        <div class="process__card">
+          <div class="process__num">03</div>
+          <h3>On ne te lâche pas</h3>
+          <p>Ton coach suit chaque séance, chaque progression. Il ajuste, il s'adapte. Tu n'es jamais seul face à tes objectifs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑧ BÉNÉFICES ────────────────────────────────── -->
+  <section aria-labelledby="benefits-title">
+    <div class="section-inner">
+      <span class="section-label">Ce que tu obtiens</span>
+      <h2 class="h2" style="margin-bottom:40px" id="benefits-title">
+        Tout ce dont tu as besoin.<br><em>Rien de superflu.</em>
+      </h2>
+      <div class="benefits__grid">
+        <div class="benefit-card">
+          <div class="benefit-card__num">01</div>
+          <h3 class="benefit-card__title">Un programme qui te ressemble.</h3>
+          <p class="benefit-card__desc">Pas un plan copié-collé. Ton coach construit ton programme autour de toi, tes objectifs, ton niveau, ce que ta semaine permet vraiment.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__num">02</div>
+          <h3 class="benefit-card__title">Quelqu'un qui suit. Vraiment.</h3>
+          <p class="benefit-card__desc">Pas un coach fantôme. Mais un coach qui voit ta progression et ajuste quand il le faut, sans que tu aies besoin de demander.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__num">03</div>
+          <h3 class="benefit-card__title">Tout au même endroit.</h3>
+          <p class="benefit-card__desc">Tes séances, tes performances, tes échanges avec ton coach — une seule app, aucune dispersion. Tu gardes le cap.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__num">04</div>
+          <h3 class="benefit-card__title">Tu vois où tu en es.</h3>
+          <p class="benefit-card__desc">Chaque séance enregistrée, chaque progrès tracé. Tu mesures ta progression au lieu de juste la ressentir.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__num">05</div>
+          <h3 class="benefit-card__title">Un coach qui te connaît.</h3>
+          <p class="benefit-card__desc">Il sait que tu voyages souvent. Que tu as eu une semaine difficile. Il s'adapte. C'est ça, le coaching.</p>
+        </div>
+        <div class="benefit-card benefit-card--founder">
+          <div class="benefit-card__num">06</div>
+          <h3 class="benefit-card__title">La méthode Studio Gym, chez toi.</h3>
+          <p class="benefit-card__desc">Ce que Guillaume applique chaque jour en studio, la méthode Studio Gym — disponible depuis n'importe où.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑨ TÉMOIGNAGES ──────────────────────────────── -->
+  <section aria-labelledby="testimonials-title">
+    <div class="section-inner">
+      <span class="section-label">Vos retours</span>
+      <h2 class="h2" style="margin-bottom:32px" id="testimonials-title">
+        Ils ont essayé.<br><em>Ils ne s'arrêtent plus.</em>
+      </h2>
+      <div class="testimonials__grid">
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 étoiles">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="testimonial-card__text">Un professionnalisme incroyable de la part de Guillaume. Il vous aidera à dépasser vos limites tout en restant à votre écoute. Je recommande vivement.</p>
+          <div>
+            <div class="testimonial-card__author">Client Google</div>
+            <div class="testimonial-card__date">Avis Google</div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 étoiles">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="testimonial-card__text">Guillaume est génial, toujours disponible et à l'écoute. Ses programmes sont efficaces et adaptés à chaque profil. Vraiment top.</p>
+          <div>
+            <div class="testimonial-card__author">Client Google</div>
+            <div class="testimonial-card__date">Avis Google</div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 étoiles">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="testimonial-card__text">Un coach au top, des programmes au top, des résultats au top. Ce qui change ici c'est le suivi — il est vraiment présent.</p>
+          <div>
+            <div class="testimonial-card__author">Client Google</div>
+            <div class="testimonial-card__date">Avis Google</div>
+          </div>
+        </article>
+      </div>
+      <div style="text-align:center">
+        <a href="https://g.page/r/studiogym360/review" class="testimonials__link" rel="noopener noreferrer" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5C4.41 1.5 1.5 4.41 1.5 8S4.41 14.5 8 14.5 14.5 11.59 14.5 8 11.59 1.5 8 1.5zm.5 7.65l-3-1.75V5h1v2.1l2.5 1.45-.5.6z" fill="currentColor"/></svg>
+          Voir tous les avis Google
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑩ FORMULES ──────────────────────────────────── -->
+  <section id="formules" aria-labelledby="pricing-title">
+    <div class="section-inner">
+      <span class="section-label">Tarifs</span>
+      <h2 class="h2" style="margin-bottom:10px" id="pricing-title">
+        Deux formules.<br><em>Un seul objectif.</em>
+      </h2>
+      <p style="font-size:16px;color:var(--text-muted);margin-bottom:40px">Sans engagement. Sans surprise.</p>
+      <div class="pricing__grid">
+
+        <!-- Studio Online -->
+        <div class="pricing-card pricing-card--active">
+          <span class="pricing-card__badge pricing-card__badge--available">Disponible</span>
+          <div class="pricing-card__name">Studio Online</div>
+          <div class="pricing-card__price"><sup>CHF</sup> 89 <span>/ mois</span></div>
+          <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que vous soyez.</p>
+          <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Programme personnalisé
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Accès à l'app de suivi
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Adaptation mensuelle du programme
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Suivi de tes performances dans le temps
+            </li>
+          </ul>
+          <a href="https://studiogym360.ch/inscription" class="pricing-card__cta">Démarrer mon programme</a>
+        </div>
+
+        <!-- Studio Suivi -->
+        <div class="pricing-card">
+          <span class="pricing-card__badge pricing-card__badge--soon">Bientôt</span>
+          <div class="pricing-card__name">Studio Suivi</div>
+          <div class="pricing-card__price"><sup>CHF</sup> 149 <span>/ mois</span></div>
+          <p class="pricing-card__desc">L'expérience coaching complète — suivi rapproché, ajustements en continu, disponibilité maximale.</p>
+          <ul class="pricing-card__features" aria-label="Inclus dans Studio Suivi">
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Tout de Studio Online
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Check-in hebdomadaire avec ton coach
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Ajustements illimités du programme
+            </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Messagerie directe avec ton coach
+            </li>
+          </ul>
+          <a href="#" class="pricing-card__cta pricing-card__cta--disabled" aria-disabled="true" tabindex="-1">Bientôt disponible</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑪ EN STUDIO / COACHS ───────────────────────── -->
+  <section aria-labelledby="studio-title">
+    <div class="section-inner">
+      <span class="section-label">Studio Gym</span>
+      <h2 class="h2" style="margin-bottom:32px" id="studio-title">
+        Bientôt disponible<br><em style="color:#84a8b0">pour les coachs</em>
+      </h2>
+      <div class="studio__inner">
+        <div class="studio__body">
+          <p><em><strong>Créé par un coach, pour les coachs.</strong></em></p>
+          <p>Une application pensée pour les coachs : créez les programmes de vos membres, suivez leurs séances, gérez votre activité dans une seule application.</p>
+          <ul class="studio__features" aria-label="Fonctionnalités pour les coachs">
+            <li class="studio__feature">
+              <span class="studio__feature-icon" aria-hidden="true">✓</span>
+              Créez et personnalisez les programmes de vos membres
+            </li>
+            <li class="studio__feature">
+              <span class="studio__feature-icon" aria-hidden="true">✓</span>
+              Suivez les séances et la progression en temps réel
+            </li>
+            <li class="studio__feature">
+              <span class="studio__feature-icon" aria-hidden="true">✓</span>
+              Gérez votre clientèle depuis une seule interface
+            </li>
+          </ul>
+        </div>
+        <div class="studio__phones">
+          <div class="phone-wrap">
+            <div class="phone-frame">
+              <div class="phone-inner">
+                <div class="phone-shell">
+                  <div class="phone-screen">
+                    <img src="coach-login.png" alt="App Studio Gym 360 coachs — Connexion">
+                  </div>
+                  <div class="phone-notch" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone-frame">
+              <div class="phone-inner">
+                <div class="phone-shell">
+                  <div class="phone-screen">
+                    <img src="coach-dashboard.png" alt="App Studio Gym 360 coachs — Dashboard">
+                  </div>
+                  <div class="phone-notch" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑫ LE COACH ──────────────────────────────────── -->
+  <section id="coach" aria-labelledby="coach-title">
+    <div class="section-inner">
+      <span class="section-label">Le coach</span>
+      <h2 class="h2" style="margin-bottom:32px" id="coach-title">Guillaume,</h2>
+      <div class="coach__card">
+        <div class="coach__photo">
+          <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center top">
+        </div>
+        <div class="coach__body">
+          <div class="coach__name">Guillaume Libert</div>
+          <div class="coach__role">Coach personnel · Studio Gym 360 · Fribourg, Suisse</div>
+          <blockquote class="coach__quote">
+            « Ce que j'applique chaque jour en studio, je veux le rendre accessible à tous — depuis n'importe où. »
+          </blockquote>
+          <p class="coach__bio">
+            Avec plus de 7 ans d'expérience en coaching sportif, Guillaume a fondé Studio Gym 360 avec une conviction simple : chacun mérite un programme qui lui ressemble, accompagné par quelqu'un qui suit vraiment. Studio Gym 360, c'est cette méthode — rendue accessible en ligne.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑬ CTA FINAL + FOOTER ────────────────────────── -->
+  <section class="cta-final" aria-labelledby="cta-title">
+    <span class="cta-final__label">Prêts ?</span>
+    <h2 class="cta-final__title" id="cta-title">
+      Prêts à <em>commencer</em> ?
+    </h2>
+    <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
+    <a href="https://studiogym360.ch/inscription" class="btn-sage">Démarrer mon programme</a>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Studio Gym 360 · Fribourg, Suisse · <a href="https://studiogym.ch" rel="noopener noreferrer" target="_blank">Studio Gym</a></p>
+  </footer>
+
+  <!-- ─── Interactions JS ───────────────────────────── -->
+  <script>
+    // IntersectionObserver reveal — section Problème + autres éléments data-reveal
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      var cards = document.querySelectorAll('[data-reveal]');
+      if (!cards.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      cards.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
