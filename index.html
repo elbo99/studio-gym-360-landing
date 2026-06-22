@@ -1654,6 +1654,7 @@
   </script>
 
   <script>
+    if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
     // Swipe dots — générés automatiquement pour chaque carousel [data-carousel]
     (function () {
       if (window.matchMedia('(max-width: 720px)').matches) {
@@ -1671,7 +1672,7 @@
           });
           carousel.after(dots);
           carousel.scrollLeft = 0;
-          window.addEventListener('load', function() { carousel.scrollLeft = 0; }, { once: true });
+          setTimeout(function() { carousel.scrollLeft = 0; }, 50);
 
           carousel.addEventListener('scroll', function () {
             var itemW = items[0].offsetWidth;
