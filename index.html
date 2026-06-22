@@ -1672,7 +1672,6 @@
           });
           carousel.after(dots);
           carousel.scrollLeft = 0;
-          setTimeout(function() { carousel.scrollLeft = 0; }, 50);
 
           carousel.addEventListener('scroll', function () {
             var itemW = items[0].offsetWidth;
@@ -1685,6 +1684,15 @@
         });
       }
     })();
+
+    // Reset all carousels to first slide on every page show (including BFCache)
+    function resetCarousels() {
+      document.querySelectorAll('[data-carousel]').forEach(function(c) {
+        c.scrollLeft = 0;
+      });
+    }
+    window.addEventListener('pageshow', resetCarousels);
+    document.addEventListener('DOMContentLoaded', resetCarousels);
   </script>
 
 </body>
