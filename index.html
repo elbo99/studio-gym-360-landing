@@ -364,7 +364,8 @@
     }
     .hero__cta-primary {
       display: inline-block;
-      background: var(--sage);
+      background: rgba(107,143,113,0.72);
+      backdrop-filter: blur(8px);
       color: var(--white);
       padding: 15px 30px;
       border-radius: 99px;
@@ -372,7 +373,7 @@
       font-weight: 700;
       transition: background 0.18s;
     }
-    .hero__cta-primary:hover { background: var(--sage-dark); }
+    .hero__cta-primary:hover { background: rgba(74,107,80,0.85); }
     .hero__cta-secondary {
       display: inline-block;
       background: rgba(255,255,255,0.08);
@@ -933,8 +934,9 @@
     @media (max-width: 720px) {
 
       /* ── Offer band ── */
-      .offer-band { font-size: 12px; padding: 8px 16px; gap: 6px; }
-      .offer-band__text { display: none; }
+      .offer-band { font-size: 11px; padding: 8px 12px; gap: 5px; flex-wrap: nowrap; white-space: nowrap; overflow: hidden; }
+      .offer-band__text { display: inline; font-size: 11px; }
+      .offer-band__tag { font-size: 10px; letter-spacing: 0.08em; flex-shrink: 0; }
 
       /* ── Nav ── */
       .nav { padding: 0 16px; height: 56px; }
@@ -947,7 +949,7 @@
       .hero { min-height: calc(100svh - 88px); align-items: flex-start; }
       .hero__content { padding-top: 48px; }
       .hero__bg { object-position: center 40%; }
-      .hero__content { padding: 28px 20px 28px; max-width: 100%; }
+      .hero__content { padding: 28px 20px 28px; max-width: 100%; display: flex; flex-direction: column; align-self: stretch; }
       .hero__region { font-size: 9px; letter-spacing: 0.1em; margin-bottom: 14px; }
       .hero__title {
         font-size: clamp(32px, 9vw, 42px);
@@ -968,10 +970,11 @@
       /* Badges desktop cachés sur mobile */
       .hero__badges { display: none; }
       /* Chips mobiles visibles */
+      .hero__ctas { margin-top: auto; }
       .hero__badges-mobile {
         display: flex;
         gap: 8px;
-        margin-top: 20px;
+        margin-top: 12px;
         flex-wrap: nowrap;
       }
 
@@ -1104,7 +1107,7 @@
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
   <a href="https://studiogym360.ch/inscription" class="offer-band" aria-label="Offre de lancement — 1 mois offert. J'en profite">
     <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text">Les 20 premiers inscrits reçoivent <strong style="font-weight:700;color:#fdfbf7">1 mois offert</strong></span>
+    <span class="offer-band__text">Les 20 premières inscriptions = <strong style="font-weight:700;color:#fdfbf7">1 mois offert</strong></span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
 
