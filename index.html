@@ -7,7 +7,7 @@
   <meta name="description" content="Votre application mobile de coaching privé. Un vrai coach, un programme personnalisé, un suivi réel. Depuis n'importe où.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     /* ─── Design tokens ─────────────────────────────── */
     :root {
@@ -74,7 +74,7 @@
     .h2 em {
       font-style: italic;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--sage);
     }
     .btn-primary {
       display: inline-block;
@@ -666,6 +666,7 @@
       border: 1.5px solid var(--beige-dark);
       border-radius: 99px;
       padding: 9px 18px;
+      margin-top: 24px;
       transition: border-color 0.18s;
     }
     .testimonials__link:hover { border-color: #bbb; }
@@ -847,7 +848,7 @@
     }
     .coach__quote {
       font-size: clamp(18px, 2.6vw, 23px);
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1.45;
       font-style: italic;
@@ -934,9 +935,10 @@
     @media (max-width: 720px) {
 
       /* ── Offer band ── */
-      .offer-band { font-size: 11px; padding: 8px 12px; gap: 5px; flex-wrap: nowrap; white-space: nowrap; overflow: hidden; }
-      .offer-band__text { display: inline; font-size: 11px; }
-      .offer-band__tag { font-size: 10px; letter-spacing: 0.08em; flex-shrink: 0; }
+      .offer-band { font-size: 9.5px; padding: 7px 10px; gap: 4px; flex-wrap: nowrap; white-space: nowrap; overflow: hidden; }
+      .offer-band__text { display: inline; font-size: 9.5px; }
+      .offer-band__tag { font-size: 8.5px; letter-spacing: 0.06em; flex-shrink: 0; }
+      .offer-band__cta { font-size: 9.5px; flex-shrink: 0; }
 
       /* ── Nav ── */
       .nav { padding: 0 16px; height: 56px; }
@@ -946,7 +948,7 @@
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
       /* ── Hero ── */
-      .hero { min-height: calc(100svh - 88px); align-items: flex-start; }
+      .hero { min-height: calc(115svh - 88px); align-items: flex-start; }
       .hero__content { padding-top: 48px; }
       .hero__bg { object-position: center 40%; }
       .hero__content { padding: 28px 20px 28px; max-width: 100%; display: flex; flex-direction: column; align-self: stretch; }
@@ -1111,7 +1113,7 @@
 <body>
 
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <a href="https://studiogym360.ch/inscription" class="offer-band" aria-label="Offre de lancement — 1 mois offert. J'en profite">
+  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1 mois offert. J'en profite">
     <span class="offer-band__tag">Offre de lancement</span>
     <span class="offer-band__text">Les 20 premières inscriptions = <strong style="font-weight:700;color:#fdfbf7">1 mois offert</strong></span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -1129,8 +1131,8 @@
       <a href="#formules" class="nav__link">Formules</a>
       <a href="#coach" class="nav__link">Le coach</a>
     </nav>
-    <a href="https://studiogym360.ch/inscription" class="nav__cta nav__cta-full">Démarrer mon programme</a>
-    <a href="https://studiogym360.ch/inscription" class="nav__cta nav__cta-short">Commencer</a>
+    <a href="https://studiogym360.ch" class="nav__cta nav__cta-full">Démarrer mon programme</a>
+    <a href="https://studiogym360.ch" class="nav__cta nav__cta-short">Commencer</a>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1147,7 +1149,7 @@
         </h1>
         <p class="hero__subtitle">Votre application mobile de coaching privé et personnalisé. Le sport s'adapte à votre quotidien.</p>
         <div class="hero__ctas">
-          <a href="https://studiogym360.ch/inscription" class="hero__cta-primary">Démarrer mon programme</a>
+          <a href="https://studiogym360.ch" class="hero__cta-primary">Démarrer mon programme</a>
           <a href="#formules" class="hero__cta-secondary">Voir les formules</a>
         </div>
         <!-- Badges mobile (dans le flux) -->
@@ -1194,7 +1196,7 @@
     </div>
 
     <!-- Offre de lancement mobile -->
-    <a href="https://studiogym360.ch/inscription" class="offer-mobile" aria-label="Offre de lancement — 1 mois offert">
+    <a href="https://studiogym360.ch" class="offer-mobile" aria-label="Offre de lancement — 1 mois offert">
       <span class="offer-mobile__text"><strong style="color:var(--sage)">Offre de lancement</strong> — 1 mois offert</span>
       <span class="offer-mobile__cta">→</span>
     </a>
@@ -1245,7 +1247,7 @@
           <p>De vrais coachs, une vraie relation, un vrai suivi, le tout accessible depuis n'importe où.</p>
           <p>Studio Gym vous permet de bénéficier d'un réel encadrement sportif tout en conservant votre flexibilité. Chez nous, le sport s'adapte à votre quotidien, et non l'inverse.</p>
           <div class="solution__ctas">
-            <a href="https://studiogym360.ch/inscription" class="btn-primary">Découvrir le coaching</a>
+            <a href="https://studiogym360.ch" class="btn-primary">Découvrir le coaching</a>
             <a href="https://studiogym.ch" class="btn-secondary">Découvrir Studio Gym</a>
           </div>
         </div>
@@ -1435,7 +1437,7 @@
         </article>
       </div>
       <div style="text-align:center">
-        <a href="https://g.page/r/studiogym360/review" class="testimonials__link" rel="noopener noreferrer" target="_blank">
+        <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="testimonials__link" rel="noopener noreferrer" target="_blank">
           <span aria-hidden="true" style="color:#f5c518;letter-spacing:1px">★★★★★</span>
           Voir tous les avis Google
         </a>
@@ -1487,7 +1489,7 @@
               Suivi de tes performances dans le temps
             </li>
           </ul>
-          <a href="https://studiogym360.ch/inscription" class="pricing-card__cta">Démarrer mon programme</a>
+          <a href="https://studiogym360.ch" class="pricing-card__cta">Démarrer mon programme</a>
         </div>
 
         <!-- Studio Suivi -->
@@ -1592,7 +1594,7 @@
       <h2 class="h2" style="margin-bottom:32px" id="coach-title">Guillaume,</h2>
       <div class="coach__card">
         <div class="coach__photo">
-          <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center top">
+          <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;transform:scale(1.4);transform-origin:center 35%">
         </div>
         <div class="coach__body">
           <blockquote class="coach__quote">
@@ -1612,7 +1614,7 @@
       Prêts à <em>commencer</em> ?
     </h2>
     <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
-    <a href="https://studiogym360.ch/inscription" class="btn-sage">Démarrer mon programme</a>
+    <a href="https://studiogym360.ch" class="btn-sage">Démarrer mon programme</a>
   </section>
 
   <footer class="footer">
