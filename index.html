@@ -1671,6 +1671,7 @@
           });
           carousel.after(dots);
           carousel.scrollLeft = 0;
+          window.addEventListener('load', function() { carousel.scrollLeft = 0; }, { once: true });
 
           carousel.addEventListener('scroll', function () {
             var itemW = items[0].offsetWidth;
