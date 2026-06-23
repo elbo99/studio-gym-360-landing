@@ -926,6 +926,9 @@
       .swipe-dots { display: flex; }
     }
 
+    /* ─── WhatsApp FAB (desktop: hidden) ─────────────── */
+    .whatsapp-fab { display: none; }
+
     /* ─── Footer ─────────────────────────────────────── */
     .footer {
       text-align: center;
@@ -947,6 +950,25 @@
       .offer-band__text { display: inline; font-size: 9.5px; }
       .offer-band__tag { font-size: 8.5px; letter-spacing: 0.06em; flex-shrink: 0; }
       .offer-band__cta { font-size: 9.5px; flex-shrink: 0; }
+
+      /* ── WhatsApp floating button ── */
+      .whatsapp-fab {
+        display: flex;
+        position: fixed;
+        bottom: 24px;
+        right: 20px;
+        z-index: 200;
+        width: 56px;
+        height: 56px;
+        background: #25D366;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .whatsapp-fab:active { transform: scale(0.93); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+      .whatsapp-fab svg { width: 30px; height: 30px; }
 
       /* ── Nav ── */
       .nav { padding: 0 16px; height: 56px; top: 28px; }
@@ -1139,6 +1161,7 @@
       <a href="#solution" class="nav__link">Solution</a>
       <a href="#formules" class="nav__link">Formules</a>
       <a href="#coach" class="nav__link">Le coach</a>
+      <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
     </nav>
     <a href="https://studiogym360.ch" class="nav__cta nav__cta-full">Démarrer mon programme</a>
     <a href="https://studiogym360.ch" class="nav__cta nav__cta-short">Commencer</a>
@@ -1625,6 +1648,12 @@
     <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
     <a href="https://studiogym360.ch" class="btn-sage">Démarrer mon programme</a>
   </section>
+
+  <a href="https://wa.me/message/XTHXENIOKE5FI1" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#fff" d="M16 3C9.373 3 4 8.373 4 15c0 2.385.68 4.61 1.857 6.496L4 29l7.723-1.826A12.94 12.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3Zm6.406 16.594c-.27.757-1.578 1.449-2.156 1.537-.551.084-1.234.119-1.992-.125-.459-.147-1.047-.343-1.8-.672-3.164-1.367-5.23-4.563-5.39-4.773-.16-.211-1.305-1.735-1.305-3.31 0-1.574.824-2.348 1.117-2.668.293-.32.641-.4.854-.4.213 0 .426.002.613.01.196.01.46-.074.72.549.267.641.906 2.215.985 2.375.08.16.133.347.027.558-.106.211-.16.342-.319.527-.16.187-.336.418-.48.561-.16.16-.326.334-.14.654.187.32.829 1.367 1.781 2.215 1.223 1.09 2.254 1.428 2.574 1.588.32.16.507.133.694-.08.188-.213.8-.934 1.014-1.254.213-.32.426-.267.72-.16.293.107 1.867.881 2.187 1.041.32.16.533.24.613.373.08.133.08.773-.187 1.53Z"/>
+    </svg>
+  </a>
 
   <footer class="footer">
     <p>© 2026 Studio Gym 360 · Fribourg, Suisse · <a href="https://studiogym.ch" rel="noopener noreferrer" target="_blank">Studio Gym</a></p>
