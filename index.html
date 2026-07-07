@@ -926,6 +926,59 @@
       .swipe-dots { display: flex; }
     }
 
+    /* ─── Modale Tally ───────────────────────────────── */
+    .tally-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .tally-modal.open { display: flex; }
+    .tally-modal__box {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 620px;
+      height: 85vh;
+      max-height: 780px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+    .tally-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.08);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #333;
+      transition: background 0.15s;
+    }
+    .tally-modal__close:hover { background: rgba(0,0,0,0.15); }
+    .tally-modal__iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    @media (max-width: 720px) {
+      .tally-modal { padding: 0; align-items: flex-end; }
+      .tally-modal__box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
+    }
+
     /* ─── WhatsApp FAB (desktop: hidden) ─────────────── */
     .whatsapp-fab { display: none; }
 
@@ -1163,8 +1216,8 @@
       <a href="#coach" class="nav__link">Le coach</a>
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
     </nav>
-    <a href="https://studiogym360.ch" class="nav__cta nav__cta-full">Démarrer mon programme</a>
-    <a href="https://studiogym360.ch" class="nav__cta nav__cta-short">Commencer</a>
+    <button onclick="openTally()" class="nav__cta nav__cta-full">Démarrer mon programme</button>
+    <button onclick="openTally()" class="nav__cta nav__cta-short">Commencer</button>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1181,7 +1234,7 @@
         </h1>
         <p class="hero__subtitle">Votre application mobile de coaching privé et personnalisé. Le sport s'adapte à votre quotidien.</p>
         <div class="hero__ctas">
-          <a href="https://studiogym360.ch" class="hero__cta-primary">Démarrer mon programme</a>
+          <button onclick="openTally()" class="hero__cta-primary">Démarrer mon programme</button>
           <a href="#formules" class="hero__cta-secondary">Voir les formules</a>
         </div>
         <!-- Badges mobile (dans le flux) -->
@@ -1190,10 +1243,10 @@
             <span class="hero__chip-title">Un vrai coach</span>
             <span class="hero__chip-sub">+7 ans d'expérience</span>
           </div>
-          <div class="hero__chip">
+          <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="hero__chip" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer">
             <span class="hero__chip-title">Membres satisfaits</span>
             <span class="hero__chip-sub" style="color:var(--sage)">5/5 · voir les avis</span>
-          </div>
+          </a>
           <div class="hero__chip">
             <span class="hero__chip-title">App web</span>
             <span class="hero__chip-sub">iOS &amp; Android (bientôt)</span>
@@ -1210,13 +1263,13 @@
           </div>
           <div class="hero__badge-accent" aria-hidden="true"></div>
         </div>
-        <div class="hero__badge">
+        <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="hero__badge" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer">
           <div class="hero__badge-text">
             <div class="hero__badge-title">Membres satisfaits</div>
             <div class="hero__badge-sub" style="color:var(--sage)">5/5 · voir les avis</div>
           </div>
           <div class="hero__badge-accent" aria-hidden="true"></div>
-        </div>
+        </a>
         <div class="hero__badge">
           <div class="hero__badge-text">
             <div class="hero__badge-title">App web</div>
@@ -1279,7 +1332,7 @@
           <p>De vrais coachs, une vraie relation, un vrai suivi, le tout accessible depuis n'importe où.</p>
           <p>Studio Gym vous permet de bénéficier d'un réel encadrement sportif tout en conservant votre flexibilité. Chez nous, le sport s'adapte à votre quotidien, et non l'inverse.</p>
           <div class="solution__ctas">
-            <a href="https://studiogym360.ch" class="btn-primary">Découvrir le coaching</a>
+            <button onclick="openTally()" class="btn-primary">Découvrir le coaching</button>
             <a href="https://studiogym.ch" class="btn-secondary">Découvrir Studio Gym</a>
           </div>
         </div>
@@ -1521,7 +1574,7 @@
               Suivi de tes performances dans le temps
             </li>
           </ul>
-          <a href="https://studiogym360.ch" class="pricing-card__cta">Démarrer mon programme</a>
+          <button onclick="openTally()" class="pricing-card__cta">Démarrer mon programme</button>
         </div>
 
         <!-- Studio Suivi -->
@@ -1646,8 +1699,23 @@
       Prêt(e)s à <em>commencer</em> ?
     </h2>
     <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
-    <a href="https://studiogym360.ch" class="btn-sage">Démarrer mon programme</a>
+    <button onclick="openTally()" class="btn-sage">Démarrer mon programme</button>
   </section>
+
+  <!-- ─── Modale Tally ───────────────────────────────── -->
+  <div id="tally-modal" class="tally-modal" role="dialog" aria-modal="true" aria-label="Formulaire d'inscription">
+    <div class="tally-modal__box">
+      <button class="tally-modal__close" onclick="closeTally()" aria-label="Fermer">✕</button>
+      <iframe
+        id="tally-iframe"
+        class="tally-modal__iframe"
+        src=""
+        data-src="https://tally.so/embed/zxv2AM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        title="Formulaire Studio Gym 360"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
 
   <a href="https://wa.me/message/XTHXENIOKE5FI1" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1658,6 +1726,27 @@
   <footer class="footer">
     <p>© 2026 Studio Gym 360 · Fribourg, Suisse · <a href="https://studiogym.ch" rel="noopener noreferrer" target="_blank">Studio Gym</a></p>
   </footer>
+
+  <!-- ─── Modale Tally JS ─────────────────────────────── -->
+  <script>
+    function openTally() {
+      var modal = document.getElementById('tally-modal');
+      var iframe = document.getElementById('tally-iframe');
+      if (!iframe.getAttribute('src')) { iframe.src = iframe.dataset.src; }
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTally() {
+      document.getElementById('tally-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('tally-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeTally();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeTally();
+    });
+  </script>
 
   <!-- ─── Interactions JS ───────────────────────────── -->
   <script>
