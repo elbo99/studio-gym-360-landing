@@ -198,13 +198,36 @@
     @media (prefers-reduced-motion: no-preference) {
       [data-reveal] {
         opacity: 0;
-        transform: translateY(18px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
+        transform: translateY(24px);
+        transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
       }
-      [data-reveal].revealed {
+      [data-reveal="left"] {
+        opacity: 0;
+        transform: translateX(-28px);
+        transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+      }
+      [data-reveal="right"] {
+        opacity: 0;
+        transform: translateX(28px);
+        transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+      }
+      [data-reveal="scale"] {
+        opacity: 0;
+        transform: scale(0.94);
+        transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      }
+      [data-reveal].revealed,
+      [data-reveal="left"].revealed,
+      [data-reveal="right"].revealed,
+      [data-reveal="scale"].revealed {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
       }
+      [data-delay="1"] { transition-delay: 0.1s; }
+      [data-delay="2"] { transition-delay: 0.2s; }
+      [data-delay="3"] { transition-delay: 0.3s; }
+      [data-delay="4"] { transition-delay: 0.4s; }
+      [data-delay="5"] { transition-delay: 0.5s; }
     }
 
     /* ══════════════════════════════════════════════════ */
@@ -712,6 +735,18 @@
       background: var(--beige-dark);
       color: var(--text-muted);
     }
+    .pricing-card__offer {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sage-dark);
+      background: var(--sage-light);
+      border-radius: 99px;
+      padding: 4px 12px;
+      margin-top: 6px;
+    }
     .pricing-card__name {
       font-size: 22px;
       font-weight: 800;
@@ -1197,9 +1232,9 @@
 <body>
 
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1 mois offert. J'en profite">
+  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois offert. J'en profite">
     <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text">Les 20 premières inscriptions = <strong style="font-weight:700;color:#fdfbf7">1 mois offert</strong></span>
+    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois offert</strong></span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
 
@@ -1216,8 +1251,8 @@
       <a href="#coach" class="nav__link">Le coach</a>
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
     </nav>
-    <a href="https://studiogym360.ch" class="nav__cta nav__cta-full">Démarrer mon programme</a>
-    <a href="https://studiogym360.ch" class="nav__cta nav__cta-short">Commencer</a>
+    <button onclick="openTally()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
+    <button onclick="openTally()" class="nav__cta nav__cta-short">Réserver</button>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1237,6 +1272,7 @@
           <button onclick="openTally()" class="hero__cta-primary">Réserver mon appel découverte</button>
           <a href="#formules" class="hero__cta-secondary">Voir les formules</a>
         </div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:10px;">Sans engagement · Appel gratuit de 30 min</p>
         <!-- Badges mobile (dans le flux) -->
         <div class="hero__badges-mobile">
           <div class="hero__chip">
@@ -1282,7 +1318,7 @@
 
     <!-- Offre de lancement mobile -->
     <a href="https://studiogym360.ch" class="offer-mobile" aria-label="Offre de lancement — 1 mois offert">
-      <span class="offer-mobile__text"><strong style="color:var(--sage)">Offre de lancement</strong> — 1 mois offert</span>
+      <span class="offer-mobile__text"><strong style="color:var(--sage)">Offre de lancement</strong> — 1er mois offert</span>
       <span class="offer-mobile__cta">→</span>
     </a>
   </header>
@@ -1318,21 +1354,21 @@
   <!-- ⑤ SOLUTION ──────────────────────────────────── -->
   <section id="solution" aria-labelledby="solution-title">
     <div class="section-inner">
-      <span class="section-label">La solution</span>
-      <h2 class="h2" style="margin-bottom:32px" id="solution-title">
+      <span class="section-label" data-reveal>La solution</span>
+      <h2 class="h2" style="margin-bottom:32px" id="solution-title" data-reveal>
         Notre approche,<br><em>notre différence.</em>
       </h2>
       <div class="solution__inner">
-        <div class="solution__img" style="overflow:hidden;border-radius:20px">
+        <div class="solution__img" style="overflow:hidden;border-radius:20px" data-reveal="left">
           <img src="solution.jpg" alt="Séance de coaching Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 40%">
         </div>
-        <div class="solution__body">
+        <div class="solution__body" data-reveal="right" data-delay="1">
           <p><strong>Studio Gym 360</strong> est né d'un constat simple : le sport doit s'adapter à votre quotidien, pas l'inverse.</p>
           <p>Nous avons donc créé une solution qui vous permet d'être accompagné partout et à tout moment.</p>
           <p>De vrais coachs, une vraie relation, un vrai suivi, le tout accessible depuis n'importe où.</p>
           <p>Studio Gym vous permet de bénéficier d'un réel encadrement sportif tout en conservant votre flexibilité. Chez nous, le sport s'adapte à votre quotidien, et non l'inverse.</p>
           <div class="solution__ctas">
-            <a href="https://studiogym360.ch" class="btn-primary">Découvrir le coaching</a>
+            <button onclick="openTally()" class="btn-primary">Réserver mon appel découverte</button>
             <a href="https://studiogym.ch" class="btn-secondary">Découvrir Studio Gym</a>
           </div>
         </div>
@@ -1345,8 +1381,8 @@
   <!-- ⑥ L'APPLICATION ─────────────────────────────── -->
   <section aria-labelledby="app-title">
     <div class="section-inner">
-      <span class="section-label">L'application</span>
-      <h2 class="h2" style="margin-bottom:14px" id="app-title">
+      <span class="section-label" data-reveal>L'application</span>
+      <h2 class="h2" style="margin-bottom:14px" id="app-title" data-reveal>
         Tout ton coaching,<br><em>dans une seule app.</em>
       </h2>
       <p style="font-size:16px;color:var(--text-muted);line-height:1.65;max-width:520px;margin-bottom:48px">
@@ -1358,13 +1394,27 @@
             <div class="phone-inner">
               <div class="phone-shell">
                 <div class="phone-screen">
-                  <img src="app-studio.png" alt="App Studio Gym 360 — Studio & contenus">
+                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
                 </div>
                 <div class="phone-notch" aria-hidden="true"></div>
               </div>
             </div>
           </div>
-          <p class="phone-label">Vidéos &amp; ressources</p>
+          <p class="phone-label">Tes séances du jour</p>
+        </div>
+
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="app-messagerie.png" alt="App Studio Gym 360 — Messagerie coach">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Ton coach, en un message</p>
         </div>
 
         <div class="phone-wrap">
@@ -1380,20 +1430,6 @@
           </div>
           <p class="phone-label">Ta progression</p>
         </div>
-
-        <div class="phone-wrap">
-          <div class="phone-frame">
-            <div class="phone-inner">
-              <div class="phone-shell">
-                <div class="phone-screen">
-                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
-                </div>
-                <div class="phone-notch" aria-hidden="true"></div>
-              </div>
-            </div>
-          </div>
-          <p class="phone-label">Tes séances du jour</p>
-        </div>
       </div>
     </div>
   </section>
@@ -1403,22 +1439,22 @@
   <!-- ⑦ PROCESSUS ────────────────────────────────── -->
   <section aria-labelledby="process-title">
     <div class="section-inner">
-      <span class="section-label">Le processus</span>
-      <h2 class="h2" style="margin-bottom:40px" id="process-title">
+      <span class="section-label" data-reveal>Le processus</span>
+      <h2 class="h2" style="margin-bottom:40px" id="process-title" data-reveal>
         Simple à démarrer.<br><em>Sérieux dans le suivi.</em>
       </h2>
       <div class="process__grid" data-carousel>
-        <div class="process__card">
+        <div class="process__card" data-reveal data-delay="1">
           <div class="process__num">01</div>
           <h3>Tu partages ton univers</h3>
           <p>Tes objectifs, tes contraintes, ton quotidien. Pas un formulaire générique, une vraie base pour que ton coach construise quelque chose qui te ressemble.</p>
         </div>
-        <div class="process__card">
+        <div class="process__card" data-reveal data-delay="2">
           <div class="process__num">02</div>
           <h3>Ton programme t'attend</h3>
           <p>Dès la semaine suivante, tout est dans l'app. Tu sais quoi faire, pourquoi, et comment. Plus d'hésitation avant de t'entraîner.</p>
         </div>
-        <div class="process__card">
+        <div class="process__card" data-reveal data-delay="3">
           <div class="process__num">03</div>
           <h3>On ne te lâche pas</h3>
           <p>Ton coach suit chaque séance. Il voit ce qui fonctionne, ce qui coince. Il ajuste en fonction de tes besoins.</p>
@@ -1432,37 +1468,37 @@
   <!-- ⑧ BÉNÉFICES ────────────────────────────────── -->
   <section aria-labelledby="benefits-title">
     <div class="section-inner">
-      <span class="section-label">Ce que tu obtiens</span>
-      <h2 class="h2" style="margin-bottom:40px" id="benefits-title">
+      <span class="section-label" data-reveal>Ce que tu obtiens</span>
+      <h2 class="h2" style="margin-bottom:40px" id="benefits-title" data-reveal>
         Tout ce dont tu as besoin.<br><em>Rien de superflu.</em>
       </h2>
       <div class="benefits__grid" data-carousel>
-        <div class="benefit-card">
+        <div class="benefit-card" data-reveal data-delay="1">
           <div class="benefit-card__num">01</div>
           <h3 class="benefit-card__title">Un programme qui te ressemble.</h3>
           <p class="benefit-card__desc">Pas un plan copié-collé. Ton coach construit ton programme autour de toi, tes objectifs, ton niveau, ce que ta semaine permet vraiment.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card" data-reveal data-delay="2">
           <div class="benefit-card__num">02</div>
           <h3 class="benefit-card__title">Quelqu'un qui suit. Vraiment.</h3>
           <p class="benefit-card__desc">Pas un coach fantôme. Mais un coach qui voit ta progression et ajuste quand il le faut, sans que tu aies besoin de demander.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card" data-reveal data-delay="3">
           <div class="benefit-card__num">03</div>
           <h3 class="benefit-card__title">Tout au même endroit.</h3>
           <p class="benefit-card__desc">Tes séances, tes charges, ton historique. Plus besoin de noter sur un carnet ou de chercher dans tes photos. Tout est là.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card" data-reveal data-delay="1">
           <div class="benefit-card__num">04</div>
           <h3 class="benefit-card__title">Tu vois où tu vas.</h3>
           <p class="benefit-card__desc">Les chiffres ne mentent pas. Charges, répétitions, régularité, tu mesures ta progression au lieu de juste la ressentir.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card" data-reveal data-delay="2">
           <div class="benefit-card__num">05</div>
           <h3 class="benefit-card__title">Un coach qui te connaît.</h3>
           <p class="benefit-card__desc">Il sait que tu voyages souvent. Que tu as eu une semaine difficile. Il s'adapte. C'est ça la différence avec une app.</p>
         </div>
-        <div class="benefit-card benefit-card--founder">
+        <div class="benefit-card benefit-card--founder" data-reveal data-delay="3">
           <div class="benefit-card__num">06 <span class="benefit-card__badge">Si coaché par Guillaume, fondateur</span></div>
           <h3 class="benefit-card__title">La méthode Studio Gym, chez toi.</h3>
           <p class="benefit-card__desc">Ce que Guillaume applique chaque jour en studio, la même rigueur, le même niveau d'exigence, disponible depuis ton salon.</p>
@@ -1476,8 +1512,8 @@
   <!-- ⑨ TÉMOIGNAGES ──────────────────────────────── -->
   <section aria-labelledby="testimonials-title">
     <div class="section-inner">
-      <span class="section-label">Ils ont progressé</span>
-      <h2 class="h2" style="margin-bottom:32px" id="testimonials-title">
+      <span class="section-label" data-reveal>Ils ont progressé</span>
+      <h2 class="h2" style="margin-bottom:32px" id="testimonials-title" data-reveal>
         Vos retours
       </h2>
       <div class="testimonials__grid" data-carousel>
@@ -1535,18 +1571,19 @@
   <!-- ⑩ FORMULES ──────────────────────────────────── -->
   <section id="formules" aria-labelledby="pricing-title">
     <div class="section-inner">
-      <span class="section-label">Tarifs</span>
-      <h2 class="h2" style="margin-bottom:10px" id="pricing-title">
+      <span class="section-label" data-reveal>Tarifs</span>
+      <h2 class="h2" style="margin-bottom:10px" id="pricing-title" data-reveal>
         Deux formules.<br><em>Un seul objectif.</em>
       </h2>
       <p style="font-size:16px;color:var(--text-muted);margin-bottom:40px">Sans engagement. Sans surprise.</p>
       <div class="pricing__grid" data-carousel>
 
         <!-- Studio Online -->
-        <div class="pricing-card pricing-card--active">
+        <div class="pricing-card pricing-card--active" data-reveal data-delay="1">
           <span class="pricing-card__badge pricing-card__badge--available">Disponible</span>
           <div class="pricing-card__name">Studio Online</div>
           <div class="pricing-card__price"><sup>CHF</sup> 89 <span>/ mois</span></div>
+          <span class="pricing-card__offer">🎁 1er mois offert — Offre de lancement</span>
           <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que tu t'entraînes.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
             <li class="pricing-card__feature">
@@ -1574,11 +1611,11 @@
               Suivi de tes performances dans le temps
             </li>
           </ul>
-          <a href="https://studiogym360.ch" class="pricing-card__cta">Démarrer mon programme</a>
+          <button onclick="openTally()" class="pricing-card__cta">Réserver mon appel découverte</button>
         </div>
 
         <!-- Studio Suivi -->
-        <div class="pricing-card">
+        <div class="pricing-card" data-reveal data-delay="2">
           <span class="pricing-card__badge pricing-card__badge--soon">Bientôt disponible</span>
           <div class="pricing-card__name">Studio Suivi</div>
           <div class="pricing-card__price"><sup>CHF</sup> 149 <span>/ mois</span></div>
@@ -1615,8 +1652,8 @@
   <!-- ⑪ EN STUDIO / COACHS ───────────────────────── -->
   <section aria-labelledby="studio-title">
     <div class="section-inner">
-      <span class="section-label">En studio</span>
-      <h2 class="h2" style="margin-bottom:32px" id="studio-title">
+      <span class="section-label" data-reveal>En studio</span>
+      <h2 class="h2" style="margin-bottom:32px" id="studio-title" data-reveal>
         Bientôt disponible <em style="color:#84a8b0">pour les coachs</em>
       </h2>
       <div class="studio__inner">
@@ -1675,9 +1712,9 @@
   <!-- ⑫ LE COACH ──────────────────────────────────── -->
   <section id="coach" aria-labelledby="coach-title">
     <div class="section-inner">
-      <span class="section-label">Le coach</span>
-      <h2 class="h2" style="margin-bottom:32px" id="coach-title">Guillaume,</h2>
-      <div class="coach__card">
+      <span class="section-label" data-reveal>Le coach</span>
+      <h2 class="h2" style="margin-bottom:32px" id="coach-title" data-reveal>Guillaume,</h2>
+      <div class="coach__card" data-reveal="scale" data-delay="1">
         <div class="coach__photo">
           <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;transform:scale(1.4);transform-origin:center 35%">
         </div>
@@ -1699,7 +1736,8 @@
       Prêt(e)s à <em>commencer</em> ?
     </h2>
     <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
-    <a href="https://studiogym360.ch" class="btn-sage">Démarrer mon programme</a>
+    <button onclick="openTally()" class="btn-sage">Réserver mon appel découverte</button>
+    <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:12px;">Sans engagement · Appel gratuit de 30 min</p>
   </section>
 
   <!-- ─── Modale Tally ───────────────────────────────── -->
