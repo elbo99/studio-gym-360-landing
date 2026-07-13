@@ -1,23 +1,25 @@
 const { query } = require('./_supabase');
 const { cors, handleOptions } = require('./_cors');
 
-async function sendEmail(booking, slot) {
+async function sendEmails(booking, slot) {
   const key = process.env.RESEND_API_KEY;
   if (!key) return;
 
-  const dateStr = new Date(`${slot.date}T${slot.time}`).toLocaleString('fr-CH', {
+  const slotDate = new Date(`${slot.date}T${slot.time}`);
+
+  const dateStr = slotDate.toLocaleString('fr-CH', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-    hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'
+    hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich',
   });
 
+  const from = process.env.EMAIL_FROM || 'Studio Gym 360 <noreply@studiogym360.ch>';
+
+  // 1. Notification admin
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM || 'Studio Gym 360 <noreply@studiogym360.ch>',
+      from,
       to: process.env.ADMIN_EMAIL,
       subject: `🗓 Nouvelle résa — ${booking.first_name} ${booking.last_name}`,
       html: `
@@ -40,27 +42,48 @@ async function sendEmail(booking, slot) {
     }),
   });
 
-  // Confirmation email to the member
+  // 2. Confirmation immédiate au membre
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM || 'Studio Gym 360 <noreply@studiogym360.ch>',
+      from,
       to: booking.email,
       subject: `✅ Ton appel découverte est confirmé !`,
       html: `
         <h2>Bonjour ${booking.first_name} !</h2>
         <p>Ton appel découverte de 30 min est bien réservé pour le <strong>${dateStr}</strong>.</p>
         <p>Guillaume te contactera à l'heure convenue sur le numéro indiqué : <strong>${booking.phone}</strong>.</p>
-        <p>Si tu as des questions, réponds à cet email ou écris sur WhatsApp.</p>
+        <p>Si tu as des questions, réponds à cet email ou écris-nous sur WhatsApp.</p>
         <br>
         <p>À bientôt,<br><strong>Guillaume — Studio Gym 360</strong></p>
       `,
     }),
   });
+
+  // 3. Rappel automatique 24h avant (programmé via Resend scheduledAt)
+  const reminderDate = new Date(slotDate.getTime() - 24 * 60 * 60 * 1000);
+  // N'envoie le rappel que si le créneau est dans plus de 24h
+  if (reminderDate > new Date()) {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from,
+        to: booking.email,
+        subject: `⏰ Rappel — ton appel avec Guillaume est demain !`,
+        scheduledAt: reminderDate.toISOString(),
+        html: `
+          <h2>Bonjour ${booking.first_name} ! 👋</h2>
+          <p>Petit rappel : ton appel découverte de 30 min avec Guillaume est prévu <strong>demain à ${slotDate.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich' })}</strong>.</p>
+          <p>Guillaume t'appellera sur le <strong>${booking.phone}</strong>.</p>
+          <p>Prépare tes questions, on a hâte d'échanger avec toi ! 💪</p>
+          <br>
+          <p>À demain,<br><strong>Guillaume — Studio Gym 360</strong></p>
+        `,
+      }),
+    });
+  }
 }
 
 module.exports = async (req, res) => {
@@ -76,12 +99,10 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Check slot is still available
     const slots = await query(`/slots?id=eq.${slot_id}&is_available=eq.true&select=id,date,time`);
     if (!slots.length) return res.status(409).json({ error: 'Créneau plus disponible' });
     const slot = slots[0];
 
-    // Save booking
     const [booking] = await query('/bookings', 'POST', {
       slot_id, first_name, last_name, email, phone, objective, level, weekly_time,
       injuries: injuries || null,
@@ -89,11 +110,9 @@ module.exports = async (req, res) => {
       status: 'confirmed',
     });
 
-    // Mark slot as taken
     await query(`/slots?id=eq.${slot_id}`, 'PATCH', { is_available: false }, { prefer: 'return=minimal' });
 
-    // Send emails (non-blocking)
-    sendEmail(booking, slot).catch(console.error);
+    sendEmails(booking, slot).catch(console.error);
 
     res.status(201).json({ success: true, booking_id: booking.id });
   } catch (e) {
