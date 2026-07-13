@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Studio Gym 360</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #6b8f71; --sage-dark: #4a6b50; --sage-light: #eaf2eb;
+      --beige: #f0ede6; --text: #1a1a1a; --text-muted: #7a7166;
+      --white: #fff; --border: #e0dbd1;
+      --red: #dc3545; --green: #28a745; --orange: #fd7e14;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--beige); color: var(--text); min-height: 100vh; }
+
+    /* ── Login ── */
+    .login { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .login__box { background: var(--white); border-radius: 20px; padding: 40px; width: 100%; max-width: 380px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .login__logo { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .login__sub { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .login__label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .login__input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .login__input:focus { border-color: var(--sage); }
+    .login__btn { width: 100%; margin-top: 16px; padding: 13px; background: var(--text); color: var(--white); border: none; border-radius: 10px; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background .15s; }
+    .login__btn:hover { background: #333; }
+    .login__err { margin-top: 12px; font-size: 13px; color: var(--red); display: none; }
+
+    /* ── App shell ── */
+    .app { display: none; }
+    .topbar { background: var(--text); color: var(--white); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar__title { font-size: 16px; font-weight: 700; }
+    .topbar__logout { font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer; border: none; background: none; font-family: inherit; }
+    .topbar__logout:hover { color: #fff; }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); background: var(--white); padding: 0 24px; }
+    .tab { padding: 14px 20px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; color: var(--text-muted); transition: color .15s, border-color .15s; }
+    .tab.active { color: var(--sage-dark); border-bottom-color: var(--sage); }
+    .content { padding: 24px; max-width: 1100px; margin: 0 auto; }
+
+    /* ── Stat bar ── */
+    .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .stat { background: var(--white); border-radius: 12px; padding: 16px 20px; flex: 1; min-width: 120px; }
+    .stat__num { font-size: 28px; font-weight: 700; }
+    .stat__label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .stat--green .stat__num { color: var(--green); }
+    .stat--orange .stat__num { color: var(--orange); }
+
+    /* ── Table ── */
+    .table-wrap { background: var(--white); border-radius: 16px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--beige); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafaf8; }
+
+    /* ── Badge status ── */
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; }
+    .badge--confirmed { background: #d4edda; color: #155724; }
+    .badge--pending { background: #fff3cd; color: #856404; }
+    .badge--cancelled { background: #f8d7da; color: #721c24; }
+
+    /* ── Detail panel ── */
+    .detail { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.4); align-items: center; justify-content: center; padding: 20px; }
+    .detail.open { display: flex; }
+    .detail__box { background: var(--white); border-radius: 20px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto; padding: 32px; position: relative; }
+    .detail__close { position: absolute; top: 16px; right: 16px; background: var(--beige); border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+    .detail__name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .detail__slot { font-size: 14px; color: var(--sage-dark); font-weight: 600; margin-bottom: 20px; }
+    .detail__section { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 20px 0 10px; }
+    .detail__row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+    .detail__key { color: var(--text-muted); min-width: 130px; flex-shrink: 0; }
+    .detail__actions { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+    .btn { padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; border: none; transition: opacity .15s; }
+    .btn:hover { opacity: .85; }
+    .btn--green { background: var(--green); color: #fff; }
+    .btn--red { background: var(--red); color: #fff; }
+    .btn--sage { background: var(--sage); color: #fff; }
+    .btn--outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .notes-input { width: 100%; margin-top: 12px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 70px; outline: none; }
+    .notes-input:focus { border-color: var(--sage); }
+
+    /* ── Slots manager ── */
+    .slots-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .slots-header h2 { font-size: 18px; font-weight: 700; }
+    .add-slot { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; background: var(--white); padding: 20px; border-radius: 16px; margin-bottom: 24px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+    .field input { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; }
+    .field input:focus { border-color: var(--sage); }
+    .slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .slot-card { background: var(--white); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .slot-card__info { font-size: 14px; font-weight: 600; }
+    .slot-card__time { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .slot-card__status { font-size: 11px; margin-top: 4px; }
+    .slot-card__del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 18px; padding: 4px; opacity: .6; }
+    .slot-card__del:hover { opacity: 1; }
+    .slot-card--taken { opacity: .5; }
+    .empty { text-align: center; padding: 48px; color: var(--text-muted); font-size: 14px; }
+
+    @media (max-width: 600px) {
+      .content { padding: 16px; }
+      .add-slot { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login ── -->
+<div class="login" id="login">
+  <div class="login__box">
+    <div class="login__logo">🏋️ Studio Gym 360</div>
+    <div class="login__sub">Espace coach — accès privé</div>
+    <label class="login__label" for="pwd">Mot de passe</label>
+    <input class="login__input" type="password" id="pwd" placeholder="••••••••" autocomplete="current-password">
+    <button class="login__btn" onclick="doLogin()">Accéder</button>
+    <div class="login__err" id="login-err">Mot de passe incorrect.</div>
+  </div>
+</div>
+
+<!-- ── App ── -->
+<div class="app" id="app">
+  <div class="topbar">
+    <span class="topbar__title">🏋️ Studio Gym 360 — Admin</span>
+    <button class="topbar__logout" onclick="logout()">Déconnexion</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('reservations', this)">Réservations</div>
+    <div class="tab" onclick="showTab('creneaux', this)">Créneaux</div>
+  </div>
+
+  <!-- Tab Réservations -->
+  <div class="content" id="tab-reservations">
+    <div class="stats" id="stats"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date & heure</th>
+            <th>Nom</th>
+            <th>Contact</th>
+            <th>Objectif</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="bookings-tbody"></tbody>
+      </table>
+    </div>
+    <p class="empty" id="bookings-empty" style="display:none">Aucune réservation pour l'instant.</p>
+  </div>
+
+  <!-- Tab Créneaux -->
+  <div class="content" id="tab-creneaux" style="display:none">
+    <div class="add-slot">
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="new-date" min="">
+      </div>
+      <div class="field">
+        <label>Heure</label>
+        <input type="time" id="new-time" value="09:00" step="1800">
+      </div>
+      <button class="btn btn--sage" onclick="addSlot()">+ Ajouter ce créneau</button>
+    </div>
+    <div class="slots-grid" id="slots-grid"></div>
+    <p class="empty" id="slots-empty" style="display:none">Aucun créneau ajouté. Commence par en créer un ci-dessus.</p>
+  </div>
+</div>
+
+<!-- ── Detail panel ── -->
+<div class="detail" id="detail" onclick="if(event.target===this)closeDetail()">
+  <div class="detail__box">
+    <button class="detail__close" onclick="closeDetail()">✕</button>
+    <div class="detail__name" id="d-name"></div>
+    <div class="detail__slot" id="d-slot"></div>
+
+    <div class="detail__section">Contact</div>
+    <div class="detail__row"><span class="detail__key">Email</span><span id="d-email"></span></div>
+    <div class="detail__row"><span class="detail__key">Téléphone</span><span id="d-phone"></span></div>
+
+    <div class="detail__section">Profil sportif</div>
+    <div class="detail__row"><span class="detail__key">Objectif</span><span id="d-obj"></span></div>
+    <div class="detail__row"><span class="detail__key">Niveau</span><span id="d-level"></span></div>
+    <div class="detail__row"><span class="detail__key">Dispo / semaine</span><span id="d-time"></span></div>
+    <div class="detail__row"><span class="detail__key">Blessures</span><span id="d-injuries"></span></div>
+    <div class="detail__row"><span class="detail__key">Source</span><span id="d-ref"></span></div>
+
+    <div class="detail__section">Notes coach</div>
+    <textarea class="notes-input" id="d-notes" placeholder="Ajoute tes notes ici…"></textarea>
+
+    <div class="detail__actions">
+      <button class="btn btn--green" onclick="updateStatus('confirmed')">✓ Confirmer</button>
+      <button class="btn btn--red" onclick="updateStatus('cancelled')">✕ Annuler</button>
+      <button class="btn btn--outline" onclick="saveNotes()">💾 Sauver les notes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API = '/api';
+  let token = '';
+  let currentBookingId = null;
+  let allBookings = [];
+
+  // ── Auth ──
+  function doLogin() {
+    const pwd = document.getElementById('pwd').value;
+    token = pwd;
+    fetch(`${API}/admin/bookings`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => {
+        if (r.status === 401) {
+          document.getElementById('login-err').style.display = 'block';
+          token = '';
+        } else {
+          sessionStorage.setItem('sg360_token', token);
+          showApp();
+        }
+      });
+  }
+  document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  function logout() {
+    sessionStorage.removeItem('sg360_token');
+    token = '';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('login').style.display = 'flex';
+  }
+
+  function showApp() {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('new-date').min = new Date().toISOString().split('T')[0];
+    loadBookings();
+    loadSlots();
+  }
+
+  // ── Tabs ──
+  function showTab(id, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-reservations').style.display = id === 'reservations' ? 'block' : 'none';
+    document.getElementById('tab-creneaux').style.display = id === 'creneaux' ? 'block' : 'none';
+  }
+
+  // ── Bookings ──
+  function fmtDate(date, time) {
+    if (!date || !time) return '—';
+    return new Date(`${date}T${time}`).toLocaleString('fr-CH', {
+      weekday: 'short', day: 'numeric', month: 'short',
+      hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'
+    });
+  }
+
+  function loadBookings() {
+    fetch(`${API}/admin/bookings`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json())
+      .then(data => {
+        allBookings = data;
+        renderBookings(data);
+        renderStats(data);
+      });
+  }
+
+  function renderStats(data) {
+    const total = data.length;
+    const confirmed = data.filter(b => b.status === 'confirmed').length;
+    const pending = data.filter(b => b.status === 'pending').length;
+    document.getElementById('stats').innerHTML = `
+      <div class="stat"><div class="stat__num">${total}</div><div class="stat__label">Total réservations</div></div>
+      <div class="stat stat--green"><div class="stat__num">${confirmed}</div><div class="stat__label">Confirmées</div></div>
+      <div class="stat stat--orange"><div class="stat__num">${pending}</div><div class="stat__label">En attente</div></div>
+    `;
+  }
+
+  function renderBookings(data) {
+    const tbody = document.getElementById('bookings-tbody');
+    document.getElementById('bookings-empty').style.display = data.length ? 'none' : 'block';
+    tbody.innerHTML = data.map(b => `
+      <tr>
+        <td>${fmtDate(b.slots?.date, b.slots?.time)}</td>
+        <td><strong>${b.first_name} ${b.last_name}</strong></td>
+        <td><a href="mailto:${b.email}">${b.email}</a><br><small>${b.phone}</small></td>
+        <td>${b.objective}</td>
+        <td><span class="badge badge--${b.status}">${b.status === 'confirmed' ? 'Confirmé' : b.status === 'cancelled' ? 'Annulé' : 'En attente'}</span></td>
+        <td><button class="btn btn--outline" onclick="openDetail('${b.id}')">Voir →</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function openDetail(id) {
+    const b = allBookings.find(x => x.id === id);
+    if (!b) return;
+    currentBookingId = id;
+    document.getElementById('d-name').textContent = `${b.first_name} ${b.last_name}`;
+    document.getElementById('d-slot').textContent = fmtDate(b.slots?.date, b.slots?.time);
+    document.getElementById('d-email').innerHTML = `<a href="mailto:${b.email}">${b.email}</a>`;
+    document.getElementById('d-phone').textContent = b.phone;
+    document.getElementById('d-obj').textContent = b.objective;
+    document.getElementById('d-level').textContent = b.level;
+    document.getElementById('d-time').textContent = b.weekly_time;
+    document.getElementById('d-injuries').textContent = b.injuries || '—';
+    document.getElementById('d-ref').textContent = b.referral || '—';
+    document.getElementById('d-notes').value = b.notes || '';
+    document.getElementById('detail').classList.add('open');
+  }
+
+  function closeDetail() {
+    document.getElementById('detail').classList.remove('open');
+    currentBookingId = null;
+  }
+
+  function updateStatus(status) {
+    if (!currentBookingId) return;
+    fetch(`${API}/admin/bookings`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: currentBookingId, status }),
+    }).then(() => { closeDetail(); loadBookings(); });
+  }
+
+  function saveNotes() {
+    if (!currentBookingId) return;
+    const notes = document.getElementById('d-notes').value;
+    fetch(`${API}/admin/bookings`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: currentBookingId, notes }),
+    }).then(() => { closeDetail(); loadBookings(); });
+  }
+
+  // ── Slots ──
+  function loadSlots() {
+    fetch(`${API}/admin/slots`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json())
+      .then(renderSlots);
+  }
+
+  function renderSlots(slots) {
+    const grid = document.getElementById('slots-grid');
+    document.getElementById('slots-empty').style.display = slots.length ? 'none' : 'block';
+    grid.innerHTML = slots.map(s => {
+      const dt = new Date(`${s.date}T${s.time}`);
+      const dayStr = dt.toLocaleDateString('fr-CH', { weekday: 'long', day: 'numeric', month: 'long' });
+      const timeStr = dt.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' });
+      return `
+        <div class="slot-card ${s.is_available ? '' : 'slot-card--taken'}">
+          <div>
+            <div class="slot-card__info">${dayStr}</div>
+            <div class="slot-card__time">${timeStr}</div>
+            <div class="slot-card__status">${s.is_available ? '🟢 Disponible' : '🔴 Réservé'}</div>
+          </div>
+          ${s.is_available ? `<button class="slot-card__del" onclick="deleteSlot('${s.id}')" title="Supprimer">×</button>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  function addSlot() {
+    const date = document.getElementById('new-date').value;
+    const time = document.getElementById('new-time').value + ':00';
+    if (!date || !time) return alert('Sélectionne une date et une heure.');
+    fetch(`${API}/admin/slots`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date, time }),
+    }).then(() => loadSlots());
+  }
+
+  function deleteSlot(id) {
+    if (!confirm('Supprimer ce créneau ?')) return;
+    fetch(`${API}/admin/slots`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    }).then(() => loadSlots());
+  }
+
+  // ── Auto-login if session stored ──
+  const saved = sessionStorage.getItem('sg360_token');
+  if (saved) { token = saved; showApp(); }
+</script>
+</body>
+</html>

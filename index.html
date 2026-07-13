@@ -961,57 +961,86 @@
       .swipe-dots { display: flex; }
     }
 
-    /* ─── Modale Tally ───────────────────────────────── */
-    .tally-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    /* ─── Modale Réservation ────────────────────────── */
+    .book-modal {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
     }
-    .tally-modal.open { display: flex; }
-    .tally-modal__box {
-      background: #fff;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 620px;
-      height: 85vh;
-      max-height: 780px;
-      position: relative;
-      overflow: hidden;
+    .book-modal.open { display: flex; }
+    .book-modal__box {
+      background: #fff; border-radius: 24px; width: 100%; max-width: 540px;
+      max-height: 92vh; overflow-y: auto; position: relative;
       box-shadow: 0 24px 64px rgba(0,0,0,0.3);
     }
-    .tally-modal__close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 10;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.08);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #333;
-      transition: background 0.15s;
+    .book-modal__head {
+      padding: 28px 28px 0; display: flex; align-items: center; justify-content: space-between;
     }
-    .tally-modal__close:hover { background: rgba(0,0,0,0.15); }
-    .tally-modal__iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .book-modal__title { font-size: 20px; font-weight: 700; }
+    .book-modal__close {
+      width: 34px; height: 34px; border-radius: 50%; background: #f0ede6;
+      border: none; cursor: pointer; font-size: 16px; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .book-modal__close:hover { background: #e0dbd1; }
+    /* Progress bar */
+    .book-progress { padding: 16px 28px 0; display: flex; gap: 6px; }
+    .book-progress__step {
+      height: 4px; flex: 1; border-radius: 99px; background: #e0dbd1;
+      transition: background .3s;
+    }
+    .book-progress__step.done { background: var(--sage); }
+    /* Step container */
+    .book-step { display: none; padding: 24px 28px 28px; }
+    .book-step.active { display: block; }
+    .book-step__label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-muted); margin-bottom: 6px; }
+    .book-step__h { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    /* Fields */
+    .bfield { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .bfield label { font-size: 13px; font-weight: 600; }
+    .bfield input, .bfield select, .bfield textarea {
+      padding: 12px 14px; border: 1.5px solid #e0dbd1; border-radius: 10px;
+      font-size: 15px; font-family: inherit; outline: none; transition: border-color .15s;
+      background: #fff;
+    }
+    .bfield input:focus, .bfield select:focus, .bfield textarea:focus { border-color: var(--sage); }
+    .bfield textarea { resize: vertical; min-height: 70px; }
+    .brow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    /* Slots grid */
+    .slots-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .slot-btn {
+      padding: 12px 8px; border-radius: 12px; border: 2px solid #e0dbd1;
+      background: #fff; cursor: pointer; font-family: inherit; font-size: 13px;
+      font-weight: 600; text-align: center; line-height: 1.35; transition: border-color .15s, background .15s;
+    }
+    .slot-btn:hover { border-color: var(--sage); background: var(--sage-light); }
+    .slot-btn.selected { border-color: var(--sage); background: var(--sage-light); color: var(--sage-dark); }
+    .slot-btn__day { font-size: 11px; font-weight: 500; color: var(--text-muted); display: block; }
+    .slots-loading { text-align: center; padding: 32px; color: var(--text-muted); font-size: 14px; }
+    .slots-none { text-align: center; padding: 32px; color: var(--text-muted); font-size: 14px;
+      background: #f8f8f6; border-radius: 12px; }
+    /* Nav buttons */
+    .book-nav { display: flex; gap: 10px; margin-top: 4px; }
+    .book-nav__back { padding: 12px 20px; border-radius: 10px; border: 1.5px solid #e0dbd1;
+      background: none; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .book-nav__next { flex: 1; padding: 14px; border-radius: 10px; border: none;
+      background: var(--text); color: #fff; font-family: inherit; font-size: 15px;
+      font-weight: 700; cursor: pointer; transition: background .15s; }
+    .book-nav__next:hover { background: #333; }
+    .book-nav__next:disabled { background: #ccc; cursor: not-allowed; }
+    /* Confirmation step */
+    .book-confirm { text-align: center; padding: 40px 28px; }
+    .book-confirm__icon { font-size: 52px; margin-bottom: 16px; }
+    .book-confirm__title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .book-confirm__sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+    /* Error */
+    .book-error { background: #fee; border: 1px solid #fcc; border-radius: 10px;
+      padding: 12px 14px; font-size: 13px; color: #c00; margin-bottom: 16px; display: none; }
     @media (max-width: 720px) {
-      .tally-modal { padding: 0; align-items: flex-end; }
-      .tally-modal__box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
+      .book-modal { padding: 0; align-items: flex-end; }
+      .book-modal__box { border-radius: 24px 24px 0 0; max-height: 95vh; }
+      .brow { grid-template-columns: 1fr; gap: 0; }
     }
 
     /* ─── WhatsApp FAB (desktop: hidden) ─────────────── */
@@ -1251,8 +1280,8 @@
       <a href="#coach" class="nav__link">Le coach</a>
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
     </nav>
-    <button onclick="openTally()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
-    <button onclick="openTally()" class="nav__cta nav__cta-short">Réserver</button>
+    <button onclick="openBook()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
+    <button onclick="openBook()" class="nav__cta nav__cta-short">Réserver</button>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1269,7 +1298,7 @@
         </h1>
         <p class="hero__subtitle">Votre application mobile de coaching privé et personnalisé. Le sport s'adapte à votre quotidien.</p>
         <div class="hero__ctas">
-          <button onclick="openTally()" class="hero__cta-primary">Réserver mon appel découverte</button>
+          <button onclick="openBook()" class="hero__cta-primary">Réserver mon appel découverte</button>
           <a href="#formules" class="hero__cta-secondary">Voir les formules</a>
         </div>
         <p style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:10px;">Sans engagement · Appel gratuit de 30 min</p>
@@ -1368,7 +1397,7 @@
           <p>De vrais coachs, une vraie relation, un vrai suivi, le tout accessible depuis n'importe où.</p>
           <p>Studio Gym vous permet de bénéficier d'un réel encadrement sportif tout en conservant votre flexibilité. Chez nous, le sport s'adapte à votre quotidien, et non l'inverse.</p>
           <div class="solution__ctas">
-            <button onclick="openTally()" class="btn-primary">Réserver mon appel découverte</button>
+            <button onclick="openBook()" class="btn-primary">Réserver mon appel découverte</button>
             <a href="https://studiogym.ch" class="btn-secondary">Découvrir Studio Gym</a>
           </div>
         </div>
@@ -1611,7 +1640,7 @@
               Suivi de tes performances dans le temps
             </li>
           </ul>
-          <button onclick="openTally()" class="pricing-card__cta">Réserver mon appel découverte</button>
+          <button onclick="openBook()" class="pricing-card__cta">Réserver mon appel découverte</button>
         </div>
 
         <!-- Studio Suivi -->
@@ -1736,22 +1765,121 @@
       Prêt(e)s à <em>commencer</em> ?
     </h2>
     <p class="cta-final__sub">Rejoins Studio Gym 360 et commence ton programme cette semaine. Sans engagement.</p>
-    <button onclick="openTally()" class="btn-sage">Réserver mon appel découverte</button>
+    <button onclick="openBook()" class="btn-sage">Réserver mon appel découverte</button>
     <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:12px;">Sans engagement · Appel gratuit de 30 min</p>
   </section>
 
-  <!-- ─── Modale Tally ───────────────────────────────── -->
-  <div id="tally-modal" class="tally-modal" role="dialog" aria-modal="true" aria-label="Formulaire d'inscription">
-    <div class="tally-modal__box">
-      <button class="tally-modal__close" onclick="closeTally()" aria-label="Fermer">✕</button>
-      <iframe
-        id="tally-iframe"
-        class="tally-modal__iframe"
-        src=""
-        data-src="https://tally.so/embed/zxv2AM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-        title="Formulaire Studio Gym 360"
-        loading="lazy"
-      ></iframe>
+  <!-- ─── Modale Réservation ─────────────────────────── -->
+  <div id="book-modal" class="book-modal" role="dialog" aria-modal="true" aria-label="Réserver un appel découverte">
+    <div class="book-modal__box">
+      <div class="book-modal__head">
+        <span class="book-modal__title">Appel découverte 🎯</span>
+        <button class="book-modal__close" onclick="closeBook()" aria-label="Fermer">✕</button>
+      </div>
+      <div class="book-progress" id="book-progress">
+        <div class="book-progress__step done" id="bp1"></div>
+        <div class="book-progress__step" id="bp2"></div>
+        <div class="book-progress__step" id="bp3"></div>
+        <div class="book-progress__step" id="bp4"></div>
+      </div>
+
+      <!-- Step 1 — Contact -->
+      <div class="book-step active" id="step1">
+        <div class="book-step__label">Étape 1 / 3</div>
+        <div class="book-step__h">Tes coordonnées</div>
+        <div class="brow">
+          <div class="bfield"><label>Prénom *</label><input type="text" id="b-fname" placeholder="Lucas" autocomplete="given-name"></div>
+          <div class="bfield"><label>Nom *</label><input type="text" id="b-lname" placeholder="Martin" autocomplete="family-name"></div>
+        </div>
+        <div class="bfield"><label>Email *</label><input type="email" id="b-email" placeholder="lucas@email.com" autocomplete="email"></div>
+        <div class="bfield"><label>Téléphone *</label><input type="tel" id="b-phone" placeholder="+41 79 000 00 00" autocomplete="tel"></div>
+        <div class="book-error" id="err1"></div>
+        <div class="book-nav">
+          <button class="book-nav__next" onclick="goStep(2)">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 — Profil sportif -->
+      <div class="book-step" id="step2">
+        <div class="book-step__label">Étape 2 / 3</div>
+        <div class="book-step__h">Ton profil sportif</div>
+        <div class="bfield">
+          <label>Quel est ton objectif principal ? *</label>
+          <select id="b-obj">
+            <option value="">— Choisir —</option>
+            <option>Perdre du poids / affiner ma silhouette</option>
+            <option>Prendre de la masse musculaire</option>
+            <option>Améliorer ma condition physique générale</option>
+            <option>Me remettre en forme après une pause</option>
+            <option>Gérer le stress / bien-être mental</option>
+            <option>Préparer une compétition / objectif sportif</option>
+          </select>
+        </div>
+        <div class="bfield">
+          <label>Quel est ton niveau actuel ? *</label>
+          <select id="b-level">
+            <option value="">— Choisir —</option>
+            <option>Débutant — je commence ou je reprends</option>
+            <option>Intermédiaire — je m'entraîne occasionnellement</option>
+            <option>Régulier — 2-3x/sem depuis plus de 6 mois</option>
+            <option>Avancé — je m'entraîne sérieusement depuis des années</option>
+          </select>
+        </div>
+        <div class="bfield">
+          <label>Combien de temps peux-tu consacrer par semaine ? *</label>
+          <select id="b-time">
+            <option value="">— Choisir —</option>
+            <option>Moins de 2h</option>
+            <option>2–3h par semaine</option>
+            <option>3–5h par semaine</option>
+            <option>Plus de 5h par semaine</option>
+          </select>
+        </div>
+        <div class="bfield">
+          <label>Blessures ou contraintes physiques ?</label>
+          <textarea id="b-injuries" placeholder="Ex : genou fragile, douleurs lombaires… ou rien de particulier"></textarea>
+        </div>
+        <div class="bfield">
+          <label>Comment tu as connu Studio Gym 360 ?</label>
+          <select id="b-ref">
+            <option value="">— Choisir —</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+            <option>Bouche-à-oreille / un ami</option>
+            <option>Google</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="book-error" id="err2"></div>
+        <div class="book-nav">
+          <button class="book-nav__back" onclick="goStep(1)">← Retour</button>
+          <button class="book-nav__next" onclick="goStep(3)">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- Step 3 — Choisir un créneau -->
+      <div class="book-step" id="step3">
+        <div class="book-step__label">Étape 3 / 3</div>
+        <div class="book-step__h">Choisis ton créneau</div>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.5">Sélectionne un créneau disponible pour ton appel de 30 min avec Guillaume.</p>
+        <div id="slots-container"></div>
+        <div class="book-error" id="err3"></div>
+        <div class="book-nav">
+          <button class="book-nav__back" onclick="goStep(2)">← Retour</button>
+          <button class="book-nav__next" id="btn-book" onclick="submitBook()">Réserver mon appel →</button>
+        </div>
+      </div>
+
+      <!-- Step 4 — Confirmation -->
+      <div class="book-step" id="step4">
+        <div class="book-confirm">
+          <div class="book-confirm__icon">🎉</div>
+          <div class="book-confirm__title">C'est réservé !</div>
+          <div class="book-confirm__sub" id="confirm-msg">
+            Ton appel découverte est confirmé.<br>Guillaume te contactera directement.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1765,25 +1893,164 @@
     <p>© 2026 Studio Gym 360 · Fribourg, Suisse · <a href="https://studiogym.ch" rel="noopener noreferrer" target="_blank">Studio Gym</a></p>
   </footer>
 
-  <!-- ─── Modale Tally JS ─────────────────────────────── -->
+  <!-- ─── Booking Modal JS ──────────────────────────────── -->
   <script>
-    function openTally() {
-      var modal = document.getElementById('tally-modal');
-      var iframe = document.getElementById('tally-iframe');
-      if (!iframe.getAttribute('src')) { iframe.src = iframe.dataset.src; }
-      modal.classList.add('open');
+    var bookStep = 1;
+    var selectedSlotId = null;
+    var selectedSlotLabel = '';
+
+    function openBook() {
+      goStep(1);
+      document.getElementById('book-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-    function closeTally() {
-      document.getElementById('tally-modal').classList.remove('open');
+    function closeBook() {
+      document.getElementById('book-modal').classList.remove('open');
       document.body.style.overflow = '';
     }
-    document.getElementById('tally-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeTally();
+    document.getElementById('book-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeBook();
     });
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeTally();
+      if (e.key === 'Escape') closeBook();
     });
+
+    function goStep(n) {
+      // Validate before advancing
+      if (n > bookStep) {
+        if (bookStep === 1 && !validateStep1()) return;
+        if (bookStep === 2 && !validateStep2()) return;
+        if (bookStep === 3 && !validateStep3()) return;
+      }
+      document.getElementById('step' + bookStep).classList.remove('active');
+      bookStep = n;
+      document.getElementById('step' + n).classList.add('active');
+      updateProgress(n);
+      if (n === 3) loadSlots();
+      // scroll to top of modal box
+      document.querySelector('.book-modal__box').scrollTop = 0;
+    }
+
+    function updateProgress(n) {
+      for (var i = 1; i <= 4; i++) {
+        var el = document.getElementById('bp' + i);
+        if (el) el.className = 'book-progress__step' + (i <= n ? ' done' : '');
+      }
+    }
+
+    function showErr(id, msg) {
+      var el = document.getElementById(id);
+      el.textContent = msg;
+      el.style.display = msg ? 'block' : 'none';
+    }
+
+    function validateStep1() {
+      var fn = document.getElementById('b-fname').value.trim();
+      var ln = document.getElementById('b-lname').value.trim();
+      var em = document.getElementById('b-email').value.trim();
+      var ph = document.getElementById('b-phone').value.trim();
+      if (!fn || !ln) { showErr('err1', 'Merci d\'indiquer ton prénom et ton nom.'); return false; }
+      if (!em || !em.includes('@')) { showErr('err1', 'Merci d\'indiquer un email valide.'); return false; }
+      if (!ph) { showErr('err1', 'Merci d\'indiquer ton numéro de téléphone.'); return false; }
+      showErr('err1', '');
+      return true;
+    }
+
+    function validateStep2() {
+      var obj = document.getElementById('b-obj').value;
+      var lvl = document.getElementById('b-level').value;
+      var t = document.getElementById('b-time').value;
+      if (!obj) { showErr('err2', 'Merci de choisir ton objectif principal.'); return false; }
+      if (!lvl) { showErr('err2', 'Merci de choisir ton niveau.'); return false; }
+      if (!t) { showErr('err2', 'Merci de choisir tes disponibilités hebdomadaires.'); return false; }
+      showErr('err2', '');
+      return true;
+    }
+
+    function validateStep3() {
+      if (!selectedSlotId) { showErr('err3', 'Merci de choisir un créneau.'); return false; }
+      showErr('err3', '');
+      return true;
+    }
+
+    function loadSlots() {
+      var cont = document.getElementById('slots-container');
+      cont.innerHTML = '<div class="slots-loading">Chargement des créneaux…</div>';
+      selectedSlotId = null;
+      fetch('/api/slots')
+        .then(function(r) { return r.json(); })
+        .then(function(slots) {
+          if (!slots.length) {
+            cont.innerHTML = '<div class="slots-none">😕 Aucun créneau disponible pour le moment.<br>Écris-nous sur WhatsApp pour convenir d\'un horaire.</div>';
+            return;
+          }
+          cont.innerHTML = '<div class="slots-pick">' + slots.map(function(s) {
+            var dt = new Date(s.date + 'T' + s.time);
+            var day = dt.toLocaleDateString('fr-CH', { weekday: 'long', day: 'numeric', month: 'long' });
+            var time = dt.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' });
+            return '<button class="slot-btn" data-id="' + s.id + '" onclick="selectSlot(this, \'' + s.id + '\', \'' + day + ' à ' + time + '\')">'
+              + '<span class="slot-btn__day">' + day + '</span>'
+              + time
+              + '</button>';
+          }).join('') + '</div>';
+        })
+        .catch(function() {
+          cont.innerHTML = '<div class="slots-none">Impossible de charger les créneaux. Réessaie plus tard.</div>';
+        });
+    }
+
+    function selectSlot(el, id, label) {
+      document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('selected'); });
+      el.classList.add('selected');
+      selectedSlotId = id;
+      selectedSlotLabel = label;
+      showErr('err3', '');
+    }
+
+    function submitBook() {
+      if (!validateStep3()) return;
+      var btn = document.getElementById('btn-book');
+      btn.disabled = true;
+      btn.textContent = 'Réservation en cours…';
+      var payload = {
+        slot_id: selectedSlotId,
+        first_name: document.getElementById('b-fname').value.trim(),
+        last_name: document.getElementById('b-lname').value.trim(),
+        email: document.getElementById('b-email').value.trim(),
+        phone: document.getElementById('b-phone').value.trim(),
+        objective: document.getElementById('b-obj').value,
+        level: document.getElementById('b-level').value,
+        weekly_time: document.getElementById('b-time').value,
+        injuries: document.getElementById('b-injuries').value.trim(),
+        referral: document.getElementById('b-ref').value,
+      };
+      fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+      .then(function(res) {
+        if (!res.ok) {
+          showErr('err3', res.data.error || 'Une erreur est survenue. Réessaie.');
+          btn.disabled = false;
+          btn.textContent = 'Réserver mon appel →';
+          return;
+        }
+        // Success — show confirmation
+        document.getElementById('confirm-msg').innerHTML =
+          'Ton appel est réservé pour le <strong>' + selectedSlotLabel + '</strong>.<br>'
+          + 'Un email de confirmation t\'a été envoyé.<br><br>'
+          + 'Guillaume te contactera à l\'heure convenue. À bientôt ! 💪';
+        document.querySelector('.book-progress').style.display = 'none';
+        goStep(4);
+      })
+      .catch(function() {
+        showErr('err3', 'Erreur réseau. Vérifie ta connexion et réessaie.');
+        btn.disabled = false;
+        btn.textContent = 'Réserver mon appel →';
+      });
+    }
   </script>
 
   <!-- ─── Interactions JS ───────────────────────────── -->
