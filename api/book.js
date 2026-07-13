@@ -139,7 +139,7 @@ module.exports = async (req, res) => {
 
     await query(`/slots?id=eq.${slot_id}`, 'PATCH', { is_available: false }, { prefer: 'return=minimal' });
 
-    sendEmails(booking, slot).catch(console.error);
+    await sendEmails(booking, slot).catch(console.error);
 
     res.status(201).json({ success: true, booking_id: booking.id });
   } catch (e) {
