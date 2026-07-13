@@ -64,30 +64,7 @@ async function sendEmails(booking, slot) {
   const now = new Date();
   const timeStr = slotDate.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich' });
 
-  // 3. Rappel membre 24h avant
-  const reminder24h = new Date(slotDate.getTime() - 24 * 60 * 60 * 1000);
-  if (reminder24h > now) {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from,
-        to: booking.email,
-        subject: `⏰ Rappel — ton appel avec Guillaume est demain !`,
-        scheduledAt: reminder24h.toISOString(),
-        html: `
-          <h2>Bonjour ${booking.first_name} ! 👋</h2>
-          <p>Petit rappel : ton appel découverte de 30 min avec Guillaume est prévu <strong>demain à ${timeStr}</strong>.</p>
-          <p>Guillaume t'appellera sur le <strong>${booking.phone}</strong>.</p>
-          <p>Prépare tes questions, on a hâte d'échanger avec toi ! 💪</p>
-          <br>
-          <p>À demain,<br><strong>Guillaume — Studio Gym 360</strong></p>
-        `,
-      }),
-    });
-  }
-
-  // 4. Rappel Guillaume 1h avant
+  // 3. Rappel Guillaume 1h avant
   const reminder1h = new Date(slotDate.getTime() - 60 * 60 * 1000);
   if (reminder1h > now) {
     await fetch('https://api.resend.com/emails', {
