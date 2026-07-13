@@ -238,6 +238,10 @@
     <div class="detail__section">Notes coach</div>
     <textarea class="notes-input" id="d-notes" placeholder="Ajoute tes notes ici…"></textarea>
 
+    <div style="margin-top:20px;padding:14px;background:#fafaf8;border-radius:10px;display:flex;align-items:center;gap:10px;">
+      <input type="checkbox" id="d-free-slot" style="width:16px;height:16px;cursor:pointer;accent-color:#6b8f71">
+      <label for="d-free-slot" style="font-size:13px;cursor:pointer;">🔓 Libérer le créneau (le rendre à nouveau disponible)</label>
+    </div>
     <div class="detail__actions">
       <button class="btn btn--green" onclick="updateStatus('confirmed')">✓ Confirmer</button>
       <button class="btn btn--red" onclick="updateStatus('cancelled')">✕ Annuler</button>
@@ -363,11 +367,12 @@
 
   function updateStatus(status) {
     if (!currentBookingId) return;
+    const freeSlot = document.getElementById('d-free-slot').checked;
     fetch(`${API}/admin/bookings`, {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: currentBookingId, status }),
-    }).then(() => { closeDetail(); loadBookings(); });
+      body: JSON.stringify({ id: currentBookingId, status, free_slot: freeSlot }),
+    }).then(() => { closeDetail(); loadBookings(); loadSlots(); });
   }
 
   function saveNotes() {
@@ -401,7 +406,10 @@
             <div class="slot-card__time">${timeStr}</div>
             <div class="slot-card__status">${s.is_available ? '🟢 Disponible' : '🔴 Réservé'}</div>
           </div>
-          ${s.is_available ? `<button class="slot-card__del" onclick="deleteSlot('${s.id}')" title="Supprimer">×</button>` : ''}
+          ${s.is_available
+            ? `<button class="slot-card__del" onclick="deleteSlot('${s.id}')" title="Supprimer">×</button>`
+            : `<button class="btn btn--outline" style="font-size:11px;padding:5px 10px;" onclick="freeSlot('${s.id}')">🔓 Libérer</button>`
+          }
         </div>
       `;
     }).join('');
@@ -415,6 +423,15 @@
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ date, time }),
+    }).then(() => loadSlots());
+  }
+
+  function freeSlot(id) {
+    if (!confirm('Libérer ce créneau ? Il redeviendra disponible à la réservation.')) return;
+    fetch(`${API}/admin/slots`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, is_available: true }),
     }).then(() => loadSlots());
   }
 

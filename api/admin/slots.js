@@ -31,6 +31,15 @@ module.exports = async (req, res) => {
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
+  } else if (req.method === 'PATCH') {
+    const { id, is_available } = req.body;
+    if (!id) return res.status(400).json({ error: 'ID manquant' });
+    try {
+      await query(`/slots?id=eq.${id}`, 'PATCH', { is_available }, { prefer: 'return=minimal' });
+      res.status(200).json({ success: true });
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   } else if (req.method === 'DELETE') {
     const { id } = req.body;
     if (!id) return res.status(400).json({ error: 'ID manquant' });
