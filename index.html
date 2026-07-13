@@ -2118,5 +2118,37 @@
     document.addEventListener('DOMContentLoaded', resetCarousels);
   </script>
 
+  <!-- ─── Tracking ──────────────────────────────────── -->
+  <script>
+    function track(name) {
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, page: '/', referrer: document.referrer || null }),
+      }).catch(function(){});
+    }
+
+    // Page view
+    track('page_view');
+
+    // Patch openBook pour tracker les clics CTA
+    var _origOpenBook = openBook;
+    openBook = function() {
+      track('cta_click');
+      _origOpenBook();
+    };
+
+    // Tracker la progression du formulaire
+    var _origGoStep = goStep;
+    goStep = function(n) {
+      if (n === 2) track('form_step2');
+      if (n === 3) track('form_step3');
+      _origGoStep(n);
+    };
+  </script>
+
+  <!-- ─── Vercel Analytics ──────────────────────────── -->
+  <script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

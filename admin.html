@@ -101,6 +101,32 @@
     .slot-card--taken { opacity: .5; }
     .empty { text-align: center; padding: 48px; color: var(--text-muted); font-size: 14px; }
 
+    /* ── Stats ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+    .kpi { background: var(--white); border-radius: 14px; padding: 20px; }
+    .kpi__num { font-size: 32px; font-weight: 700; line-height: 1; }
+    .kpi__label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .kpi__sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .kpi--sage .kpi__num { color: var(--sage-dark); }
+    .funnel { background: var(--white); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
+    .funnel__title { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+    .funnel__row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .funnel__label { font-size: 13px; width: 160px; flex-shrink: 0; }
+    .funnel__bar-wrap { flex: 1; background: var(--beige); border-radius: 99px; height: 10px; overflow: hidden; }
+    .funnel__bar { height: 100%; background: var(--sage); border-radius: 99px; transition: width .6s; }
+    .funnel__count { font-size: 13px; font-weight: 700; width: 40px; text-align: right; }
+    .funnel__pct { font-size: 11px; color: var(--text-muted); width: 40px; text-align: right; }
+    .period-btns { display: flex; gap: 8px; margin-bottom: 20px; }
+    .period-btn { padding: 6px 14px; border-radius: 99px; border: 1.5px solid var(--border); font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; background: none; color: var(--text-muted); }
+    .period-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+    .chart-wrap { background: var(--white); border-radius: 14px; padding: 20px; }
+    .chart-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
+    .bar-chart__col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .bar-chart__bar { width: 100%; background: var(--sage-light); border-radius: 4px 4px 0 0; min-height: 2px; transition: height .4s; }
+    .bar-chart__bar--today { background: var(--sage); }
+    .bar-chart__label { font-size: 9px; color: var(--text-muted); }
+
     @media (max-width: 600px) {
       .content { padding: 16px; }
       .add-slot { flex-direction: column; }
@@ -131,6 +157,7 @@
   <div class="tabs">
     <div class="tab active" onclick="showTab('reservations', this)">Réservations</div>
     <div class="tab" onclick="showTab('creneaux', this)">Créneaux</div>
+    <div class="tab" onclick="showTab('stats', this)">📊 Stats</div>
   </div>
 
   <!-- Tab Réservations -->
@@ -169,6 +196,24 @@
     </div>
     <div class="slots-grid" id="slots-grid"></div>
     <p class="empty" id="slots-empty" style="display:none">Aucun créneau ajouté. Commence par en créer un ci-dessus.</p>
+  </div>
+
+  <!-- Tab Stats -->
+  <div class="content" id="tab-stats" style="display:none">
+    <div class="period-btns">
+      <button class="period-btn active" onclick="loadStats(7, this)">7 jours</button>
+      <button class="period-btn" onclick="loadStats(30, this)">30 jours</button>
+      <button class="period-btn" onclick="loadStats(90, this)">90 jours</button>
+    </div>
+    <div class="stats-grid" id="kpis"></div>
+    <div class="funnel" id="funnel-wrap">
+      <div class="funnel__title">Entonnoir de conversion</div>
+      <div id="funnel"></div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Visites par jour</div>
+      <div class="bar-chart" id="bar-chart"></div>
+    </div>
   </div>
 </div>
 
@@ -245,6 +290,8 @@
     el.classList.add('active');
     document.getElementById('tab-reservations').style.display = id === 'reservations' ? 'block' : 'none';
     document.getElementById('tab-creneaux').style.display = id === 'creneaux' ? 'block' : 'none';
+    document.getElementById('tab-stats').style.display = id === 'stats' ? 'block' : 'none';
+    if (id === 'stats') loadStats(7, document.querySelector('.period-btn.active'));
   }
 
   // ── Bookings ──
@@ -378,6 +425,65 @@
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     }).then(() => loadSlots());
+  }
+
+  // ── Stats ──
+  function loadStats(days, btn) {
+    if (btn) {
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    fetch(`${API}/admin/stats?days=${days}`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json())
+      .then(d => renderStats(d, days));
+  }
+
+  function pct(a, b) { return b ? Math.round((a / b) * 100) : 0; }
+
+  function renderStats(d, days) {
+    const convRate = pct(d.bookings_total, d.page_views);
+
+    document.getElementById('kpis').innerHTML = `
+      <div class="kpi"><div class="kpi__num">${d.page_views}</div><div class="kpi__label">Visites</div><div class="kpi__sub">${days} derniers jours</div></div>
+      <div class="kpi"><div class="kpi__num">${d.cta_clicks}</div><div class="kpi__label">Clics CTA</div><div class="kpi__sub">${pct(d.cta_clicks, d.page_views)}% des visites</div></div>
+      <div class="kpi"><div class="kpi__num">${d.bookings_total}</div><div class="kpi__label">Réservations</div><div class="kpi__sub">${d.bookings_confirmed} confirmées</div></div>
+      <div class="kpi kpi--sage"><div class="kpi__num">${convRate}%</div><div class="kpi__label">Taux conversion</div><div class="kpi__sub">Visite → résa</div></div>
+    `;
+
+    const steps = [
+      { label: '👁 Visites', count: d.page_views },
+      { label: '🖱 Clics CTA', count: d.cta_clicks },
+      { label: '📋 Profil rempli', count: d.form_step2 },
+      { label: '📅 Créneau vu', count: d.form_step3 },
+      { label: '✅ Réservations', count: d.bookings_total },
+    ];
+    const max = steps[0].count || 1;
+    document.getElementById('funnel').innerHTML = steps.map(s => `
+      <div class="funnel__row">
+        <span class="funnel__label">${s.label}</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar" style="width:${pct(s.count, max)}%"></div></div>
+        <span class="funnel__count">${s.count}</span>
+        <span class="funnel__pct">${s === steps[0] ? '' : pct(s.count, steps[0].count) + '%'}</span>
+      </div>
+    `).join('');
+
+    // Bar chart — last N days
+    const today = new Date().toISOString().split('T')[0];
+    const cols = [];
+    for (let i = Math.min(days, 14) - 1; i >= 0; i--) {
+      const dt = new Date(Date.now() - i * 86400000);
+      const key = dt.toISOString().split('T')[0];
+      cols.push({ key, val: d.by_day[key] || 0, isToday: key === today });
+    }
+    const maxVal = Math.max(...cols.map(c => c.val), 1);
+    document.getElementById('bar-chart').innerHTML = cols.map(c => {
+      const h = Math.round((c.val / maxVal) * 70);
+      const label = new Date(c.key).toLocaleDateString('fr-CH', { day: 'numeric', month: 'numeric' });
+      return `<div class="bar-chart__col">
+        <div class="bar-chart__bar ${c.isToday ? 'bar-chart__bar--today' : ''}" style="height:${h}px" title="${c.val} visite(s)"></div>
+        <span class="bar-chart__label">${label}</span>
+      </div>`;
+    }).join('');
   }
 
   // ── Auto-login if session stored ──
