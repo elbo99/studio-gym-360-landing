@@ -602,32 +602,98 @@
     .app__phones .phone-wrap:nth-child(2) { margin-top: -14px; }
 
     /* ─── 7. Processus ───────────────────────────────── */
-    .process__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    /* Bande sombre pleine largeur */
+    .process-section { background: var(--text); }
+    .process-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 88px 32px;
+      text-align: center;
     }
-    .process__card {
-      background: #e5edef;
-      border-radius: 20px;
-      padding: 30px 26px;
-    }
-    .process__num {
-      font-size: 42px;
+    .process-label { color: var(--sage); margin-bottom: 16px; }
+    .process-title {
+      font-size: clamp(28px, 4.6vw, 42px);
       font-weight: 800;
-      letter-spacing: -0.04em;
-      color: var(--sage);
+      letter-spacing: -0.025em;
+      line-height: 1.14;
+      color: var(--white);
       margin-bottom: 14px;
     }
-    .process__card h3 {
+    .process-title em { font-style: italic; color: var(--sage); }
+    .process-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      max-width: 420px;
+      margin: 0 auto 56px;
+      line-height: 1.6;
+    }
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      position: relative;
+    }
+    /* Ligne de liaison entre les numéros */
+    .process__steps::before {
+      content: "";
+      position: absolute;
+      top: 31px;
+      left: 16.6%;
+      right: 16.6%;
+      height: 2px;
+      z-index: 0;
+      background: linear-gradient(90deg, transparent, rgba(107,143,113,0.55) 12%, rgba(107,143,113,0.55) 88%, transparent);
+    }
+    .process__step { position: relative; z-index: 1; text-align: center; }
+    .process__node {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--sage);
+      color: #fff;
+      font-size: 25px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      box-shadow: 0 0 0 9px var(--text), 0 10px 22px rgba(107,143,113,0.4);
+    }
+    .process__body h3 {
       font-size: 17px;
       font-weight: 700;
+      color: var(--white);
       margin-bottom: 9px;
     }
-    .process__card p {
+    .process__body p {
       font-size: 14px;
-      color: var(--text-muted);
+      color: rgba(255,255,255,0.62);
       line-height: 1.6;
+    }
+    @media (max-width: 720px) {
+      .process-inner { padding: 60px 24px; }
+      .process-sub { margin-bottom: 40px; }
+      .process__steps {
+        grid-template-columns: 62px 1fr;
+        gap: 0 20px;
+      }
+      .process__steps::before {
+        top: 31px;
+        bottom: 42px;
+        left: 30px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, rgba(107,143,113,0.55), rgba(107,143,113,0.15));
+      }
+      .process__step {
+        display: contents;
+        text-align: left;
+      }
+      .process__node { margin: 0 0 40px; }
+      .process__body { text-align: left; padding-bottom: 40px; }
+      .process__step:last-child .process__node,
+      .process__step:last-child .process__body { padding-bottom: 0; margin-bottom: 0; }
     }
 
     /* ─── 8. Bénéfices ───────────────────────────────── */
@@ -1179,7 +1245,6 @@
 
       /* ── Carousels swipeables ── */
       .problem__grid,
-      .process__grid,
       .benefits__grid,
       .testimonials__grid {
         display: flex !important;
@@ -1194,11 +1259,9 @@
         scrollbar-width: none;
       }
       .problem__grid::-webkit-scrollbar,
-      .process__grid::-webkit-scrollbar,
       .benefits__grid::-webkit-scrollbar,
       .testimonials__grid::-webkit-scrollbar { display: none; }
       .problem__grid > *,
-      .process__grid > *,
       .benefits__grid > *,
       .testimonials__grid > * {
         flex: 0 0 88vw !important;
@@ -1441,36 +1504,39 @@
     </div>
   </section>
 
-  <hr class="section-divider">
-
   <!-- ⑥ PROCESSUS ────────────────────────────────── -->
-  <section aria-labelledby="process-title">
-    <div class="section-inner">
-      <span class="section-label" data-reveal>Le processus</span>
-      <h2 class="h2" style="margin-bottom:40px" id="process-title" data-reveal>
-        Démarrer,<br><em>c'est simple.</em>
+  <section class="process-section" aria-labelledby="process-title">
+    <div class="process-inner">
+      <span class="section-label process-label" data-reveal>Le processus</span>
+      <h2 class="process-title" id="process-title" data-reveal>
+        Démarrer, <em>c'est simple.</em>
       </h2>
-      <div class="process__grid">
-        <div class="process__card" data-reveal data-delay="1">
-          <div class="process__num">01</div>
-          <h3>Réservez votre appel découverte</h3>
-          <p>Discutez avec Guillaume de vos objectifs sportifs. Un échange de 30 min, gratuit, sans engagement, pour partir sur de bonnes bases.</p>
+      <p class="process-sub" data-reveal>De la première discussion à votre premier entraînement, il n'y a que trois étapes.</p>
+      <div class="process__steps">
+        <div class="process__step" data-reveal data-delay="1">
+          <div class="process__node">1</div>
+          <div class="process__body">
+            <h3>Réservez votre appel découverte</h3>
+            <p>Discutez avec Guillaume de vos objectifs sportifs. Un échange de 30 min, gratuit, sans engagement, pour partir sur de bonnes bases.</p>
+          </div>
         </div>
-        <div class="process__card" data-reveal data-delay="2">
-          <div class="process__num">02</div>
-          <h3>Inscrivez-vous sur la plateforme</h3>
-          <p>Créez votre espace membre sur Studio Gym 360. Tout est centralisé : vos séances, votre suivi, votre messagerie avec le coach.</p>
+        <div class="process__step" data-reveal data-delay="2">
+          <div class="process__node">2</div>
+          <div class="process__body">
+            <h3>Inscrivez-vous sur la plateforme</h3>
+            <p>Créez votre espace membre sur Studio Gym 360. Tout est centralisé : vos séances, votre suivi, votre messagerie avec le coach.</p>
+          </div>
         </div>
-        <div class="process__card" data-reveal data-delay="3">
-          <div class="process__num">03</div>
-          <h3>Recevez votre programme et commencez !</h3>
-          <p>Guillaume prépare votre programme personnalisé. Vous n'avez plus qu'à ouvrir l'app et vous mettre au travail.</p>
+        <div class="process__step" data-reveal data-delay="3">
+          <div class="process__node">3</div>
+          <div class="process__body">
+            <h3>Recevez votre programme et commencez !</h3>
+            <p>Guillaume prépare votre programme personnalisé. Vous n'avez plus qu'à ouvrir l'app et vous mettre au travail.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <hr class="section-divider">
 
   <!-- ⑦ AVANTAGES DE L'APP ───────────────────────── -->
   <section aria-labelledby="avantages-title">
