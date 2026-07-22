@@ -354,7 +354,6 @@
       padding: 20px;
     }
     .avantage-item__icon {
-      font-size: 22px;
       flex-shrink: 0;
       width: 40px;
       height: 40px;
@@ -363,7 +362,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--sage-dark);
     }
+    .avantage-item__icon svg { width: 20px; height: 20px; }
     .avantage-item__title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
     .avantage-item__desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
 
@@ -1296,6 +1297,12 @@
 </head>
 <body>
 
+  <!-- ① BANDE OFFRE ───────────────────────────────── -->
+  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois offert. J'en profite">
+    <span class="offer-band__tag">Offre de lancement</span>
+    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois offert</strong></span>
+    <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
 
   <!-- ② NAV ──────────────────────────────────────── -->
   <nav class="nav" aria-label="Navigation principale">
@@ -1309,7 +1316,7 @@
       <a href="#formules" class="nav__link">Formules</a>
       <a href="#coach" class="nav__link">Le coach</a>
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
-      <a href="/espace-coach" class="nav__link nav__link--coach" target="_blank" rel="noopener noreferrer">Espace Coach</a>
+      <a href="/espace-coach" class="nav__link nav__link--coach">Espace Coach</a>
     </nav>
     <button onclick="openBook()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
     <button onclick="openBook()" class="nav__cta nav__cta-short">Réserver</button>
@@ -1376,11 +1383,6 @@
       </div>
     </div>
 
-    <!-- Offre de lancement mobile -->
-    <a href="https://studiogym360.ch" class="offer-mobile" aria-label="Offre de lancement — 1 mois offert">
-      <span class="offer-mobile__text"><strong style="color:var(--sage)">Offre de lancement</strong> — 1er mois offert</span>
-      <span class="offer-mobile__cta">→</span>
-    </a>
   </header>
 
   <hr class="section-divider">
@@ -1476,42 +1478,42 @@
       </h2>
       <div class="avantages__grid">
         <div class="avantage-item" data-reveal data-delay="1">
-          <div class="avantage-item__icon">📊</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="avantage-item__title">Suivi de tes performances sportives</div>
             <div class="avantage-item__desc">Charges, répétitions, évolution — tout est enregistré pour mesurer ta progression semaine après semaine.</div>
           </div>
         </div>
         <div class="avantage-item" data-reveal data-delay="2">
-          <div class="avantage-item__icon">📅</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
           <div>
             <div class="avantage-item__title">Programme adapté à ton planning</div>
             <div class="avantage-item__desc">Ton programme est conçu selon tes disponibilités réelles et tes objectifs. Pas de plan générique.</div>
           </div>
         </div>
         <div class="avantage-item" data-reveal data-delay="3">
-          <div class="avantage-item__icon">🍎</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3s6.5 6 6.5 11a6.5 6.5 0 0 1-13 0C5.5 9 12 3 12 3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="avantage-item__title">Suivi de la balance calorique</div>
             <div class="avantage-item__desc">Suis tes apports nutritionnels au quotidien pour rester aligné avec tes objectifs de poids ou de performance.</div>
           </div>
         </div>
         <div class="avantage-item" data-reveal data-delay="1">
-          <div class="avantage-item__icon">⚖️</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 17l5.5-5.5 4 4L21 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="avantage-item__title">Suivi des pesées</div>
             <div class="avantage-item__desc">Enregistre tes pesées régulières et visualise l'évolution de ton poids sur une courbe claire.</div>
           </div>
         </div>
         <div class="avantage-item" data-reveal data-delay="2">
-          <div class="avantage-item__icon">🎓</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor"/></svg></div>
           <div>
             <div class="avantage-item__title">Espace Studio Work</div>
             <div class="avantage-item__desc">Cours vidéo, programmes d'entraînement et ebooks sur la nutrition — un espace de ressources qui grandit avec toi.</div>
           </div>
         </div>
         <div class="avantage-item" data-reveal data-delay="3">
-          <div class="avantage-item__icon">💬</div>
+          <div class="avantage-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 14.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="avantage-item__title">Messagerie intégrée &amp; notifications</div>
             <div class="avantage-item__desc">Contacte ton coach directement depuis l'app. Reçois ses retours et ajustements par message ou par mail.</div>
@@ -1759,66 +1761,6 @@
           <a href="#" class="pricing-card__cta pricing-card__cta--disabled" aria-disabled="true" tabindex="-1">Bientôt disponible</a>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <hr class="section-divider">
-
-  <!-- ⑪ EN STUDIO / COACHS ───────────────────────── -->
-  <section aria-labelledby="studio-title">
-    <div class="section-inner">
-      <span class="section-label" data-reveal>En studio</span>
-      <h2 class="h2" style="margin-bottom:32px" id="studio-title" data-reveal>
-        Bientôt disponible <em style="color:#84a8b0">pour les coachs</em>
-      </h2>
-      <div class="studio__inner">
-        <div class="studio__body">
-          <p><em><strong>Créé par un coach, pour les coachs</strong></em></p>
-          <p>Une application pensée pour les coachs : crée les programmes de tes membres, suis leurs séances en temps réel et ajuste leur plan à distance. Toute ta méthode, structurée dans une seule application.</p>
-          <ul class="studio__features" aria-label="Fonctionnalités pour les coachs">
-            <li class="studio__feature">
-              <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Tableau de bord de tous tes membres
-            </li>
-            <li class="studio__feature">
-              <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Programmes personnalisés en quelques clics
-            </li>
-            <li class="studio__feature">
-              <span class="studio__feature-icon" aria-hidden="true">✓</span>
-              Suivi des progrès en temps réel
-            </li>
-          </ul>
-        </div>
-        <div class="studio__phones" data-carousel>
-          <div class="phone-wrap">
-            <div class="phone-frame">
-              <div class="phone-inner">
-                <div class="phone-shell">
-                  <div class="phone-screen">
-                    <img src="coach-dashboard.png" alt="App Studio Gym 360 coachs — Dashboard">
-                  </div>
-                  <div class="phone-notch" aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-            <p class="phone-label">Tableau de bord coach</p>
-          </div>
-          <div class="phone-wrap">
-            <div class="phone-frame">
-              <div class="phone-inner">
-                <div class="phone-shell">
-                  <div class="phone-screen">
-                    <img src="coach-login.png" alt="App Studio Gym 360 coachs — Connexion">
-                  </div>
-                  <div class="phone-notch" aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-            <p class="phone-label">Espace de connexion</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>

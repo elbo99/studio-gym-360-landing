@@ -4,195 +4,352 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Espace Coach — Studio Gym 360</title>
+  <meta name="description" content="L'application pensée pour les coachs Studio Gym 360 : tableau de bord des membres, programmes personnalisés et suivi en temps réel. Bientôt disponible.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ─── Design tokens ─────────────────────────────── */
     :root {
-      --sage: #6b8f71; --sage-dark: #4a6b50; --sage-light: #eaf2eb;
-      --beige: #f0ede6; --beige-dark: #e0dbd1; --text: #1a1a1a;
-      --text-muted: #7a7166; --white: #fdfbf7;
+      --sage:       #6b8f71;
+      --sage-dark:  #4a6b50;
+      --sage-light: #eaf2eb;
+      --beige:      #f0ede6;
+      --beige-dark: #e0dbd1;
+      --text:       #1a1a1a;
+      --text-muted: #7a7166;
+      --white:      #ffffff;
+      --accent:     #84a8b0;
     }
-    body { font-family: 'Poppins', sans-serif; background: var(--beige); color: var(--text); min-height: 100vh; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--beige);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
     a { text-decoration: none; color: inherit; }
+    .section-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 
-    /* ── Nav ── */
+    /* ─── Nav ─────────────────────────────────────── */
     .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--white); border-bottom: 1px solid var(--beige-dark);
-      padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(240,237,230,0.85);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--beige-dark);
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
     }
-    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; }
-    .nav__back { font-size: 13px; font-weight: 600; color: var(--sage-dark); display: flex; align-items: center; gap: 6px; }
-    .nav__back:hover { text-decoration: underline; }
-
-    /* ── Hero coach ── */
-    .hero {
+    .nav__brand { display: flex; align-items: center; gap: 11px; color: var(--text); }
+    .nav__brand img { width: 38px; height: 38px; border-radius: 10px; object-fit: contain; flex-shrink: 0; }
+    .nav__name { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav__right { display: flex; align-items: center; gap: 20px; }
+    .nav__back { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color .18s; white-space: nowrap; }
+    .nav__back:hover { color: var(--text); }
+    .nav__cta {
       background: var(--text); color: var(--white);
-      padding: 80px 32px; text-align: center;
+      padding: 10px 22px; border-radius: 99px; font-size: 14px; font-weight: 600;
+      white-space: nowrap; transition: background .18s;
     }
+    .nav__cta:hover { background: #333; }
+
+    /* ─── Hero ─────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: var(--text); color: var(--white);
+      padding: 132px 0 80px;
+    }
+    .hero::before {
+      content: ""; position: absolute; top: -20%; right: -10%;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(132,168,176,0.22), transparent 65%);
+      pointer-events: none;
+    }
+    .hero__inner {
+      position: relative; max-width: 1080px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; gap: 56px; flex-wrap: wrap;
+    }
+    .hero__body { flex: 1; min-width: 300px; }
     .hero__tag {
-      display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .1em; color: var(--sage); background: rgba(107,143,113,.15);
-      border-radius: 99px; padding: 6px 16px; margin-bottom: 24px;
-    }
-    .hero__title { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
-    .hero__title em { font-style: italic; color: var(--sage); }
-    .hero__sub { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto; line-height: 1.7; }
-
-    /* ── Content ── */
-    .container { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
-
-    /* ── Soon banner ── */
-    .soon-banner {
-      background: var(--white); border-radius: 24px;
-      padding: 48px 40px; text-align: center; margin-bottom: 48px;
-      border: 2px dashed var(--beige-dark);
-    }
-    .soon-banner__icon { font-size: 48px; margin-bottom: 16px; }
-    .soon-banner__title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
-    .soon-banner__sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 480px; margin: 0 auto 28px; }
-    .soon-banner__cta {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 24px; background: var(--text); color: #fff;
-      border-radius: 12px; font-size: 14px; font-weight: 700;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--accent); background: rgba(132,168,176,0.14);
+      border: 1px solid rgba(132,168,176,0.35);
+      border-radius: 99px; padding: 7px 16px; margin-bottom: 24px;
     }
-    .soon-banner__cta:hover { background: #333; }
+    .hero__tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(132,168,176,0.25); }
+    .hero__title { font-size: clamp(32px, 5.2vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .hero__title em { font-style: italic; color: var(--accent); }
+    .hero__sub { font-size: 17px; color: rgba(255,255,255,0.68); line-height: 1.65; max-width: 480px; margin-bottom: 28px; }
+    .hero__features { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 34px; }
+    .hero__feature { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.45; }
+    .hero__feature-icon {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(132,168,176,0.2); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .hero__feature-icon svg { width: 13px; height: 13px; }
+    .hero__cta {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--sage); color: #fff; padding: 14px 26px;
+      border-radius: 99px; font-size: 15px; font-weight: 700; transition: background .18s, transform .18s;
+    }
+    .hero__cta:hover { background: var(--sage-dark); transform: translateY(-1px); }
 
-    /* ── Features coming ── */
-    .section-label {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .1em;
-      color: var(--sage); margin-bottom: 12px;
-    }
-    .section-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; line-height: 1.2; margin-bottom: 40px; }
+    /* ─── Phones ───────────────────────────────────── */
+    .hero__phones { display: flex; gap: 20px; justify-content: center; flex-shrink: 0; }
+    .hero__phones .phone-wrap:nth-child(2) { margin-top: 34px; }
+    .phone-wrap { flex: none; width: 200px; }
+    .phone-frame { width: 200px; height: 418px; overflow: hidden; filter: drop-shadow(0 24px 40px rgba(0,0,0,0.4)); }
+    .phone-inner { width: 340px; transform: scale(0.588); transform-origin: top left; }
+    .phone-shell { position: relative; background: #0c0c0c; border-radius: 54px; padding: 11px; }
+    .phone-screen { position: relative; border-radius: 44px; overflow: hidden; aspect-ratio: 9/19.5; background: #e9e6df; }
+    .phone-screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .phone-notch { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 104px; height: 28px; background: #0c0c0c; border-radius: 99px; z-index: 2; }
+    .phone-label { text-align: center; font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.6); margin-top: 14px; }
+
+    /* ─── Sections ─────────────────────────────────── */
+    .section { padding: 84px 0; }
+    .section-label { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--sage); margin-bottom: 14px; }
+    .section-title { font-size: clamp(26px, 4vw, 38px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
     .section-title em { font-style: italic; color: var(--sage); }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 64px; }
+    .section-desc { font-size: 16px; color: var(--text-muted); line-height: 1.65; max-width: 520px; margin-bottom: 44px; }
+
+    /* ─── Features grid ────────────────────────────── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
     .feature-card {
-      background: var(--white); border-radius: 18px; padding: 24px;
-      display: flex; flex-direction: column; gap: 10px;
+      background: var(--white); border-radius: 20px; padding: 26px;
+      display: flex; flex-direction: column; gap: 12px;
+      border: 1px solid transparent; transition: transform .2s, box-shadow .2s, border-color .2s;
     }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(42,42,42,0.08); border-color: var(--beige-dark); }
+    .feature-card__head { display: flex; align-items: center; justify-content: space-between; }
     .feature-card__icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: var(--sage-light); display: flex; align-items: center;
-      justify-content: center; font-size: 22px;
-    }
-    .feature-card__title { font-size: 15px; font-weight: 700; }
-    .feature-card__desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-    .feature-card__badge {
-      display: inline-block; font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .06em;
-      padding: 3px 10px; border-radius: 99px;
+      width: 46px; height: 46px; border-radius: 13px;
       background: var(--sage-light); color: var(--sage-dark);
+      display: flex; align-items: center; justify-content: center;
     }
+    .feature-card__icon svg { width: 23px; height: 23px; }
+    .feature-card__badge {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      padding: 4px 11px; border-radius: 99px; background: var(--beige); color: var(--text-muted);
+    }
+    .feature-card__badge--live { background: var(--sage-light); color: var(--sage-dark); }
+    .feature-card__title { font-size: 16px; font-weight: 700; }
+    .feature-card__desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
 
-    /* ── Admin CTA ── */
+    /* ─── Admin CTA ────────────────────────────────── */
     .admin-cta {
-      background: var(--text); color: #fff; border-radius: 24px;
-      padding: 40px; display: flex; align-items: center;
-      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+      background: var(--text); color: #fff; border-radius: 26px;
+      padding: 48px; display: flex; align-items: center; justify-content: space-between;
+      gap: 28px; flex-wrap: wrap; position: relative; overflow: hidden;
     }
-    .admin-cta__title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .admin-cta__sub { font-size: 14px; color: rgba(255,255,255,0.6); }
+    .admin-cta::before {
+      content: ""; position: absolute; bottom: -40%; left: -5%;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(107,143,113,0.35), transparent 68%);
+    }
+    .admin-cta__text { position: relative; }
+    .admin-cta__title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .admin-cta__sub { font-size: 14.5px; color: rgba(255,255,255,0.62); line-height: 1.6; max-width: 460px; }
     .admin-cta__btn {
-      flex-shrink: 0; padding: 13px 24px; background: var(--sage);
-      color: #fff; border-radius: 12px; font-size: 14px; font-weight: 700;
+      position: relative; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 14px 28px; background: var(--sage); color: #fff;
+      border-radius: 99px; font-size: 15px; font-weight: 700; transition: background .18s, transform .18s;
     }
-    .admin-cta__btn:hover { background: var(--sage-dark); }
+    .admin-cta__btn:hover { background: var(--sage-dark); transform: translateY(-1px); }
 
-    /* ── Footer ── */
-    .footer { text-align: center; padding: 28px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--beige-dark); }
+    /* ─── Footer ───────────────────────────────────── */
+    .footer {
+      text-align: center; padding: 40px 32px;
+      font-size: 13px; color: var(--text-muted);
+      border-top: 1px solid var(--beige-dark);
+      display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;
+    }
+    .footer a { color: var(--sage-dark); font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
 
+    /* ─── Responsive ───────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero__inner { flex-direction: column-reverse; align-items: flex-start; gap: 44px; }
+      .hero__phones { width: 100%; }
+    }
     @media (max-width: 600px) {
-      .nav { padding: 12px 20px; }
-      .hero { padding: 60px 20px; }
-      .container { padding: 40px 20px; }
-      .soon-banner { padding: 32px 24px; }
+      .nav, .section-inner { padding-left: 20px; padding-right: 20px; }
+      .nav__back { display: none; }
+      .nav__cta { padding: 9px 18px; font-size: 13.5px; }
+      .hero { padding: 108px 0 64px; }
+      .hero__inner { padding: 0 20px; }
+      .section { padding: 60px 0; }
+      .hero__phones { gap: 14px; }
+      .hero__phones .phone-wrap:nth-child(2) { margin-top: 20px; }
+      .phone-wrap { width: 150px; }
+      .phone-frame { width: 150px; height: 314px; }
+      .phone-inner { transform: scale(0.441); }
+      .admin-cta { padding: 32px 26px; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <a href="/" class="nav__brand">
-      <img src="GYM.png" alt="" width="32" height="32" style="border-radius:8px;object-fit:contain">
-      Studio Gym 360
+  <!-- NAV -->
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="/" class="nav__brand" aria-label="Retour à l'accueil Studio Gym 360">
+      <img src="GYM.png" alt="">
+      <span class="nav__name">Studio Gym 360</span>
     </a>
-    <a href="/" class="nav__back">← Retour à la landing</a>
+    <div class="nav__right">
+      <a href="/" class="nav__back">← Retour à la landing</a>
+      <a href="/admin" class="nav__cta">Ouvrir l'admin</a>
+    </div>
   </nav>
 
-  <div class="hero">
-    <div class="hero__tag">Espace réservé aux coachs</div>
-    <h1 class="hero__title">Bienvenue dans<br><em>l'espace coach.</em></h1>
-    <p class="hero__sub">L'outil de gestion complet pour les coachs Studio Gym 360. Gérez vos membres, vos programmes et vos réservations au même endroit.</p>
-  </div>
+  <!-- HERO / EN STUDIO -->
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="hero__body">
+        <span class="hero__tag"><span class="dot"></span> Espace coach · Bientôt disponible</span>
+        <h1 class="hero__title">L'app qui gère tes membres.<br><em>Pas toi.</em></h1>
+        <p class="hero__sub">Créée par un coach, pour les coachs. Toute ta méthode structurée dans une seule application : programmes, suivi et communication au même endroit.</p>
+        <ul class="hero__features">
+          <li class="hero__feature">
+            <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Tableau de bord de tous tes membres, en un coup d'œil
+          </li>
+          <li class="hero__feature">
+            <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Programmes personnalisés en quelques clics
+          </li>
+          <li class="hero__feature">
+            <span class="hero__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Suivi des progrès de tes membres en temps réel
+          </li>
+        </ul>
+        <a href="/admin" class="hero__cta">
+          Accéder à l'espace admin
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
 
-  <div class="container">
-
-    <!-- Soon -->
-    <div class="soon-banner">
-      <div class="soon-banner__icon">🚧</div>
-      <div class="soon-banner__title">Cet espace est en cours de construction</div>
-      <div class="soon-banner__sub">L'interface complète de gestion pour les coachs arrive bientôt. En attendant, accède à ton espace admin actuel pour gérer les réservations et les créneaux.</div>
-      <a href="/admin" class="soon-banner__cta">Accéder à l'admin actuel →</a>
-    </div>
-
-    <!-- Ce qui arrive -->
-    <div class="section-label">Prochainement</div>
-    <h2 class="section-title">Ce que l'espace coach<br><em>va te permettre de faire.</em></h2>
-
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-card__icon">👥</div>
-        <div class="feature-card__title">Gestion des membres</div>
-        <div class="feature-card__desc">Visualise tous tes membres actifs, leur progression, leur historique et leurs informations de profil.</div>
-        <span class="feature-card__badge">Bientôt</span>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">📋</div>
-        <div class="feature-card__title">Création de programmes</div>
-        <div class="feature-card__desc">Crée et assigne des programmes d'entraînement personnalisés directement depuis l'interface coach.</div>
-        <span class="feature-card__badge">Bientôt</span>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">📊</div>
-        <div class="feature-card__title">Suivi des performances</div>
-        <div class="feature-card__desc">Accède aux données de progression de chaque membre : charges, pesées, régularité des séances.</div>
-        <span class="feature-card__badge">Bientôt</span>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">💬</div>
-        <div class="feature-card__title">Messagerie avec les membres</div>
-        <div class="feature-card__desc">Communique directement avec tes membres depuis l'interface coach. Envoie des ajustements et des encouragements.</div>
-        <span class="feature-card__badge">Bientôt</span>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">📅</div>
-        <div class="feature-card__title">Gestion des créneaux</div>
-        <div class="feature-card__desc">Planifie tes disponibilités pour les appels découverte et gère les réservations de tes membres.</div>
-        <span class="feature-card__badge">Disponible →</span>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">🎓</div>
-        <div class="feature-card__title">Espace Studio Work</div>
-        <div class="feature-card__desc">Publie des cours vidéo, des programmes et des ebooks accessibles à tes membres directement dans l'app.</div>
-        <span class="feature-card__badge">Bientôt</span>
+      <div class="hero__phones">
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="coach-dashboard.png" alt="Application coach Studio Gym 360 — tableau de bord des membres">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Tableau de bord coach</p>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-shell">
+                <div class="phone-screen">
+                  <img src="coach-login.png" alt="Application coach Studio Gym 360 — espace de connexion">
+                </div>
+                <div class="phone-notch" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-label">Espace de connexion</p>
+        </div>
       </div>
     </div>
+  </header>
 
-    <!-- Admin actuel -->
-    <div class="admin-cta">
-      <div>
-        <div class="admin-cta__title">🗓 Gérer les réservations maintenant</div>
-        <div class="admin-cta__sub">Accède à l'espace admin pour créer des créneaux, voir les réservations et gérer les membres.</div>
+  <!-- CE QUE L'ESPACE COACH PERMET -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">Prochainement</span>
+      <h2 class="section-title">Ce que l'espace coach<br><em>va te permettre de faire.</em></h2>
+      <p class="section-desc">Une plateforme complète pour piloter ton activité de coaching. La gestion des créneaux est déjà disponible dans l'admin — le reste arrive.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16 6.5a3 3 0 0 1 0 5.5M18 19c0-2.2-1-4-2.7-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+            <span class="feature-card__badge">Bientôt</span>
+          </div>
+          <div class="feature-card__title">Gestion des membres</div>
+          <div class="feature-card__desc">Visualise tous tes membres actifs, leur progression, leur historique et leurs informations de profil.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 8.5h8M8 12h8M8 15.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+            <span class="feature-card__badge">Bientôt</span>
+          </div>
+          <div class="feature-card__title">Création de programmes</div>
+          <div class="feature-card__desc">Crée et assigne des programmes d'entraînement personnalisés directement depuis l'interface coach.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="feature-card__badge">Bientôt</span>
+          </div>
+          <div class="feature-card__title">Suivi des performances</div>
+          <div class="feature-card__desc">Accède aux données de progression de chaque membre : charges, pesées, régularité des séances.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 14.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="feature-card__badge">Bientôt</span>
+          </div>
+          <div class="feature-card__title">Messagerie avec les membres</div>
+          <div class="feature-card__desc">Communique directement avec tes membres. Envoie tes ajustements et tes encouragements en un message.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+            <span class="feature-card__badge feature-card__badge--live">Disponible</span>
+          </div>
+          <div class="feature-card__title">Gestion des créneaux</div>
+          <div class="feature-card__desc">Planifie tes disponibilités pour les appels découverte et gère les réservations de tes membres.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__head">
+            <div class="feature-card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor"/></svg></div>
+            <span class="feature-card__badge">Bientôt</span>
+          </div>
+          <div class="feature-card__title">Espace Studio Work</div>
+          <div class="feature-card__desc">Publie des cours vidéo, des programmes et des ebooks accessibles à tes membres directement dans l'app.</div>
+        </div>
       </div>
-      <a href="/admin" class="admin-cta__btn">Ouvrir l'admin →</a>
     </div>
+  </section>
 
-  </div>
+  <!-- ADMIN CTA -->
+  <section class="section" style="padding-top:0">
+    <div class="section-inner">
+      <div class="admin-cta">
+        <div class="admin-cta__text">
+          <div class="admin-cta__title">Gère tes réservations dès maintenant</div>
+          <div class="admin-cta__sub">L'espace admin te permet déjà de créer des créneaux, de voir tes réservations et de suivre tes appels découverte.</div>
+        </div>
+        <a href="/admin" class="admin-cta__btn">
+          Ouvrir l'admin
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2026 Studio Gym 360 · Fribourg, Suisse</p>
+    <span>© 2026 Studio Gym 360 · Fribourg, Suisse</span>
+    <a href="/">← Retour à la landing</a>
   </footer>
 
 </body>
