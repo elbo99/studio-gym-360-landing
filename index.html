@@ -1127,8 +1127,10 @@
       /* ── Nav ── */
       .nav { padding: 0 16px; height: 56px; top: 28px; }
       body { padding-top: 84px; }
-      .nav__name { font-size: 14px; }
-      .nav__links { display: none; }
+      .nav__name { display: none; }
+      .nav__links { display: flex; gap: 0; }
+      .nav__link:not(.nav__link--coach) { display: none; }
+      .nav__link--coach { font-size: 12.5px; padding: 5px 13px; }
       .nav__cta-full { display: none; }
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
