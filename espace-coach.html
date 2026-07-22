@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Coach — Studio Gym 360</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #6b8f71; --sage-dark: #4a6b50; --sage-light: #eaf2eb;
+      --beige: #f0ede6; --beige-dark: #e0dbd1; --text: #1a1a1a;
+      --text-muted: #7a7166; --white: #fdfbf7;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--beige); color: var(--text); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid var(--beige-dark);
+      padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; }
+    .nav__back { font-size: 13px; font-weight: 600; color: var(--sage-dark); display: flex; align-items: center; gap: 6px; }
+    .nav__back:hover { text-decoration: underline; }
+
+    /* ── Hero coach ── */
+    .hero {
+      background: var(--text); color: var(--white);
+      padding: 80px 32px; text-align: center;
+    }
+    .hero__tag {
+      display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--sage); background: rgba(107,143,113,.15);
+      border-radius: 99px; padding: 6px 16px; margin-bottom: 24px;
+    }
+    .hero__title { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
+    .hero__title em { font-style: italic; color: var(--sage); }
+    .hero__sub { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Content ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
+
+    /* ── Soon banner ── */
+    .soon-banner {
+      background: var(--white); border-radius: 24px;
+      padding: 48px 40px; text-align: center; margin-bottom: 48px;
+      border: 2px dashed var(--beige-dark);
+    }
+    .soon-banner__icon { font-size: 48px; margin-bottom: 16px; }
+    .soon-banner__title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+    .soon-banner__sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 480px; margin: 0 auto 28px; }
+    .soon-banner__cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 24px; background: var(--text); color: #fff;
+      border-radius: 12px; font-size: 14px; font-weight: 700;
+    }
+    .soon-banner__cta:hover { background: #333; }
+
+    /* ── Features coming ── */
+    .section-label {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--sage); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; line-height: 1.2; margin-bottom: 40px; }
+    .section-title em { font-style: italic; color: var(--sage); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 64px; }
+    .feature-card {
+      background: var(--white); border-radius: 18px; padding: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .feature-card__icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--sage-light); display: flex; align-items: center;
+      justify-content: center; font-size: 22px;
+    }
+    .feature-card__title { font-size: 15px; font-weight: 700; }
+    .feature-card__desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .feature-card__badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 3px 10px; border-radius: 99px;
+      background: var(--sage-light); color: var(--sage-dark);
+    }
+
+    /* ── Admin CTA ── */
+    .admin-cta {
+      background: var(--text); color: #fff; border-radius: 24px;
+      padding: 40px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .admin-cta__title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .admin-cta__sub { font-size: 14px; color: rgba(255,255,255,0.6); }
+    .admin-cta__btn {
+      flex-shrink: 0; padding: 13px 24px; background: var(--sage);
+      color: #fff; border-radius: 12px; font-size: 14px; font-weight: 700;
+    }
+    .admin-cta__btn:hover { background: var(--sage-dark); }
+
+    /* ── Footer ── */
+    .footer { text-align: center; padding: 28px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--beige-dark); }
+
+    @media (max-width: 600px) {
+      .nav { padding: 12px 20px; }
+      .hero { padding: 60px 20px; }
+      .container { padding: 40px 20px; }
+      .soon-banner { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav__brand">
+      <img src="GYM.png" alt="" width="32" height="32" style="border-radius:8px;object-fit:contain">
+      Studio Gym 360
+    </a>
+    <a href="/" class="nav__back">← Retour à la landing</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero__tag">Espace réservé aux coachs</div>
+    <h1 class="hero__title">Bienvenue dans<br><em>l'espace coach.</em></h1>
+    <p class="hero__sub">L'outil de gestion complet pour les coachs Studio Gym 360. Gérez vos membres, vos programmes et vos réservations au même endroit.</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Soon -->
+    <div class="soon-banner">
+      <div class="soon-banner__icon">🚧</div>
+      <div class="soon-banner__title">Cet espace est en cours de construction</div>
+      <div class="soon-banner__sub">L'interface complète de gestion pour les coachs arrive bientôt. En attendant, accède à ton espace admin actuel pour gérer les réservations et les créneaux.</div>
+      <a href="/admin" class="soon-banner__cta">Accéder à l'admin actuel →</a>
+    </div>
+
+    <!-- Ce qui arrive -->
+    <div class="section-label">Prochainement</div>
+    <h2 class="section-title">Ce que l'espace coach<br><em>va te permettre de faire.</em></h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card__icon">👥</div>
+        <div class="feature-card__title">Gestion des membres</div>
+        <div class="feature-card__desc">Visualise tous tes membres actifs, leur progression, leur historique et leurs informations de profil.</div>
+        <span class="feature-card__badge">Bientôt</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📋</div>
+        <div class="feature-card__title">Création de programmes</div>
+        <div class="feature-card__desc">Crée et assigne des programmes d'entraînement personnalisés directement depuis l'interface coach.</div>
+        <span class="feature-card__badge">Bientôt</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📊</div>
+        <div class="feature-card__title">Suivi des performances</div>
+        <div class="feature-card__desc">Accède aux données de progression de chaque membre : charges, pesées, régularité des séances.</div>
+        <span class="feature-card__badge">Bientôt</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">💬</div>
+        <div class="feature-card__title">Messagerie avec les membres</div>
+        <div class="feature-card__desc">Communique directement avec tes membres depuis l'interface coach. Envoie des ajustements et des encouragements.</div>
+        <span class="feature-card__badge">Bientôt</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📅</div>
+        <div class="feature-card__title">Gestion des créneaux</div>
+        <div class="feature-card__desc">Planifie tes disponibilités pour les appels découverte et gère les réservations de tes membres.</div>
+        <span class="feature-card__badge">Disponible →</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🎓</div>
+        <div class="feature-card__title">Espace Studio Work</div>
+        <div class="feature-card__desc">Publie des cours vidéo, des programmes et des ebooks accessibles à tes membres directement dans l'app.</div>
+        <span class="feature-card__badge">Bientôt</span>
+      </div>
+    </div>
+
+    <!-- Admin actuel -->
+    <div class="admin-cta">
+      <div>
+        <div class="admin-cta__title">🗓 Gérer les réservations maintenant</div>
+        <div class="admin-cta__sub">Accède à l'espace admin pour créer des créneaux, voir les réservations et gérer les membres.</div>
+      </div>
+      <a href="/admin" class="admin-cta__btn">Ouvrir l'admin →</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Studio Gym 360 · Fribourg, Suisse</p>
+  </footer>
+
+</body>
+</html>

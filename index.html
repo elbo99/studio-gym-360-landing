@@ -330,6 +330,42 @@
       transition: color 0.18s;
     }
     .nav__link:hover { color: var(--text); }
+    .nav__link--coach {
+      color: var(--sage-dark);
+      font-weight: 600;
+      border: 1.5px solid var(--sage);
+      border-radius: 99px;
+      padding: 4px 12px;
+    }
+    .nav__link--coach:hover { background: var(--sage-light); color: var(--sage-dark); }
+
+    /* ─── Avantages app ──────────────────────────────── */
+    .avantages__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .avantage-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .avantage-item__icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--sage-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avantage-item__title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .avantage-item__desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
 
     /* ─── 3. Hero ────────────────────────────────────── */
     .hero {
@@ -1260,12 +1296,6 @@
 </head>
 <body>
 
-  <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois offert. J'en profite">
-    <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois offert</strong></span>
-    <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-  </a>
 
   <!-- ② NAV ──────────────────────────────────────── -->
   <nav class="nav" aria-label="Navigation principale">
@@ -1279,6 +1309,7 @@
       <a href="#formules" class="nav__link">Formules</a>
       <a href="#coach" class="nav__link">Le coach</a>
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
+      <a href="/espace-coach" class="nav__link nav__link--coach" target="_blank" rel="noopener noreferrer">Espace Coach</a>
     </nav>
     <button onclick="openBook()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
     <button onclick="openBook()" class="nav__cta nav__cta-short">Réserver</button>
@@ -1407,7 +1438,92 @@
 
   <hr class="section-divider">
 
-  <!-- ⑥ L'APPLICATION ─────────────────────────────── -->
+  <!-- ⑥ PROCESSUS ────────────────────────────────── -->
+  <section aria-labelledby="process-title">
+    <div class="section-inner">
+      <span class="section-label" data-reveal>Le processus</span>
+      <h2 class="h2" style="margin-bottom:40px" id="process-title" data-reveal>
+        Démarrer,<br><em>c'est simple.</em>
+      </h2>
+      <div class="process__grid">
+        <div class="process__card" data-reveal data-delay="1">
+          <div class="process__num">01</div>
+          <h3>Réserve ton appel découverte</h3>
+          <p>Discute avec Guillaume de tes objectifs sportifs. Un échange de 30 min, gratuit, sans engagement, pour partir sur de bonnes bases.</p>
+        </div>
+        <div class="process__card" data-reveal data-delay="2">
+          <div class="process__num">02</div>
+          <h3>Inscris-toi sur la plateforme</h3>
+          <p>Crée ton espace membre sur Studio Gym 360. Tout est centralisé : tes séances, ton suivi, ta messagerie avec le coach.</p>
+        </div>
+        <div class="process__card" data-reveal data-delay="3">
+          <div class="process__num">03</div>
+          <h3>Reçois ton programme et commence !</h3>
+          <p>Guillaume prépare ton programme personnalisé. Tu n'as plus qu'à ouvrir l'app et te mettre au travail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑦ AVANTAGES DE L'APP ───────────────────────── -->
+  <section aria-labelledby="avantages-title">
+    <div class="section-inner">
+      <span class="section-label" data-reveal>L'application</span>
+      <h2 class="h2" style="margin-bottom:40px" id="avantages-title" data-reveal>
+        Tout ce que l'app<br><em>met à ta disposition.</em>
+      </h2>
+      <div class="avantages__grid">
+        <div class="avantage-item" data-reveal data-delay="1">
+          <div class="avantage-item__icon">📊</div>
+          <div>
+            <div class="avantage-item__title">Suivi de tes performances sportives</div>
+            <div class="avantage-item__desc">Charges, répétitions, évolution — tout est enregistré pour mesurer ta progression semaine après semaine.</div>
+          </div>
+        </div>
+        <div class="avantage-item" data-reveal data-delay="2">
+          <div class="avantage-item__icon">📅</div>
+          <div>
+            <div class="avantage-item__title">Programme adapté à ton planning</div>
+            <div class="avantage-item__desc">Ton programme est conçu selon tes disponibilités réelles et tes objectifs. Pas de plan générique.</div>
+          </div>
+        </div>
+        <div class="avantage-item" data-reveal data-delay="3">
+          <div class="avantage-item__icon">🍎</div>
+          <div>
+            <div class="avantage-item__title">Suivi de la balance calorique</div>
+            <div class="avantage-item__desc">Suis tes apports nutritionnels au quotidien pour rester aligné avec tes objectifs de poids ou de performance.</div>
+          </div>
+        </div>
+        <div class="avantage-item" data-reveal data-delay="1">
+          <div class="avantage-item__icon">⚖️</div>
+          <div>
+            <div class="avantage-item__title">Suivi des pesées</div>
+            <div class="avantage-item__desc">Enregistre tes pesées régulières et visualise l'évolution de ton poids sur une courbe claire.</div>
+          </div>
+        </div>
+        <div class="avantage-item" data-reveal data-delay="2">
+          <div class="avantage-item__icon">🎓</div>
+          <div>
+            <div class="avantage-item__title">Espace Studio Work</div>
+            <div class="avantage-item__desc">Cours vidéo, programmes d'entraînement et ebooks sur la nutrition — un espace de ressources qui grandit avec toi.</div>
+          </div>
+        </div>
+        <div class="avantage-item" data-reveal data-delay="3">
+          <div class="avantage-item__icon">💬</div>
+          <div>
+            <div class="avantage-item__title">Messagerie intégrée &amp; notifications</div>
+            <div class="avantage-item__desc">Contacte ton coach directement depuis l'app. Reçois ses retours et ajustements par message ou par mail.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑧ L'APPLICATION (carousel) ──────────────────── -->
   <section aria-labelledby="app-title">
     <div class="section-inner">
       <span class="section-label" data-reveal>L'application</span>
@@ -1465,36 +1581,7 @@
 
   <hr class="section-divider">
 
-  <!-- ⑦ PROCESSUS ────────────────────────────────── -->
-  <section aria-labelledby="process-title">
-    <div class="section-inner">
-      <span class="section-label" data-reveal>Le processus</span>
-      <h2 class="h2" style="margin-bottom:40px" id="process-title" data-reveal>
-        Simple à démarrer.<br><em>Sérieux dans le suivi.</em>
-      </h2>
-      <div class="process__grid" data-carousel>
-        <div class="process__card" data-reveal data-delay="1">
-          <div class="process__num">01</div>
-          <h3>Tu partages ton univers</h3>
-          <p>Tes objectifs, tes contraintes, ton quotidien. Pas un formulaire générique, une vraie base pour que ton coach construise quelque chose qui te ressemble.</p>
-        </div>
-        <div class="process__card" data-reveal data-delay="2">
-          <div class="process__num">02</div>
-          <h3>Ton programme t'attend</h3>
-          <p>Dès la semaine suivante, tout est dans l'app. Tu sais quoi faire, pourquoi, et comment. Plus d'hésitation avant de t'entraîner.</p>
-        </div>
-        <div class="process__card" data-reveal data-delay="3">
-          <div class="process__num">03</div>
-          <h3>On ne te lâche pas</h3>
-          <p>Ton coach suit chaque séance. Il voit ce qui fonctionne, ce qui coince. Il ajuste en fonction de tes besoins.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="section-divider">
-
-  <!-- ⑧ BÉNÉFICES ────────────────────────────────── -->
+  <!-- ⑨ BÉNÉFICES ────────────────────────────────── -->
   <section aria-labelledby="benefits-title">
     <div class="section-inner">
       <span class="section-label" data-reveal>Ce que tu obtiens</span>
