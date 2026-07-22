@@ -46,8 +46,13 @@
     .nav__brand img { width: 38px; height: 38px; border-radius: 10px; object-fit: contain; flex-shrink: 0; }
     .nav__name { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
     .nav__right { display: flex; align-items: center; gap: 20px; }
-    .nav__back { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color .18s; white-space: nowrap; }
+    .nav__back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 500; color: var(--text-muted);
+      transition: color .18s; white-space: nowrap;
+    }
     .nav__back:hover { color: var(--text); }
+    .nav__back-short { display: none; }
     .nav__cta {
       background: var(--text); color: var(--white);
       padding: 10px 22px; border-radius: 99px; font-size: 14px; font-weight: 600;
@@ -179,7 +184,10 @@
     }
     @media (max-width: 600px) {
       .nav, .section-inner { padding-left: 20px; padding-right: 20px; }
-      .nav__back { display: none; }
+      .nav__name { display: none; }
+      .nav__back-full { display: none; }
+      .nav__back-short { display: inline; }
+      .nav__back { font-size: 13.5px; font-weight: 600; color: var(--sage-dark); }
       .nav__cta { padding: 9px 18px; font-size: 13.5px; }
       .hero { padding: 108px 0 64px; }
       .hero__inner { padding: 0 20px; }
@@ -202,7 +210,7 @@
       <span class="nav__name">Studio Gym 360</span>
     </a>
     <div class="nav__right">
-      <a href="/" class="nav__back">← Retour à la landing</a>
+      <a href="/" class="nav__back"><span class="nav__back-full">← Retour à la landing</span><span class="nav__back-short">← Accueil</span></a>
       <a href="/admin" class="nav__cta">Ouvrir l'admin</a>
     </div>
   </nav>
