@@ -1008,6 +1008,89 @@
       line-height: 1.65;
     }
 
+    /* ─── Bandeau d'ambiance (full-bleed) ────────────── */
+    .ambiance {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      min-height: 460px;
+    }
+    .ambiance__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+    .ambiance__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(20,20,20,0.85) 0%, rgba(20,20,20,0.55) 45%, rgba(20,20,20,0.15) 100%);
+    }
+    .ambiance__content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 88px 32px;
+      color: #fff;
+    }
+    .ambiance__label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9fc4a4;
+      margin-bottom: 16px;
+    }
+    .ambiance__title {
+      font-size: clamp(28px, 4.6vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 640px;
+      margin-bottom: 14px;
+    }
+    .ambiance__title em { font-style: italic; color: #9fc4a4; }
+    .ambiance__text {
+      font-size: 17px;
+      color: rgba(255,255,255,0.72);
+      max-width: 440px;
+      line-height: 1.6;
+    }
+
+    /* ─── Galerie ambiance ───────────────────────────── */
+    .gallery {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px 8px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+    @media (max-width: 720px) {
+      .ambiance { min-height: 400px; }
+      .ambiance__content { padding: 64px 20px; }
+      .ambiance__overlay {
+        background: linear-gradient(180deg, rgba(20,20,20,0.55) 0%, rgba(20,20,20,0.72) 100%);
+      }
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 20px 8px;
+      }
+    }
+
     /* ─── 13. CTA final ──────────────────────────────── */
     .cta-final {
       background: var(--text);
@@ -1697,7 +1780,16 @@
     </div>
   </section>
 
-  <hr class="section-divider">
+  <!-- BANDEAU AMBIANCE ─────────────────────────────── -->
+  <section class="ambiance" aria-label="L'expérience Studio Gym">
+    <img class="ambiance__bg" src="ambiance-band.jpg" alt="Séance d'entraînement au Studio Gym" aria-hidden="true">
+    <div class="ambiance__overlay" aria-hidden="true"></div>
+    <div class="ambiance__content">
+      <span class="ambiance__label" data-reveal>L'expérience Studio Gym</span>
+      <h2 class="ambiance__title" data-reveal>Un vrai studio.<br><em>Un vrai coach. Où que vous soyez.</em></h2>
+      <p class="ambiance__text" data-reveal data-delay="1">La rigueur et l'énergie du studio, transmises jusque dans votre poche.</p>
+    </div>
+  </section>
 
   <!-- ⑨ TÉMOIGNAGES ──────────────────────────────── -->
   <section aria-labelledby="testimonials-title">
@@ -1846,7 +1938,7 @@
       <h2 class="h2" style="margin-bottom:32px" id="coach-title" data-reveal>Guillaume, votre coach.</h2>
       <div class="coach__card" data-reveal="scale" data-delay="1">
         <div class="coach__photo">
-          <img src="coach.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;transform:scale(1.4);transform-origin:center 35%">
+          <img src="coach-portrait.jpg" alt="Guillaume Libert, coach personnel Studio Gym 360" style="width:100%;height:100%;object-fit:cover;object-position:center 22%">
         </div>
         <div class="coach__body">
           <blockquote class="coach__quote">
@@ -1856,6 +1948,22 @@
           <div class="coach__role">Coach personnel · Fondateur de Studio Gym</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- GALERIE AMBIANCE ─────────────────────────────── -->
+  <section aria-labelledby="gallery-title">
+    <div class="section-inner" style="padding-bottom:36px">
+      <span class="section-label" data-reveal>En images</span>
+      <h2 class="h2" id="gallery-title" data-reveal>L'ambiance <em>Studio Gym.</em></h2>
+    </div>
+    <div class="gallery">
+      <img src="ambiance-1.jpg" alt="Moment d'énergie collective au Studio Gym" data-reveal data-delay="1" loading="lazy">
+      <img src="ambiance-2.jpg" alt="Entraînement force au Studio Gym" data-reveal data-delay="2" loading="lazy">
+      <img src="ambiance-3.jpg" alt="Séance dans le studio baigné de lumière" data-reveal data-delay="3" loading="lazy">
+      <img src="ambiance-4.jpg" alt="Cours en groupe au Studio Gym" data-reveal data-delay="1" loading="lazy">
     </div>
   </section>
 
