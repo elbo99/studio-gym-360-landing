@@ -602,27 +602,26 @@
     .app__phones .phone-wrap:nth-child(2) { margin-top: -14px; }
 
     /* ─── 7. Processus ───────────────────────────────── */
-    /* Bande sombre pleine largeur */
-    .process-section { background: var(--text); }
+    /* Même fond que le reste de la page */
     .process-inner {
       max-width: 920px;
       margin: 0 auto;
-      padding: 88px 32px;
+      padding: 72px 32px;
       text-align: center;
     }
-    .process-label { color: var(--sage); margin-bottom: 16px; }
+    .process-label { color: var(--sage-dark); margin-bottom: 16px; }
     .process-title {
       font-size: clamp(28px, 4.6vw, 42px);
       font-weight: 800;
       letter-spacing: -0.025em;
       line-height: 1.14;
-      color: var(--white);
+      color: var(--text);
       margin-bottom: 14px;
     }
-    .process-title em { font-style: italic; color: var(--sage); }
+    .process-title em { font-style: italic; color: var(--sage-dark); }
     .process-sub {
       font-size: 16px;
-      color: rgba(255,255,255,0.6);
+      color: var(--text-muted);
       max-width: 420px;
       margin: 0 auto 56px;
       line-height: 1.6;
@@ -631,20 +630,18 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 28px;
-      position: relative;
     }
-    /* Ligne de liaison entre les numéros */
-    .process__steps::before {
+    .process__step { position: relative; text-align: center; }
+    /* Connecteur : segment entre deux numéros, jamais derrière un chiffre */
+    .process__step:not(:last-child)::after {
       content: "";
       position: absolute;
-      top: 31px;
-      left: 16.6%;
-      right: 16.6%;
+      top: 30px;
+      left: calc(50% + 42px);
+      width: calc(100% - 56px);
       height: 2px;
-      z-index: 0;
-      background: linear-gradient(90deg, transparent, rgba(107,143,113,0.55) 12%, rgba(107,143,113,0.55) 88%, transparent);
+      background: repeating-linear-gradient(90deg, rgba(107,143,113,0.55) 0 7px, transparent 7px 13px);
     }
-    .process__step { position: relative; z-index: 1; text-align: center; }
     .process__node {
       width: 62px;
       height: 62px;
@@ -657,43 +654,45 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 22px;
-      box-shadow: 0 0 0 9px var(--text), 0 10px 22px rgba(107,143,113,0.4);
+      box-shadow: 0 8px 18px rgba(107,143,113,0.28);
     }
     .process__body h3 {
       font-size: 17px;
       font-weight: 700;
-      color: var(--white);
+      color: var(--text);
       margin-bottom: 9px;
     }
     .process__body p {
       font-size: 14px;
-      color: rgba(255,255,255,0.62);
+      color: var(--text-muted);
       line-height: 1.6;
     }
     @media (max-width: 720px) {
-      .process-inner { padding: 60px 24px; }
+      .process-inner { padding: 58px 24px; }
       .process-sub { margin-bottom: 40px; }
       .process__steps {
-        grid-template-columns: 62px 1fr;
-        gap: 0 20px;
-      }
-      .process__steps::before {
-        top: 31px;
-        bottom: 42px;
-        left: 30px;
-        right: auto;
-        width: 2px;
-        height: auto;
-        background: linear-gradient(180deg, rgba(107,143,113,0.55), rgba(107,143,113,0.15));
+        display: flex;
+        flex-direction: column;
+        gap: 0;
       }
       .process__step {
-        display: contents;
+        display: grid;
+        grid-template-columns: 62px 1fr;
+        column-gap: 20px;
         text-align: left;
+        padding-bottom: 34px;
       }
-      .process__node { margin: 0 0 40px; }
-      .process__body { text-align: left; padding-bottom: 40px; }
-      .process__step:last-child .process__node,
-      .process__step:last-child .process__body { padding-bottom: 0; margin-bottom: 0; }
+      .process__step:last-child { padding-bottom: 0; }
+      .process__node { margin: 0; align-self: start; }
+      /* Connecteur vertical entre deux numéros */
+      .process__step:not(:last-child)::after {
+        top: 70px;
+        left: 30px;
+        bottom: 8px;
+        width: 2px;
+        height: auto;
+        background: repeating-linear-gradient(180deg, rgba(107,143,113,0.55) 0 7px, transparent 7px 13px);
+      }
     }
 
     /* ─── 8. Bénéfices ───────────────────────────────── */
@@ -1504,6 +1503,8 @@
     </div>
   </section>
 
+  <hr class="section-divider">
+
   <!-- ⑥ PROCESSUS ────────────────────────────────── -->
   <section class="process-section" aria-labelledby="process-title">
     <div class="process-inner">
@@ -1537,6 +1538,8 @@
       </div>
     </div>
   </section>
+
+  <hr class="section-divider">
 
   <!-- ⑦ AVANTAGES DE L'APP ───────────────────────── -->
   <section aria-labelledby="avantages-title">
