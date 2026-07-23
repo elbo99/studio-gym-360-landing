@@ -342,31 +342,31 @@
     /* ─── Avantages app ──────────────────────────────── */
     .avantages__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
     }
     .avantage-item {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       align-items: flex-start;
       background: var(--white);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 15px 16px;
     }
     .avantage-item__icon {
       flex-shrink: 0;
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: var(--sage-light);
-      border-radius: 10px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--sage-dark);
     }
-    .avantage-item__icon svg { width: 20px; height: 20px; }
-    .avantage-item__title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .avantage-item__desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+    .avantage-item__icon svg { width: 18px; height: 18px; }
+    .avantage-item__title { font-size: 13.5px; font-weight: 700; margin-bottom: 3px; }
+    .avantage-item__desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
 
     /* ─── 3. Hero ────────────────────────────────────── */
     .hero {
@@ -1480,8 +1480,8 @@
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
       <a href="/espace-coach" class="nav__link nav__link--coach">Espace Coach</a>
     </nav>
-    <button onclick="openBook()" class="nav__cta nav__cta-full">Réserver mon appel découverte</button>
-    <button onclick="openBook()" class="nav__cta nav__cta-short">Réserver</button>
+    <button onclick="openBook()" class="nav__cta nav__cta-full">Mon appel découverte</button>
+    <button onclick="openBook()" class="nav__cta nav__cta-short">Mon appel</button>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1642,7 +1642,7 @@
   <section aria-labelledby="avantages-title">
     <div class="section-inner">
       <span class="section-label" data-reveal>Fonctionnalités</span>
-      <h2 class="h2" style="margin-bottom:40px" id="avantages-title" data-reveal>
+      <h2 class="h2" style="margin-bottom:28px" id="avantages-title" data-reveal>
         Tout ce que l'app<br><em>met à votre disposition.</em>
       </h2>
       <div class="avantages__grid">
