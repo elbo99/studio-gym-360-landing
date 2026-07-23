@@ -1062,6 +1062,14 @@
       max-width: 440px;
       line-height: 1.6;
     }
+    /* Variante texte centré (rythme différent) */
+    .ambiance--center { text-align: center; }
+    .ambiance--center .ambiance__overlay {
+      background: linear-gradient(180deg, rgba(20,20,20,0.72), rgba(20,20,20,0.55) 50%, rgba(20,20,20,0.72));
+    }
+    .ambiance--center .ambiance__content { max-width: 720px; }
+    .ambiance--center .ambiance__title { max-width: none; }
+    .ambiance--center .ambiance__text { max-width: 520px; margin: 0 auto; }
 
     /* ─── Galerie ambiance ───────────────────────────── */
     .gallery {
@@ -1473,7 +1481,7 @@
   <!-- ③ HERO ─────────────────────────────────────── -->
   <header>
     <div class="hero">
-      <img class="hero__bg" src="hero.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" src="hero-studio.jpg" alt="" aria-hidden="true">
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -1678,7 +1686,16 @@
     </div>
   </section>
 
-  <hr class="section-divider">
+  <!-- BANDEAU AMBIANCE — coaching humain ────────────── -->
+  <section class="ambiance ambiance--center" aria-label="Un accompagnement humain">
+    <img class="ambiance__bg" src="ambiance-coach.jpg" alt="Guillaume accompagne une cliente pendant sa séance" aria-hidden="true">
+    <div class="ambiance__overlay" aria-hidden="true"></div>
+    <div class="ambiance__content">
+      <span class="ambiance__label" data-reveal>Un accompagnement humain</span>
+      <h2 class="ambiance__title" data-reveal>Un coach qui vous pousse.<br><em>Vraiment.</em></h2>
+      <p class="ambiance__text" data-reveal data-delay="1">Derrière l'app, une vraie personne qui suit vos progrès et ajuste votre plan, séance après séance.</p>
+    </div>
+  </section>
 
   <!-- ⑧ L'APPLICATION (carousel) ──────────────────── -->
   <section aria-labelledby="app-title">
