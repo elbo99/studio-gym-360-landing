@@ -382,7 +382,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 40%;
+      object-position: center 42%;
     }
     .hero__overlay {
       position: absolute;
@@ -1072,20 +1072,34 @@
     .ambiance--center .ambiance__text { max-width: 520px; margin: 0 auto; }
 
     /* ─── Galerie ambiance ───────────────────────────── */
-    .gallery {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 32px 8px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+    .marquee {
+      overflow: hidden;
+      padding: 2px 0 8px;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     }
-    .gallery img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
+    .marquee__track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: marquee-move 60s linear infinite;
+    }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__track img {
+      flex: 0 0 auto;
+      width: 240px;
+      height: 320px;
       object-fit: cover;
       border-radius: 16px;
       display: block;
+    }
+    @keyframes marquee-move {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track { animation: none; }
+      .marquee { overflow-x: auto; }
     }
     @media (max-width: 720px) {
       .ambiance { min-height: 400px; }
@@ -1093,10 +1107,8 @@
       .ambiance__overlay {
         background: linear-gradient(180deg, rgba(20,20,20,0.55) 0%, rgba(20,20,20,0.72) 100%);
       }
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 0 20px 8px;
-      }
+      .marquee__track { gap: 10px; animation-duration: 42s; }
+      .marquee__track img { width: 170px; height: 226px; }
     }
 
     /* ─── 13. CTA final ──────────────────────────────── */
@@ -1294,7 +1306,7 @@
       /* ── Hero ── */
       .hero { min-height: calc(115svh - 88px); align-items: flex-start; }
       .hero__content { padding-top: 48px; }
-      .hero__bg { object-position: center 40%; }
+      .hero__bg { object-position: center 45%; }
       .hero__content { padding: 28px 20px 28px; max-width: 100%; display: flex; flex-direction: column; align-self: stretch; }
       .hero__region { font-size: 9px; letter-spacing: 0.1em; margin-bottom: 14px; }
       .hero__title {
@@ -1487,7 +1499,7 @@
   <!-- ③ HERO ─────────────────────────────────────── -->
   <header>
     <div class="hero">
-      <img class="hero__bg" src="hero-studio.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" src="hero-studio-4.jpg" alt="" aria-hidden="true">
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -1982,11 +1994,27 @@
       <span class="section-label" data-reveal>En images</span>
       <h2 class="h2" id="gallery-title" data-reveal>L'ambiance <em>Studio Gym.</em></h2>
     </div>
-    <div class="gallery">
-      <img src="ambiance-1.jpg" alt="Moment d'énergie collective au Studio Gym" data-reveal data-delay="1" loading="lazy">
-      <img src="ambiance-2.jpg" alt="Entraînement force au Studio Gym" data-reveal data-delay="2" loading="lazy">
-      <img src="ambiance-3.jpg" alt="Séance dans le studio baigné de lumière" data-reveal data-delay="3" loading="lazy">
-      <img src="ambiance-4.jpg" alt="Cours en groupe au Studio Gym" data-reveal data-delay="1" loading="lazy">
+    <div class="marquee">
+      <div class="marquee__track">
+        <!-- Série 1 -->
+        <img src="ambiance-1.jpg" alt="Moment d'énergie collective au Studio Gym">
+        <img src="ambiance-7.jpg" alt="Séance de boxe au Studio Gym">
+        <img src="ambiance-2.jpg" alt="Entraînement force au Studio Gym">
+        <img src="ambiance-5.jpg" alt="Séance au Studio Gym">
+        <img src="ambiance-3.jpg" alt="Séance dans le studio baigné de lumière">
+        <img src="ambiance-6.jpg" alt="Moment d'échange pendant une séance">
+        <img src="ambiance-4.jpg" alt="Cours en groupe au Studio Gym">
+        <img src="ambiance-8.jpg" alt="Récupération après l'effort au Studio Gym">
+        <!-- Série 2 (duplicata pour la boucle) -->
+        <img src="ambiance-1.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-7.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-2.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-5.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-3.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-6.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-4.jpg" alt="" aria-hidden="true">
+        <img src="ambiance-8.jpg" alt="" aria-hidden="true">
+      </div>
     </div>
   </section>
 
