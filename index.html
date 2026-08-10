@@ -374,6 +374,17 @@
       height: 100%;
       object-fit: cover;
       object-position: center 42%;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.4s ease-in-out, transform 5s ease-out;
+    }
+    .hero__bg.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__bg { transition: none; }
+      .hero__bg:not(.is-active) { display: none; }
     }
     .hero__overlay {
       position: absolute;
@@ -1509,7 +1520,9 @@
   <!-- ③ HERO ─────────────────────────────────────── -->
   <header>
     <div class="hero">
-      <img class="hero__bg" src="hero-studio-4.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg is-active" src="hero-studio-4.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" src="hero-studio-2.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" src="ambiance-band.jpg" alt="" aria-hidden="true">
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -2330,6 +2343,20 @@
 
   <script>
     if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+
+    // Hero — fondu enchaîné entre les photos de fond (toutes les 3 s)
+    (function () {
+      var bgs = document.querySelectorAll('.hero__bg');
+      if (bgs.length < 2) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var i = 0;
+      setInterval(function () {
+        bgs[i].classList.remove('is-active');
+        i = (i + 1) % bgs.length;
+        bgs[i].classList.add('is-active');
+      }, 3000);
+    })();
+
     // Swipe dots — générés automatiquement pour chaque carousel [data-carousel]
     (function () {
       if (window.matchMedia('(max-width: 720px)').matches) {
