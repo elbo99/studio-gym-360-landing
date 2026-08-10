@@ -113,60 +113,49 @@
     .btn-sage:hover { background: var(--sage-dark); }
 
     /* ─── Phone mockup ───────────────────────────────── */
-    .phone-wrap {
+    /* ─── Maquettes app (mockups) ────────────────────── */
+    .mock {
       flex: none;
-      width: 210px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .phone-frame {
-      width: 210px;
-      height: 439px;
-      overflow: hidden;
-      filter: drop-shadow(0 18px 28px rgba(42,42,42,0.16));
-    }
-    .phone-inner {
-      width: 340px;
-      transform: scale(0.6176);
-      transform-origin: top left;
-    }
-    .phone-shell {
+    .mock__device {
       position: relative;
-      background: #1a1a1a;
-      border-radius: 54px;
-      padding: 11px;
+      width: 210px;
+      aspect-ratio: 9 / 19.5;
+      background: #0e0e0e;
+      border-radius: 40px;
+      padding: 9px;
+      box-shadow: 0 26px 46px -14px rgba(26,26,26,0.42), 0 0 0 1px rgba(0,0,0,0.06);
     }
-    .phone-screen {
-      position: relative;
-      border-radius: 44px;
-      overflow: hidden;
-      aspect-ratio: 9/19.5;
-      background: #e9e6df;
-    }
-    .phone-screen img {
-      position: absolute;
-      inset: 0;
+    .mock__screen {
       width: 100%;
       height: 100%;
+      border-radius: 32px;
       object-fit: cover;
       object-position: top center;
+      display: block;
+      background: #e9e6df;
     }
-    .phone-notch {
+    .mock__island {
       position: absolute;
       top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      width: 104px;
-      height: 28px;
-      background: #1a1a1a;
+      width: 76px;
+      height: 22px;
+      background: #000;
       border-radius: 99px;
       z-index: 2;
       pointer-events: none;
     }
-    .phone-label {
-      text-align: center;
+    .mock__label {
+      margin-top: 16px;
       font-size: 13px;
       font-weight: 600;
       color: var(--text);
-      margin-top: 14px;
+      text-align: center;
     }
 
     /* ─── Placeholder image ──────────────────────────── */
@@ -184,15 +173,17 @@
 
     /* ─── Checkmark icon ─────────────────────────────── */
     .check-icon {
-      width: 20px;
-      height: 20px;
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
-      background: var(--sage-light);
+      background: var(--sage);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top: 1px;
     }
+    .check-icon svg path { stroke: #fff; }
 
     /* ─── Reveal animation ───────────────────────────── */
     @media (prefers-reduced-motion: no-preference) {
@@ -387,7 +378,7 @@
     .hero__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.35) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.38) 50%, rgba(0,0,0,0.2) 100%);
     }
     .hero__content {
       position: relative;
@@ -599,7 +590,7 @@
       gap: 24px;
       flex-wrap: wrap;
     }
-    .app__phones .phone-wrap:nth-child(2) { margin-top: -14px; }
+    .app__phones .mock:nth-child(2) { margin-top: -18px; }
 
     /* ─── 7. Processus ───────────────────────────────── */
     /* Même fond que le reste de la page */
@@ -809,107 +800,125 @@
     .pricing__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 18px;
+      align-items: stretch;
     }
     .pricing-card {
+      position: relative;
       background: var(--white);
-      border-radius: 20px;
-      padding: 36px 30px;
-      border: 2px solid transparent;
+      border-radius: 24px;
+      padding: 32px 28px;
+      border: 1px solid var(--beige-dark);
       display: flex;
       flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .pricing-card--active { border-color: var(--text); }
+    .pricing-card--active {
+      border-color: var(--sage);
+      background: linear-gradient(180deg, rgba(107,143,113,0.1), rgba(255,255,255,0) 26%), var(--white);
+      box-shadow: 0 20px 46px -22px rgba(107,143,113,0.5);
+    }
     .pricing-card__badge {
       align-self: flex-start;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 5px 13px;
+      padding: 6px 14px;
       border-radius: 99px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .pricing-card__badge--available {
-      background: var(--text);
-      color: var(--white);
+      background: var(--sage);
+      color: #fff;
     }
     .pricing-card__badge--soon {
-      background: var(--beige-dark);
+      background: var(--beige);
+      color: var(--text-muted);
+    }
+    .pricing-card__name {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .pricing-card__price {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .pricing-card__price sup {
+      font-size: 17px;
+      font-weight: 700;
+      vertical-align: super;
+      color: var(--sage-dark);
+      margin-right: 2px;
+    }
+    .pricing-card__price span {
+      font-size: 15px;
+      font-weight: 500;
       color: var(--text-muted);
     }
     .pricing-card__offer {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       font-size: 12px;
       font-weight: 700;
       color: var(--sage-dark);
-      background: var(--sage-light);
+      background: var(--white);
+      border: 1px solid rgba(107,143,113,0.35);
       border-radius: 99px;
-      padding: 4px 12px;
-      margin-top: 6px;
+      padding: 5px 13px;
     }
-    .pricing-card__name {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .pricing-card__price {
-      font-size: 46px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin-bottom: 6px;
-      line-height: 1;
-    }
-    .pricing-card__price sup {
-      font-size: 20px;
-      font-weight: 700;
-      vertical-align: super;
-    }
-    .pricing-card__price span {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-muted);
+    .pricing-card__offer::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
     }
     .pricing-card__desc {
       font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 26px;
+      margin: 16px 0 24px;
     }
     .pricing-card__features {
       flex: 1;
       margin-bottom: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
     .pricing-card__feature {
       font-size: 14px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--beige);
+      line-height: 1.4;
+      padding: 6px 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 11px;
     }
-    .pricing-card__feature:last-child { border-bottom: none; }
     .pricing-card__cta {
       display: block;
       text-align: center;
-      background: var(--text);
-      color: var(--white);
-      padding: 14px;
+      background: var(--sage);
+      color: #fff;
+      padding: 15px;
       border-radius: 99px;
       font-size: 15px;
       font-weight: 700;
-      transition: background 0.18s;
+      transition: background 0.18s, transform 0.18s;
     }
-    .pricing-card__cta:hover { background: #333; }
+    .pricing-card__cta:hover { background: var(--sage-dark); transform: translateY(-1px); }
     .pricing-card__cta--disabled {
-      background: var(--beige-dark);
+      background: var(--beige);
       color: var(--text-muted);
       cursor: default;
     }
-    .pricing-card__cta--disabled:hover { background: var(--beige-dark); }
+    .pricing-card__cta--disabled:hover { background: var(--beige); transform: none; }
 
     /* ─── 11. En studio ──────────────────────────────── */
     .studio__inner {
@@ -1404,30 +1413,31 @@
       .solution__ctas { flex-direction: column; }
       .solution__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
 
-      /* ── App phones ── */
-      .app__phones .phone-wrap:nth-child(2) { margin-top: 0; }
+      /* ── App mockups — carousel « peek » fluide ── */
       .app__phones {
         display: flex;
         flex-wrap: nowrap;
+        justify-content: flex-start;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         overscroll-behavior-x: contain;
         -webkit-overflow-scrolling: touch;
-        gap: 0;
+        gap: 16px;
         margin: 0 -20px;
-        padding: 8px 0 16px;
+        padding: 10px 15vw 18px;
         scrollbar-width: none;
         align-items: flex-start;
       }
       .app__phones::-webkit-scrollbar { display: none; }
-      .app__phones .phone-wrap {
-        flex: 0 0 100vw;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      .app__phones .mock,
+      .app__phones .mock:nth-child(2) {
+        flex: 0 0 70vw;
+        max-width: 262px;
+        scroll-snap-align: center;
+        margin-top: 0;
       }
+      .app__phones .mock__device { width: 100%; }
 
       /* ── Studio phones ── */
       .studio__inner { flex-direction: column; gap: 28px; align-items: stretch; }
@@ -1510,7 +1520,7 @@
         </h1>
         <p class="hero__subtitle">Votre application mobile de coaching privé et personnalisé. Le sport s'adapte à votre quotidien.</p>
         <div class="hero__ctas">
-          <button onclick="openBook()" class="hero__cta-primary">Réserver mon appel découverte</button>
+          <button onclick="openBook()" class="hero__cta-primary">Découvrez la méthode Studio Gym</button>
           <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="hero__cta-secondary">Accéder à l'app →</a>
         </div>
         <p style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:10px;">Sans engagement · Appel gratuit de 30 min</p>
@@ -1726,46 +1736,28 @@
         Vos séances, vos performances, votre suivi. Tout est centralisé et accessible où que vous soyez, quand vous voulez.
       </p>
       <div class="app__phones" data-carousel>
-        <div class="phone-wrap">
-          <div class="phone-frame">
-            <div class="phone-inner">
-              <div class="phone-shell">
-                <div class="phone-screen">
-                  <img src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
-                </div>
-                <div class="phone-notch" aria-hidden="true"></div>
-              </div>
-            </div>
+        <div class="mock">
+          <div class="mock__device">
+            <span class="mock__island" aria-hidden="true"></span>
+            <img class="mock__screen" src="app-seance.png" alt="App Studio Gym 360 — Séances du jour">
           </div>
-          <p class="phone-label">Vos séances du jour</p>
+          <p class="mock__label">Vos séances du jour</p>
         </div>
 
-        <div class="phone-wrap">
-          <div class="phone-frame">
-            <div class="phone-inner">
-              <div class="phone-shell">
-                <div class="phone-screen">
-                  <img src="app-messagerie.png" alt="App Studio Gym 360 — Messagerie coach">
-                </div>
-                <div class="phone-notch" aria-hidden="true"></div>
-              </div>
-            </div>
+        <div class="mock">
+          <div class="mock__device">
+            <span class="mock__island" aria-hidden="true"></span>
+            <img class="mock__screen" src="app-messagerie.png" alt="App Studio Gym 360 — Messagerie coach">
           </div>
-          <p class="phone-label">Votre coach, en un message</p>
+          <p class="mock__label">Votre coach, en un message</p>
         </div>
 
-        <div class="phone-wrap">
-          <div class="phone-frame">
-            <div class="phone-inner">
-              <div class="phone-shell">
-                <div class="phone-screen">
-                  <img src="app-progres.png" alt="App Studio Gym 360 — Ta progression">
-                </div>
-                <div class="phone-notch" aria-hidden="true"></div>
-              </div>
-            </div>
+        <div class="mock">
+          <div class="mock__device">
+            <span class="mock__island" aria-hidden="true"></span>
+            <img class="mock__screen" src="app-progres.png" alt="App Studio Gym 360 — Votre progression">
           </div>
-          <p class="phone-label">Votre progression</p>
+          <p class="mock__label">Votre progression</p>
         </div>
       </div>
     </div>
