@@ -1650,13 +1650,13 @@
   <header>
     <div class="hero">
       <img class="hero__bg is-active" src="hero-studio-4.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-7.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-2.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-8.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-5.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="ambiance-band.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-9.jpg" alt="" aria-hidden="true">
-      <img class="hero__bg" src="hero-studio-6.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-7.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-2.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-8.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-5.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="ambiance-band.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-9.jpg" alt="" aria-hidden="true">
+      <img class="hero__bg" data-src="hero-studio-6.jpg" alt="" aria-hidden="true">
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -2492,15 +2492,23 @@
     if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 
     // Hero — fondu enchaîné entre les photos de fond (toutes les 3 s)
+    // Chargement à la demande : seule la 1re image se charge au départ,
+    // les suivantes sont pré-chargées juste avant leur tour.
     (function () {
       var bgs = document.querySelectorAll('.hero__bg');
       if (bgs.length < 2) return;
+      function load(el) {
+        if (el && el.dataset.src) { el.src = el.dataset.src; el.removeAttribute('data-src'); }
+      }
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      load(bgs[1]); // pré-charge la prochaine
       var i = 0;
       setInterval(function () {
         bgs[i].classList.remove('is-active');
         i = (i + 1) % bgs.length;
+        load(bgs[i]);
         bgs[i].classList.add('is-active');
+        load(bgs[(i + 1) % bgs.length]); // pré-charge la suivante
       }, 3000);
     })();
 
