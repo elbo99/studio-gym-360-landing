@@ -362,9 +362,10 @@
     /* ─── 3. Hero ────────────────────────────────────── */
     .hero {
       position: relative;
-      min-height: 560px;
+      min-height: 720px;
       display: flex;
-      align-items: flex-end;
+      align-items: stretch;
+      text-align: center;
       overflow: hidden;
     }
     .hero__bg {
@@ -394,8 +395,58 @@
     .hero__content {
       position: relative;
       z-index: 2;
-      padding: 34px 20px 38px;
-      max-width: 680px;
+      padding: 38px 24px 74px;
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    /* Indicateur de scroll */
+    .hero__scroll {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+    }
+    .hero__scroll-arrows {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: heroCue 1.8s ease-in-out infinite;
+    }
+    .hero__scroll-arrows svg { width: 22px; height: 13px; display: block; }
+    .hero__scroll-arrows svg:last-child { margin-top: -7px; opacity: 0.55; }
+    @keyframes heroCue {
+      0%, 100% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__scroll-arrows { animation: none; }
+    }
+    .hero__top,
+    .hero__bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
     }
     .hero__region {
@@ -413,7 +464,7 @@
       letter-spacing: -0.03em;
       line-height: 1.05;
       color: #fdfbf7;
-      margin-bottom: 22px;
+      margin-bottom: 0;
     }
     .hero__title em {
       font-style: italic;
@@ -432,6 +483,12 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero__note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 12px;
     }
     .hero__cta-primary {
       display: inline-block;
@@ -1406,36 +1463,26 @@
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
       /* ── Hero ── */
-      .hero { min-height: calc(115svh - 88px); align-items: flex-start; }
-      .hero__content { padding-top: 48px; }
+      .hero { min-height: calc(100svh - 88px); align-items: stretch; }
       .hero__bg { object-position: center 45%; }
-      .hero__content { padding: 28px 20px 28px; max-width: 100%; display: flex; flex-direction: column; align-self: stretch; }
+      .hero__content { padding: 30px 20px 76px; max-width: 100%; }
       .hero__region { font-size: 9px; letter-spacing: 0.1em; margin-bottom: 14px; }
       .hero__title {
         font-size: clamp(32px, 9vw, 42px);
         line-height: 1.08;
         margin-bottom: 16px;
       }
-      .hero__title em { font-size: clamp(20px, 7vw, 38px); white-space: nowrap; }
+      .hero__title em { font-size: clamp(26px, 8vw, 40px); }
       .hero__subtitle { font-size: 15px; margin-bottom: 24px; max-width: 100%; }
-      .hero__ctas { flex-direction: column; gap: 10px; }
-      .hero__ctas a {
+      .hero__ctas { flex-direction: column; gap: 10px; width: 100%; max-width: 420px; }
+      .hero__ctas a,
+      .hero__ctas button {
         width: 100%;
         min-height: 52px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-      }
-      /* Badges desktop cachés sur mobile */
-      .hero__badges { display: none; }
-      /* Chips mobiles visibles */
-      .hero__ctas { margin-top: auto; }
-      .hero__badges-mobile {
-        display: flex;
-        gap: 8px;
-        margin-top: 12px;
-        flex-wrap: nowrap;
       }
 
       /* ── Mobile offer band ── */
@@ -1608,58 +1655,30 @@
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
-        <p class="hero__region">Application mobile · Coaching en ligne · Suisse romande</p>
-        <h1 class="hero__title">
-          Studio Gym 360<br>
-          <em>une app, un vrai coach.</em>
-        </h1>
-        <p class="hero__subtitle">Votre application mobile de coaching privé et personnalisé. Le sport s'adapte à votre quotidien.</p>
-        <div class="hero__ctas">
-          <button onclick="openBook()" class="hero__cta-primary">Découvrez la méthode Studio Gym</button>
-          <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="hero__cta-secondary">Accéder à l'app →</a>
+        <div class="hero__top">
+          <p class="hero__region">Application mobile · Coaching en ligne · Suisse romande</p>
+          <h1 class="hero__title">
+            Découvrez la méthode<br>
+            <em>Studio Gym 360</em>
+          </h1>
         </div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:10px;">Sans engagement · Appel gratuit de 30 min</p>
-        <!-- Badges mobile (dans le flux) -->
-        <div class="hero__badges-mobile">
-          <div class="hero__chip">
-            <span class="hero__chip-title">Un vrai coach</span>
-            <span class="hero__chip-sub">+7 ans d'expérience</span>
+        <div class="hero__bottom">
+          <p class="hero__subtitle">Votre studio de coaching online. Le sport s'adapte à votre quotidien.</p>
+          <div class="hero__ctas">
+            <button onclick="openBook()" class="hero__cta-primary">Réserver mon appel découverte</button>
+            <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="hero__cta-secondary">Accéder à l'app →</a>
           </div>
-          <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="hero__chip" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer">
-            <span class="hero__chip-title">Membres satisfaits</span>
-            <span class="hero__chip-sub" style="color:var(--sage)">5/5 · voir les avis</span>
-          </a>
-          <div class="hero__chip">
-            <span class="hero__chip-title">App web</span>
-            <span class="hero__chip-sub">iOS &amp; Android (bientôt)</span>
-          </div>
+          <p class="hero__note">Sans engagement · Appel gratuit de 30 min</p>
         </div>
       </div>
 
-      <!-- Preuve sociale desktop -->
-      <div class="hero__badges" aria-label="Preuves sociales">
-        <div class="hero__badge">
-          <div class="hero__badge-text">
-            <div class="hero__badge-title">Un vrai coach</div>
-            <div class="hero__badge-sub">+7 ans d'expérience</div>
-          </div>
-          <div class="hero__badge-accent" aria-hidden="true"></div>
-        </div>
-        <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="hero__badge" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer">
-          <div class="hero__badge-text">
-            <div class="hero__badge-title">Membres satisfaits</div>
-            <div class="hero__badge-sub" style="color:var(--sage)">5/5 · voir les avis</div>
-          </div>
-          <div class="hero__badge-accent" aria-hidden="true"></div>
-        </a>
-        <div class="hero__badge">
-          <div class="hero__badge-text">
-            <div class="hero__badge-title">App web</div>
-            <div class="hero__badge-sub">iOS &amp; Android (bientôt)</div>
-          </div>
-          <div class="hero__badge-accent" aria-hidden="true"></div>
-        </div>
-      </div>
+      <button class="hero__scroll" onclick="document.getElementById('probleme').scrollIntoView({behavior:'smooth'})" aria-label="Découvrir la suite">
+        Découvrir
+        <span class="hero__scroll-arrows" aria-hidden="true">
+          <svg viewBox="0 0 24 14" fill="none"><path d="M4 3l8 8 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 14" fill="none"><path d="M4 3l8 8 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
     </div>
 
   </header>
