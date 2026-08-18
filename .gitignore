@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Outillage local (aperçu, config)
+.claude/
+
+# ── Fichiers du SITE VITRINE (Studio Gym physique) ──────────────
+# Ce repo = Studio Gym 360 uniquement. Le site vitrine vit dans
+# le dossier voisin ../studio-gym-vitrine.
+# Ignorés ici pour ne jamais les mélanger avec le 360 :
+index-studio-gym.html
+styles.css
+site.js
+avis.html
+cgv.html
+coachs.html
+offres.html
+services.html
+logo.png
+logo-stud-360.png
+studio-gym-logo.png
+LogostudioGym*.png
+icon.png.png
+coach-login.pngggg.png
+STUDIO GYM - GYM-81.jpg
+api/contact.js
