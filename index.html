@@ -1121,6 +1121,88 @@
       .marquee__track { animation: none; }
       .marquee { overflow-x: auto; }
     }
+
+    /* ─── Reel Studio Work (contenu verrouillé) ──────── */
+    .content-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+    .content-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+    .content-stat {
+      font-size: 13px;
+      color: var(--text);
+      background: var(--white);
+      border: 1px solid var(--beige-dark);
+      border-radius: 99px;
+      padding: 9px 16px;
+    }
+    .content-stat strong { color: var(--sage-dark); font-weight: 800; }
+    .reel {
+      overflow: hidden;
+      padding: 6px 0 10px;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    }
+    .reel__track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: reel-move 50s linear infinite;
+    }
+    .reel:hover .reel__track { animation-play-state: paused; }
+    .reel__card {
+      position: relative;
+      flex: 0 0 auto;
+      width: clamp(240px, 72vw, 330px);
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #1a1a1a;
+      box-shadow: 0 14px 28px -16px rgba(26,26,26,0.45);
+    }
+    .reel__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .reel__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0.02), rgba(10,10,10,0.42));
+    }
+    .reel__play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .reel__play svg { width: 18px; height: 18px; margin-left: 2px; color: #1a1a1a; }
+    .reel__lock {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      z-index: 1;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(20,20,20,0.7);
+      color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+      padding: 5px 11px 5px 9px;
+      border-radius: 99px;
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    }
+    .reel__lock svg { width: 12px; height: 12px; }
+    @keyframes reel-move {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reel__track { animation: none; }
+      .reel { overflow-x: auto; }
+    }
     @media (max-width: 720px) {
       .ambiance { min-height: 400px; }
       .ambiance__content { padding: 64px 20px; }
@@ -1773,6 +1855,47 @@
           <p class="mock__label">Votre progression</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- STUDIO WORK — contenu de l'app ───────────────── -->
+  <section aria-labelledby="content-title">
+    <div class="section-inner" style="padding-bottom:30px">
+      <span class="section-label" data-reveal>Studio Work</span>
+      <h2 class="h2" style="margin-bottom:14px" id="content-title" data-reveal>
+        Le contenu disponible<br><em>dans l'app.</em>
+      </h2>
+      <p class="content-sub" data-reveal>Cours filmés et mouvements expliqués par Guillaume. Un catalogue qui s'enrichit chaque semaine, accessible dès que vous êtes membre.</p>
+      <div class="content-stats" data-reveal>
+        <span class="content-stat"><strong>+50</strong> vidéos de mouvement répertoriées</span>
+        <span class="content-stat"><strong>1</strong> nouveau cours online chaque semaine</span>
+      </div>
+    </div>
+
+    <div class="reel" aria-label="Aperçu du contenu vidéo, réservé aux membres">
+      <div class="reel__track">
+        <!-- Série 1 -->
+        <div class="reel__card"><img src="studiowork-1.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card"><img src="studiowork-2.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card"><img src="studiowork-3.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card"><img src="studiowork-4.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card"><img src="studiowork-5.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card"><img src="studiowork-6.jpg" alt="Cours vidéo Studio Work" loading="lazy"><span class="reel__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <!-- Série 2 (duplicata pour la boucle) -->
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-1.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-2.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-3.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-4.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-5.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+        <div class="reel__card" aria-hidden="true"><img src="studiowork-6.jpg" alt=""><span class="reel__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="reel__lock"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Membres</span></div>
+      </div>
+    </div>
+
+    <div class="section-inner" style="padding-top:30px;text-align:center">
+      <button onclick="openBook()" class="btn-sage">Débloquez tout le contenu</button>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Accessible dès votre inscription · 1er mois offert</p>
     </div>
   </section>
 
