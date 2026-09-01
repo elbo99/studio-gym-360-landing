@@ -815,12 +815,15 @@
 
     /* ─── 9. Témoignages ─────────────────────────────── */
     .testimonials__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 16px;
       margin-bottom: 32px;
     }
     .testimonial-card {
+      flex: 1 1 280px;
+      max-width: 380px;
       background: var(--white);
       border-radius: 20px;
       padding: 26px 24px;
@@ -1994,43 +1997,12 @@
             <span class="star" aria-hidden="true">★</span>
             <span class="star" aria-hidden="true">★</span>
           </div>
-          <p class="testimonial-card__text">Un professionnalisme incroyable de la part de Guillaume. Il vous aidera à atteindre vos objectifs sans aucun doute !</p>
+          <p class="testimonial-card__text">J'ai adoré le suivi à distance, qui m'a vraiment motivée à rester active même pendant mes vacances. Le fait d'avoir un programme adapté à mes objectifs, de pouvoir échanger facilement avec mon coach et de savoir que j'étais suivie m'a permis de rester régulière et motivée !</p>
           <div>
-            <div class="testimonial-card__author">Gabriel.M</div>
+            <div class="testimonial-card__author">Mélanie Moroni</div>
+            <div class="testimonial-card__date">10 août 2026</div>
           </div>
         </article>
-        <article class="testimonial-card">
-          <div class="testimonial-card__stars" aria-label="5 étoiles">
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-          </div>
-          <p class="testimonial-card__text">Guillaume est génial, motivant et à l'écoute, on se sent super bien encadré. Un vrai plaisir d'y aller, je recommande !</p>
-          <div>
-            <div class="testimonial-card__author">Marion.D</div>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <div class="testimonial-card__stars" aria-label="5 étoiles">
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-          </div>
-          <p class="testimonial-card__text">Un coach au top, à l'écoute, professionnel et disponible !</p>
-          <div>
-            <div class="testimonial-card__author">Maxime.B</div>
-          </div>
-        </article>
-      </div>
-      <div style="text-align:center">
-        <a href="https://www.google.com/search?q=studio+gym+gibloux&oq=studio+gym+gibloux&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQIxgnMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgoIBRAAGKIEGIkFMgoIBhAAGIAEGKIE0gEIMzU2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x4e528e5c780e2797:0xc80fee6fd0e66aac,1,,,," class="testimonials__link" rel="noopener noreferrer" target="_blank">
-          <span aria-hidden="true" style="color:#f5c518;letter-spacing:1px">★★★★★</span>
-          Voir tous les avis Google
-        </a>
       </div>
     </div>
   </section>
