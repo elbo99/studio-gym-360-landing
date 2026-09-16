@@ -4,7 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Studio Gym 360 — Le sport s'adapte à votre quotidien.</title>
-  <meta name="description" content="Votre application mobile de coaching privé. Un vrai coach, un programme personnalisé, un suivi réel. Depuis n'importe où.">
+  <meta name="description" content="Votre studio de coaching en ligne : un vrai coach, un programme personnalisé, un suivi réel dans une app. Réservez votre appel découverte gratuit.">
+
+  <!-- Open Graph / réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studio Gym 360">
+  <meta property="og:title" content="Studio Gym 360 — Un vrai coach, une vraie app.">
+  <meta property="og:description" content="Votre studio de coaching en ligne : un vrai coach, un programme personnalisé, un suivi réel dans une app. Réservez votre appel découverte gratuit.">
+  <meta property="og:image" content="https://studiogym360.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://studiogym360.com">
+  <meta property="og:locale" content="fr_CH">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Studio Gym 360 — Un vrai coach, une vraie app.">
+  <meta name="twitter:description" content="Votre studio de coaching en ligne : un vrai coach, un programme personnalisé, un suivi réel dans une app.">
+  <meta name="twitter:image" content="https://studiogym360.com/og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
@@ -309,6 +327,11 @@
     }
     .nav__cta:hover { background: #333; }
     .nav__cta-short { display: none; }
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
     .nav__links {
       display: flex;
       align-items: center;
@@ -329,6 +352,15 @@
       padding: 4px 12px;
     }
     .nav__link--coach:hover { background: var(--sage-light); color: var(--sage-dark); }
+    .nav__member {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: color 0.18s;
+    }
+    .nav__member:hover { color: var(--sage-dark); }
+    .nav__member span { color: var(--sage); }
 
     /* ─── Avantages app ──────────────────────────────── */
     .avantages__grid {
@@ -754,65 +786,6 @@
       }
     }
 
-    /* ─── 8. Bénéfices ───────────────────────────────── */
-    .benefits__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .benefit-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 30px 28px;
-      transition: box-shadow 0.18s, transform 0.18s;
-    }
-    .benefit-card:hover {
-      box-shadow: 0 8px 24px rgba(42,42,42,0.07);
-      transform: translateY(-2px);
-    }
-    .benefit-card--founder {
-      background: var(--sage);
-      color: var(--white);
-    }
-    .benefit-card--founder .benefit-card__desc {
-      color: rgba(255,255,255,0.85);
-    }
-    .benefit-card__num {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      color: var(--sage);
-      margin-bottom: 14px;
-    }
-    .benefit-card--founder .benefit-card__num { color: rgba(255,255,255,0.5); }
-    .benefit-card__badge {
-      display: inline-block;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--sage);
-      background: rgba(255,255,255,0.2);
-      border-radius: 99px;
-      padding: 3px 8px;
-      margin-left: 8px;
-      vertical-align: middle;
-    }
-    .benefit-card__title {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-    .benefit-card--founder .benefit-card__title { color: var(--white); }
-    .benefit-card__desc {
-      font-size: 14.5px;
-      color: #6b6358;
-      line-height: 1.65;
-    }
-
     /* ─── 9. Témoignages ─────────────────────────────── */
     .testimonials__grid {
       display: flex;
@@ -869,16 +842,16 @@
 
     /* ─── 10. Formules ───────────────────────────────── */
     .pricing__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: stretch;
+      display: flex;
+      justify-content: center;
     }
     .pricing-card {
       position: relative;
       background: var(--white);
       border-radius: 24px;
-      padding: 32px 28px;
+      padding: 40px 36px;
+      max-width: 440px;
+      width: 100%;
       border: 1px solid var(--beige-dark);
       display: flex;
       flex-direction: column;
@@ -1273,6 +1246,46 @@
       .marquee__track img { width: 170px; height: 226px; }
     }
 
+    /* ─── FAQ ─────────────────────────────────────────── */
+    .faq { max-width: 720px; }
+    .faq-item {
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 20px 0;
+    }
+    .faq-item:first-child { padding-top: 0; }
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item__icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      color: var(--sage-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.22s ease;
+    }
+    .faq-item[open] .faq-item__icon { transform: rotate(45deg); }
+    .faq-item__answer {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 600px;
+      margin-top: 14px;
+    }
+
     /* ─── 13. CTA final ──────────────────────────────── */
     .cta-final {
       background: var(--text);
@@ -1462,6 +1475,8 @@
       .nav__links { display: flex; gap: 0; margin-left: auto; }
       .nav__link:not(.nav__link--coach) { display: none; }
       .nav__link--coach { font-size: 12.5px; padding: 5px 13px; }
+      .nav__member { display: none; }
+      .nav__right { gap: 10px; }
       .nav__cta-full { display: none; }
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
 
@@ -1499,7 +1514,6 @@
 
       /* ── Carousels swipeables ── */
       .problem__grid,
-      .benefits__grid,
       .testimonials__grid {
         display: flex !important;
         flex-wrap: nowrap !important;
@@ -1515,33 +1529,16 @@
         scrollbar-width: none;
       }
       .problem__grid::-webkit-scrollbar,
-      .benefits__grid::-webkit-scrollbar,
       .testimonials__grid::-webkit-scrollbar { display: none; }
       .problem__grid > *,
-      .benefits__grid > *,
       .testimonials__grid > * {
         flex: 0 0 88vw !important;
         max-width: 320px;
         scroll-snap-align: start;
       }
 
-      /* ── Pricing carousel ── */
-      .pricing__grid {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        overscroll-behavior-x: contain;
-        -webkit-overflow-scrolling: touch;
-        gap: 12px !important;
-        margin: 0;
-        padding: 4px 6vw 14px;
-        scrollbar-width: none;
-        scroll-padding-inline: 6vw;
-      }
-      .pricing__grid::-webkit-scrollbar { display: none; }
-      .pricing__grid > * { flex: 0 0 88vw !important; max-width: 320px; scroll-snap-align: center; }
+      /* ── Pricing ── */
+      .pricing__grid { padding: 4px 0 14px; }
       .pricing-card__cta,
       #formules a[href] {
         min-height: 52px;
@@ -1633,7 +1630,7 @@
 
   <!-- ② NAV ──────────────────────────────────────── -->
   <nav class="nav" aria-label="Navigation principale">
-    <a href="https://studiogym360.ch" class="nav__brand">
+    <a href="/" class="nav__brand">
       <img src="GYM.png" alt="" width="38" height="38" style="width:38px;height:38px;object-fit:contain;flex-shrink:0;border-radius:10px">
       <span class="nav__name">Studio Gym 360</span>
     </a>
@@ -1645,8 +1642,11 @@
       <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__link" target="_blank" rel="noopener noreferrer">Contact</a>
       <a href="/espace-coach" class="nav__link nav__link--coach">Espace Coach</a>
     </nav>
-    <button onclick="openBook()" class="nav__cta nav__cta-full">Mon appel découverte</button>
-    <button onclick="openBook()" class="nav__cta nav__cta-short">Mon appel</button>
+    <div class="nav__right">
+      <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="nav__member">Déjà membre ? <span aria-hidden="true">→</span></a>
+      <button onclick="openBook()" class="nav__cta nav__cta-full">Mon appel découverte</button>
+      <button onclick="openBook()" class="nav__cta nav__cta-short">Mon appel</button>
+    </div>
   </nav>
 
   <!-- ③ HERO ─────────────────────────────────────── -->
@@ -1836,17 +1836,6 @@
     </div>
   </section>
 
-  <!-- BANDEAU AMBIANCE — coaching humain ────────────── -->
-  <section class="ambiance ambiance--center" aria-label="Un accompagnement humain">
-    <img class="ambiance__bg" src="ambiance-coach.jpg" alt="Guillaume accompagne une cliente pendant sa séance" aria-hidden="true">
-    <div class="ambiance__overlay" aria-hidden="true"></div>
-    <div class="ambiance__content">
-      <span class="ambiance__label" data-reveal>Un accompagnement humain</span>
-      <h2 class="ambiance__title" data-reveal>Un coach qui vous pousse.<br><em>Vraiment.</em></h2>
-      <p class="ambiance__text" data-reveal data-delay="1">Derrière l'app, une vraie personne qui suit vos progrès et ajuste votre plan, séance après séance.</p>
-    </div>
-  </section>
-
   <!-- ⑧ L'APPLICATION (carousel) ──────────────────── -->
   <section aria-labelledby="app-title">
     <div class="section-inner">
@@ -1928,48 +1917,6 @@
 
   <hr class="section-divider">
 
-  <!-- ⑨ BÉNÉFICES ────────────────────────────────── -->
-  <section aria-labelledby="benefits-title">
-    <div class="section-inner">
-      <span class="section-label" data-reveal>Ce que vous obtenez</span>
-      <h2 class="h2" style="margin-bottom:40px" id="benefits-title" data-reveal>
-        Tout ce dont vous avez besoin.<br><em>Rien de superflu.</em>
-      </h2>
-      <div class="benefits__grid" data-carousel>
-        <div class="benefit-card" data-reveal data-delay="1">
-          <div class="benefit-card__num">01</div>
-          <h3 class="benefit-card__title">Un programme qui vous ressemble.</h3>
-          <p class="benefit-card__desc">Pas un plan copié-collé. Votre coach construit votre programme autour de vous, vos objectifs, votre niveau, ce que votre semaine permet vraiment.</p>
-        </div>
-        <div class="benefit-card" data-reveal data-delay="2">
-          <div class="benefit-card__num">02</div>
-          <h3 class="benefit-card__title">Quelqu'un qui suit. Vraiment.</h3>
-          <p class="benefit-card__desc">Pas un coach fantôme. Mais un coach qui voit votre progression et ajuste quand il le faut, sans que vous ayez besoin de demander.</p>
-        </div>
-        <div class="benefit-card" data-reveal data-delay="3">
-          <div class="benefit-card__num">03</div>
-          <h3 class="benefit-card__title">Tout au même endroit.</h3>
-          <p class="benefit-card__desc">Vos séances, vos charges, votre historique. Plus besoin de noter sur un carnet ou de chercher dans vos photos. Tout est là.</p>
-        </div>
-        <div class="benefit-card" data-reveal data-delay="1">
-          <div class="benefit-card__num">04</div>
-          <h3 class="benefit-card__title">Vous voyez où vous allez.</h3>
-          <p class="benefit-card__desc">Les chiffres ne mentent pas. Charges, répétitions, régularité, vous mesurez votre progression au lieu de juste la ressentir.</p>
-        </div>
-        <div class="benefit-card" data-reveal data-delay="2">
-          <div class="benefit-card__num">05</div>
-          <h3 class="benefit-card__title">Un coach qui vous connaît.</h3>
-          <p class="benefit-card__desc">Il sait que vous voyagez souvent. Que vous avez eu une semaine difficile. Il s'adapte. C'est ça la différence avec une app.</p>
-        </div>
-        <div class="benefit-card benefit-card--founder" data-reveal data-delay="3">
-          <div class="benefit-card__num">06 <span class="benefit-card__badge">Si coaché par Guillaume, fondateur</span></div>
-          <h3 class="benefit-card__title">La méthode Studio Gym, chez vous.</h3>
-          <p class="benefit-card__desc">Ce que Guillaume applique chaque jour en studio, la même rigueur, le même niveau d'exigence, disponible depuis votre salon.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- BANDEAU AMBIANCE ─────────────────────────────── -->
   <section class="ambiance" aria-label="L'expérience Studio Gym">
     <img class="ambiance__bg" src="ambiance-band.jpg" alt="Séance d'entraînement au Studio Gym" aria-hidden="true">
@@ -2014,10 +1961,10 @@
     <div class="section-inner">
       <span class="section-label" data-reveal>Tarifs</span>
       <h2 class="h2" style="margin-bottom:10px" id="pricing-title" data-reveal>
-        Deux formules.<br><em>Un seul objectif.</em>
+        Une formule.<br><em>Tout inclus.</em>
       </h2>
       <p style="font-size:16px;color:var(--text-muted);margin-bottom:40px">Sans engagement. Sans surprise.</p>
-      <div class="pricing__grid" data-carousel>
+      <div class="pricing__grid">
 
         <!-- Studio Online -->
         <div class="pricing-card pricing-card--active" data-reveal data-delay="1">
@@ -2051,39 +1998,66 @@
               </div>
               Suivi de vos performances dans le temps
             </li>
+            <li class="pricing-card__feature">
+              <div class="check-icon" aria-hidden="true">
+                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              Accès complet à Studio Work (vidéos, cours)
+            </li>
           </ul>
           <button onclick="openBook()" class="pricing-card__cta">Réserver mon appel découverte</button>
         </div>
 
-        <!-- Studio Suivi -->
-        <div class="pricing-card" data-reveal data-delay="2">
-          <span class="pricing-card__badge pricing-card__badge--soon">Bientôt disponible</span>
-          <div class="pricing-card__name">Studio Suivi</div>
-          <div class="pricing-card__price"><sup>CHF</sup> 149 <span>/ mois</span></div>
-          <p class="pricing-card__desc">L'expérience coaching complète — comme si vous étiez au studio, à distance.</p>
-          <ul class="pricing-card__features" aria-label="Inclus dans Studio Suivi">
-            <li class="pricing-card__feature">
-              <div class="check-icon" aria-hidden="true">
-                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              Tout Studio Online
-            </li>
-            <li class="pricing-card__feature">
-              <div class="check-icon" aria-hidden="true">
-                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              Accompagnement nutritionnel
-            </li>
-            <li class="pricing-card__feature">
-              <div class="check-icon" aria-hidden="true">
-                <svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              Accès complet à Studio Work (vidéos, ebooks, conseils…)
-            </li>
-          </ul>
-          <a href="#" class="pricing-card__cta pricing-card__cta--disabled" aria-disabled="true" tabindex="-1">Bientôt disponible</a>
-        </div>
+      </div>
+    </div>
+  </section>
 
+  <hr class="section-divider">
+
+  <!-- ⑪ FAQ ─────────────────────────────────────────── -->
+  <section aria-labelledby="faq-title">
+    <div class="section-inner">
+      <span class="section-label" data-reveal>Questions fréquentes</span>
+      <h2 class="h2" style="margin-bottom:36px" id="faq-title" data-reveal>
+        Vous vous posez<br><em>des questions ?</em>
+      </h2>
+      <div class="faq" data-reveal>
+        <details class="faq-item">
+          <summary>Comment ça fonctionne concrètement ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Vous réservez un appel découverte gratuit de 30 minutes avec Guillaume. Vous échangez sur vos objectifs, votre niveau et vos disponibilités. Il vous construit ensuite un programme personnalisé et vous donne accès à l'app pour commencer.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Ai-je besoin de matériel ou d'un abonnement salle de sport ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Non. Votre programme est construit autour de ce que vous avez à disposition — chez vous, en extérieur ou en salle. Rien n'est imposé.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Sur quels appareils puis-je utiliser l'app ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Studio Gym 360 fonctionne directement depuis votre navigateur, sur mobile comme sur ordinateur. Aucune installation n'est nécessaire.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Puis-je résilier à tout moment ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Oui, sans engagement. Si vous résiliez, vous gardez l'accès à votre programme et à l'app jusqu'à la fin de la période déjà payée — jamais de coupure immédiate.</p>
+        </details>
+        <details class="faq-item">
+          <summary>L'appel découverte est-il obligatoire ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Il n'est pas obligatoire pour accéder à l'app, mais fortement recommandé : c'est ce qui permet à Guillaume de construire un programme vraiment adapté à vous, plutôt qu'un plan générique.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Le contenu Studio Work est-il inclus ?
+            <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          </summary>
+          <p class="faq-item__answer">Oui. L'accès complet aux vidéos et cours de Studio Work est inclus dans votre abonnement, dès votre inscription.</p>
+        </details>
       </div>
     </div>
   </section>
