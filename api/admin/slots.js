@@ -1,16 +1,12 @@
 const { query } = require('../_supabase');
 const { cors, handleOptions } = require('../_cors');
-
-function auth(req) {
-  const header = req.headers.authorization || '';
-  return header.replace('Bearer ', '') === process.env.ADMIN_PASSWORD;
-}
+const { checkAdminAuth } = require('../_auth');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
   cors(res);
 
-  if (!auth(req)) return res.status(401).json({ error: 'Non autorisé' });
+  if (!(await checkAdminAuth(req, res))) return;
 
   if (req.method === 'GET') {
     try {
