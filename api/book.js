@@ -73,7 +73,7 @@ async function sendEmails(booking, slot) {
         <h2>Bonjour ${safe.first_name} !</h2>
         <p>Ton appel découverte de 30 min est bien réservé pour le <strong>${dateStr}</strong>.</p>
         <p>Guillaume te contactera à l'heure convenue sur le numéro indiqué : <strong>${safe.phone}</strong>.</p>
-        <p>Si tu as des questions, réponds à cet email ou écris-nous sur WhatsApp.</p>
+        <p>Si tu as des questions, écris-nous à <a href="mailto:info@studiogym.ch">info@studiogym.ch</a> ou sur WhatsApp.</p>
         <br>
         <p>À bientôt,<br><strong>Guillaume — Studio Gym 360</strong></p>
       `,
