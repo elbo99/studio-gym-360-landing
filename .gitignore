@@ -4,6 +4,9 @@
 # Outillage local (aperçu, config)
 .claude/
 
+# CLI Supabase — cache local de `supabase link` (garde supabase/migrations/)
+supabase/.temp/
+
 # ── Fichiers du SITE VITRINE (Studio Gym physique) ──────────────
 # Ce repo = Studio Gym 360 uniquement. Le site vitrine vit dans
 # le dossier voisin ../studio-gym-vitrine.

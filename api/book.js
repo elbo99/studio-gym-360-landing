@@ -2,6 +2,7 @@ const { query } = require('./_supabase');
 const { cors, handleOptions } = require('./_cors');
 const { escapeHtml } = require('./_html');
 const { allow } = require('./_ratelimit');
+const { zurichWallTimeToUtcMs } = require('./_timezone');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -10,7 +11,12 @@ async function sendEmails(booking, slot) {
   const key = process.env.RESEND_API_KEY;
   if (!key) return;
 
-  const slotDate = new Date(`${slot.date}T${slot.time}`);
+  // slot.date/slot.time are plain Europe/Zurich wall-clock values with no
+  // timezone of their own — this server runs in UTC (Vercel's default), so
+  // `new Date(...)` on the raw string would silently read "17:30" as UTC
+  // and this confirmation would tell the member 19:30 instead (see
+  // _timezone.js for how that was caught and how the fix works).
+  const slotDate = new Date(zurichWallTimeToUtcMs(slot.date, slot.time));
 
   const dateStr = slotDate.toLocaleString('fr-CH', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
@@ -80,33 +86,13 @@ async function sendEmails(booking, slot) {
     }),
   });
 
-  const now = new Date();
-  const timeStr = slotDate.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich' });
-
-  // 3. Rappel Guillaume 1h avant
-  const reminder1h = new Date(slotDate.getTime() - 60 * 60 * 1000);
-  if (reminder1h > now) {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from,
-        to: process.env.ADMIN_EMAIL,
-        subject: `📞 Dans 1h — appel avec ${safe.first_name} ${safe.last_name}`,
-        scheduledAt: reminder1h.toISOString(),
-        html: `
-          <h2>Appel découverte dans 1h ⏰</h2>
-          <p><strong>${safe.first_name} ${safe.last_name}</strong> — ${timeStr}</p>
-          <hr>
-          <p>📱 <strong>${safe.phone}</strong></p>
-          <p>🎯 ${safe.objective}</p>
-          <p>📊 ${safe.level}</p>
-          <p>⏱ ${safe.weekly_time}</p>
-          ${safe.injuries ? `<p>⚠️ ${safe.injuries}</p>` : ''}
-        `,
-      }),
-    });
-  }
+  // The "call in 1h" reminder used to be filed here too, via Resend's
+  // scheduledAt — sending it up to weeks ahead of the actual call, with no
+  // check that Resend even accepted scheduling that far out. It's now sent
+  // by send-call-reminders.js, polled on a short interval by a Supabase
+  // pg_cron job (see supabase/migrations), which sends it exactly when
+  // it's actually due instead of trusting a single schedule() call weeks
+  // in advance.
 }
 
 module.exports = async (req, res) => {
