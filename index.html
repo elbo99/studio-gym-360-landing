@@ -25,10 +25,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     /* ─── Design tokens ─────────────────────────────── */
     :root {
+      --font-display: 'Bebas Neue', 'Impact', sans-serif;
       --sage:       #6b8f71;
       --sage-dark:  #4a6b50;
       --sage-light: #eaf2eb;
@@ -85,14 +86,14 @@
       margin: 0 auto;
     }
     .h2 {
-      font-size: clamp(27px, 4.5vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
+      font-family: var(--font-display);
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.1;
     }
     .h2 em {
-      font-style: italic;
-      font-weight: 700;
+      font-style: normal;
       color: var(--sage);
     }
     .btn-primary {
@@ -422,7 +423,7 @@
     .hero__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.38) 50%, rgba(0,0,0,0.2) 100%);
+      background: linear-gradient(to top, rgba(30,46,33,0.72) 0%, rgba(74,107,80,0.5) 50%, rgba(74,107,80,0.28) 100%);
     }
     .hero__content {
       position: relative;
@@ -491,18 +492,18 @@
       margin-bottom: 14px;
     }
     .hero__title {
-      font-size: clamp(40px, 6vw, 62px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
+      font-family: var(--font-display);
+      font-size: clamp(46px, 7.5vw, 72px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.02;
       color: #fdfbf7;
       margin-bottom: 0;
     }
     .hero__title em {
-      font-style: italic;
-      font-weight: 700;
-      color: var(--sage);
-      font-size: clamp(34px, 5vw, 58px);
+      font-style: normal;
+      color: var(--sage-light);
+      font-size: clamp(40px, 6.5vw, 66px);
     }
     .hero__subtitle {
       font-size: 17px;
@@ -702,14 +703,15 @@
     }
     .process-label { color: var(--sage-dark); margin-bottom: 16px; }
     .process-title {
-      font-size: clamp(28px, 4.6vw, 42px);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.14;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.08;
       color: var(--text);
       margin-bottom: 14px;
     }
-    .process-title em { font-style: italic; color: var(--sage-dark); }
+    .process-title em { font-style: normal; color: var(--sage-dark); }
     .process-sub {
       font-size: 16px;
       color: var(--text-muted);
@@ -1080,7 +1082,7 @@
     .ambiance__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(20,20,20,0.85) 0%, rgba(20,20,20,0.55) 45%, rgba(20,20,20,0.15) 100%);
+      background: linear-gradient(90deg, rgba(30,46,33,0.85) 0%, rgba(74,107,80,0.55) 45%, rgba(74,107,80,0.15) 100%);
     }
     .ambiance__content {
       position: relative;
@@ -1101,14 +1103,15 @@
       margin-bottom: 16px;
     }
     .ambiance__title {
-      font-size: clamp(28px, 4.6vw, 46px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.12;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5.2vw, 52px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.08;
       max-width: 640px;
       margin-bottom: 14px;
     }
-    .ambiance__title em { font-style: italic; color: #9fc4a4; }
+    .ambiance__title em { font-style: normal; color: #9fc4a4; }
     .ambiance__text {
       font-size: 17px;
       color: rgba(255,255,255,0.72);
@@ -1118,7 +1121,7 @@
     /* Variante texte centré (rythme différent) */
     .ambiance--center { text-align: center; }
     .ambiance--center .ambiance__overlay {
-      background: linear-gradient(180deg, rgba(20,20,20,0.72), rgba(20,20,20,0.55) 50%, rgba(20,20,20,0.72));
+      background: linear-gradient(180deg, rgba(30,46,33,0.72), rgba(74,107,80,0.55) 50%, rgba(30,46,33,0.72));
     }
     .ambiance--center .ambiance__content { max-width: 720px; }
     .ambiance--center .ambiance__title { max-width: none; }
@@ -1302,16 +1305,17 @@
       margin-bottom: 18px;
     }
     .cta-final__title {
-      font-size: clamp(30px, 5vw, 46px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5.6vw, 52px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
       color: var(--white);
       margin-bottom: 16px;
     }
     .cta-final__title em {
-      font-style: italic;
-      color: var(--sage);
+      font-style: normal;
+      color: var(--sage-light);
     }
     .cta-final__sub {
       font-size: 17px;
@@ -1622,9 +1626,9 @@
 <body>
 
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois offert. J'en profite">
+  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois à moitié prix. J'en profite">
     <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois offert</strong></span>
+    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois à moitié prix</strong></span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
 
@@ -1910,7 +1914,7 @@
 
     <div class="section-inner" style="padding-top:30px;text-align:center">
       <button onclick="openBook()" class="btn-sage">Débloquez tout le contenu</button>
-      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Accessible dès votre inscription · 1er mois offert</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Accessible dès votre inscription · 1er mois à moitié prix</p>
     </div>
   </section>
 
@@ -1970,7 +1974,7 @@
           <span class="pricing-card__badge pricing-card__badge--available">Disponible</span>
           <div class="pricing-card__name">Studio Online</div>
           <div class="pricing-card__price"><sup>CHF</sup> 89 <span>/ mois</span></div>
-          <span class="pricing-card__offer">1er mois offert — Offre de lancement</span>
+          <span class="pricing-card__offer">1er mois à moitié prix — Offre de lancement</span>
           <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que vous vous entraîniez.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
             <li class="pricing-card__feature">
