@@ -888,11 +888,33 @@
       letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
+    .pricing-card__price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .pricing-card__price-old {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(122,113,102,0.6);
+    }
+    .pricing-card__discount {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #fff;
+      background: var(--sage-dark);
+      border-radius: 99px;
+      padding: 3px 9px;
+    }
     .pricing-card__price {
       font-size: 48px;
       font-weight: 800;
       letter-spacing: -0.04em;
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       line-height: 1;
     }
     .pricing-card__price sup {
@@ -906,6 +928,11 @@
       font-size: 15px;
       font-weight: 500;
       color: var(--text-muted);
+    }
+    .pricing-card__price-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
     }
     .pricing-card__offer {
       display: inline-flex;
@@ -1626,9 +1653,9 @@
 <body>
 
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois à moitié prix. J'en profite">
+  <a href="https://studiogym360.ch" class="offer-band" aria-label="Offre de lancement — 1er mois à -50%. J'en profite">
     <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois à moitié prix</strong></span>
+    <span class="offer-band__text">Rejoins Studio Gym 360 = <strong style="font-weight:700;color:#fdfbf7">1er mois à -50%</strong></span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
 
@@ -1914,7 +1941,7 @@
 
     <div class="section-inner" style="padding-top:30px;text-align:center">
       <button onclick="openBook()" class="btn-sage">Débloquez tout le contenu</button>
-      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Accessible dès votre inscription · 1er mois à moitié prix</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Accessible dès votre inscription · 1er mois à -50%</p>
     </div>
   </section>
 
@@ -1973,8 +2000,13 @@
         <div class="pricing-card pricing-card--active" data-reveal data-delay="1">
           <span class="pricing-card__badge pricing-card__badge--available">Disponible</span>
           <div class="pricing-card__name">Studio Online</div>
-          <div class="pricing-card__price"><sup>CHF</sup> 89 <span>/ mois</span></div>
-          <span class="pricing-card__offer">1er mois à moitié prix — Offre de lancement</span>
+          <div class="pricing-card__price-row">
+            <span class="pricing-card__price-old">CHF 89</span>
+            <span class="pricing-card__discount">-50%</span>
+          </div>
+          <div class="pricing-card__price"><sup>CHF</sup> 44.50 <span>/ mois</span></div>
+          <p class="pricing-card__price-note">Le 1er mois seulement, puis CHF 89/mois</p>
+          <span class="pricing-card__offer">Offre de lancement</span>
           <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que vous vous entraîniez.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
             <li class="pricing-card__feature">
