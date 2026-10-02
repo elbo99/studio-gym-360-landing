@@ -77,15 +77,6 @@
     section, header { overflow-x: clip; }
 
     /* ─── Utility ────────────────────────────────────── */
-    .section-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--sage);
-      margin-bottom: 16px;
-    }
     .section-inner {
       max-width: 760px;
       margin: 0 auto;
@@ -360,15 +351,6 @@
       padding: 4px 12px;
     }
     .nav__link--coach:hover { background: var(--sage-light); color: var(--sage-dark); }
-    .nav__member {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      white-space: nowrap;
-      transition: color 0.18s;
-    }
-    .nav__member:hover { color: var(--sage-dark); }
-    .nav__member span { color: var(--sage); }
 
     /* ─── L'application : fonctionnalités + téléphone ─── */
     .feat {
@@ -408,7 +390,6 @@
       pointer-events: none;
     }
     .feat .mock__device { position: relative; }
-    .feat__head .section-label { color: #9fc4a4; }
     .feat__head .h2 { color: #fff; }
     .feat__head .h2 em { color: #9fc4a4; }
     .feat__intro {
@@ -635,6 +616,18 @@
       transition: background-color var(--dur-ui) var(--ease), transform var(--dur-ui) var(--ease);
     }
     .hero__cta-primary:hover { background: var(--sage-900); transform: translateY(-2px); }
+    .hero__cta-secondary {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      padding: 15px 28px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      transition: background-color var(--dur-ui) var(--ease), transform var(--dur-ui) var(--ease);
+    }
+    .hero__cta-secondary:hover { background: rgba(255,255,255,0.16); transform: translateY(-2px); }
     /* ── Badges desktop (row absolu en bas à droite) ── */
     .hero__badges {
       position: absolute;
@@ -779,7 +772,6 @@
       padding: 72px 32px;
       text-align: center;
     }
-    .process-label { color: var(--sage-dark); margin-bottom: 16px; }
     .process-title {
       font-family: var(--font-display);
       font-size: clamp(32px, 5vw, 48px);
@@ -1212,15 +1204,6 @@
       padding: calc(var(--edge) + 24px) 32px;
       color: #fff;
     }
-    .ambiance__label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #9fc4a4;
-      margin-bottom: 16px;
-    }
     .ambiance__title {
       font-family: var(--font-display);
       font-size: clamp(32px, 5.2vw, 52px);
@@ -1413,15 +1396,6 @@
     .cta-final {
       padding: 104px 32px 80px;
       text-align: center;
-    }
-    .cta-final__label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--sage-dark);
-      margin-bottom: 18px;
     }
     .cta-final__title {
       font-family: var(--font-display);
@@ -1632,7 +1606,6 @@
       .nav__links { display: flex; gap: 0; margin-left: auto; }
       .nav__link:not(.nav__link--coach) { display: none; }
       .nav__link--coach { font-size: 12.5px; padding: 5px 13px; }
-      .nav__member { display: none; }
       .nav__right { gap: 10px; }
       .nav__cta-full { display: none; }
       .nav__cta-short { display: inline-block; font-size: 13px; padding: 9px 18px; }
@@ -1813,7 +1786,6 @@
       <a href="/espace-coach" class="nav__link nav__link--coach">Espace Coach</a>
     </nav>
     <div class="nav__right">
-      <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="nav__member">Déjà membre ? <span aria-hidden="true">→</span></a>
       <button onclick="openBook()" class="nav__cta nav__cta-full">Mon appel découverte</button>
       <button onclick="openBook()" class="nav__cta nav__cta-short">Mon appel</button>
     </div>
@@ -1844,6 +1816,7 @@
           <p class="hero__subtitle">Votre studio de coaching online. Le sport s'adapte à votre quotidien.</p>
           <div class="hero__ctas">
             <button onclick="openBook()" class="hero__cta-primary">Réserver mon appel découverte</button>
+            <a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer" class="hero__cta-secondary">Accéder à l'app →</a>
           </div>
           <p class="hero__note">Sans engagement · Appel gratuit de 30 min</p>
         </div>
@@ -1864,7 +1837,6 @@
   <!-- ④ PROBLÈME ──────────────────────────────────── -->
   <section id="probleme" class="tone tone--cream" aria-labelledby="problem-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>Le problème</span>
       <h2 class="h2" style="margin-bottom:40px" data-reveal id="problem-title">
         Beaucoup s'entraînent.<br><em>Peu progressent vraiment.</em>
       </h2>
@@ -1889,7 +1861,6 @@
   <!-- ⑤ SOLUTION ──────────────────────────────────── -->
   <section id="solution" class="tone tone--sand from-cream" aria-labelledby="solution-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>La solution</span>
       <h2 class="h2" style="margin-bottom:32px" id="solution-title" data-reveal>
         Notre approche,<br><em>notre différence.</em>
       </h2>
@@ -1914,7 +1885,6 @@
   <!-- ⑥ PROCESSUS ────────────────────────────────── -->
   <section class="process-section tone tone--sage from-sand" aria-labelledby="process-title">
     <div class="process-inner">
-      <span class="section-label process-label" data-reveal>Le processus</span>
       <h2 class="process-title" id="process-title" data-reveal>
         Démarrer, <em>c'est simple.</em>
       </h2>
@@ -1949,7 +1919,6 @@
   <section class="feat" id="app" aria-labelledby="app-title">
     <div class="feat__inner">
       <div class="feat__head">
-        <span class="section-label" data-reveal>L'application</span>
         <h2 class="h2" id="app-title" data-reveal>Tout votre coaching,<br><em>dans une seule app.</em></h2>
         <p class="feat__intro" data-reveal>Vos séances, vos performances, votre suivi : tout est centralisé et accessible où que vous soyez.</p>
       </div>
@@ -2018,7 +1987,6 @@
   <!-- STUDIO WORK — contenu de l'app ───────────────── -->
   <section class="studio-work tone tone--sage" aria-labelledby="content-title">
     <div class="section-inner" style="padding-bottom:30px">
-      <span class="section-label" data-reveal>Studio Work</span>
       <h2 class="h2" style="margin-bottom:14px" id="content-title" data-reveal>
         Le contenu disponible<br><em>dans l'app.</em>
       </h2>
@@ -2060,7 +2028,6 @@
     <img class="ambiance__bg" src="ambiance-band.jpg" alt="Séance d'entraînement au Studio Gym" aria-hidden="true">
     <div class="ambiance__overlay" aria-hidden="true"></div>
     <div class="ambiance__content">
-      <span class="ambiance__label" data-reveal>L'expérience Studio Gym</span>
       <h2 class="ambiance__title" data-reveal>Un vrai studio.<br><em>Un vrai coach. Où que vous soyez.</em></h2>
       <p class="ambiance__text" data-reveal>La rigueur et l'énergie du studio, transmises jusque dans votre poche.</p>
     </div>
@@ -2069,7 +2036,6 @@
   <!-- ⑨ TÉMOIGNAGES ──────────────────────────────── -->
   <section class="tone tone--cream" aria-labelledby="testimonials-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>Ils ont progressé</span>
       <h2 class="h2" style="margin-bottom:32px" id="testimonials-title" data-reveal>
         Vos retours
       </h2>
@@ -2096,7 +2062,6 @@
   <!-- ⑩ FORMULES ──────────────────────────────────── -->
   <section id="formules" class="tone tone--sand from-cream" aria-labelledby="pricing-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>Tarifs</span>
       <h2 class="h2" style="margin-bottom:10px" id="pricing-title" data-reveal>
         Une formule.<br><em>Tout inclus.</em>
       </h2>
@@ -2158,7 +2123,6 @@
   <!-- ⑪ FAQ ─────────────────────────────────────────── -->
   <section class="tone tone--cream from-sand" aria-labelledby="faq-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>Questions fréquentes</span>
       <h2 class="h2" style="margin-bottom:36px" id="faq-title" data-reveal>
         Vous vous posez<br><em>des questions ?</em>
       </h2>
@@ -2207,7 +2171,6 @@
   <!-- ⑫ LE COACH ──────────────────────────────────── -->
   <section id="coach" class="tone tone--sage from-cream" aria-labelledby="coach-title">
     <div class="section-inner">
-      <span class="section-label" data-reveal>Le coach</span>
       <h2 class="h2" style="margin-bottom:32px" id="coach-title" data-reveal>Guillaume, votre coach.</h2>
       <div class="coach__card" data-reveal>
         <div class="coach__photo">
@@ -2228,7 +2191,6 @@
   <!-- GALERIE AMBIANCE ─────────────────────────────── -->
   <section class="tone tone--cream from-sage" aria-labelledby="gallery-title">
     <div class="section-inner" style="padding-bottom:36px">
-      <span class="section-label" data-reveal>En images</span>
       <h2 class="h2" id="gallery-title" data-reveal>L'ambiance <em>Studio Gym.</em></h2>
     </div>
     <div class="marquee">
@@ -2257,7 +2219,6 @@
 
   <!-- ⑬ CTA FINAL + FOOTER ────────────────────────── -->
   <section class="cta-final tone tone--sand from-cream" aria-labelledby="cta-title">
-    <span class="cta-final__label">Dernière étape</span>
     <h2 class="cta-final__title" id="cta-title">
       Prêt(e)s à <em>commencer</em> ?
     </h2>
