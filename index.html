@@ -44,6 +44,7 @@
       --sand-100:   #F2EADC;
       --sage-100:   #E7F0E9;
       --sage-900:   #2F3E34;
+      --ink-600:    #5A554E;
       /* Charte — boutons d'appel */
       --sage-600:   #5E7A64;
       /* Langage d'animation unique */
@@ -147,8 +148,9 @@
       cursor: pointer;
     }
 
-    /* ─── Phone mockup ───────────────────────────────── */
     /* ─── Maquettes app (mockups) ────────────────────── */
+    /* L'écran = la barre d'état du mockup + la capture (sans sa propre barre
+       d'état), affichée sur toute sa largeur : seul le bas peut être rogné. */
     .mock {
       flex: none;
       display: flex;
@@ -156,30 +158,51 @@
       align-items: center;
     }
     .mock__device {
+      --phone-w: 210px;
       position: relative;
-      width: 210px;
-      aspect-ratio: 9 / 19.5;
+      width: var(--phone-w);
       background: #0e0e0e;
-      border-radius: 40px;
-      padding: 9px;
-      box-shadow: 0 26px 46px -14px rgba(26,26,26,0.42), 0 0 0 1px rgba(0,0,0,0.06);
+      border-radius: calc(var(--phone-w) * 0.18);
+      padding: calc(var(--phone-w) * 0.035);
+      box-shadow: 0 28px 50px -22px rgba(47,62,52,0.45), 0 10px 22px -12px rgba(47,62,52,0.3);
     }
     .mock__screen {
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 100 / 212;
+      border-radius: calc(var(--phone-w) * 0.15);
+      overflow: hidden;
+      background: var(--sb, #F7F6F1);
+      color: #1a1a1a;
+    }
+    .mock__screen[data-fg="light"] { color: #fff; }
+    .mock__status {
+      flex: none;
+      aspect-ratio: 100 / 12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 9% 0 11%;
+      font-size: calc(var(--phone-w) * 0.056);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .mock__icons { width: 22%; fill: currentColor; }
+    .mock__screen img {
+      flex: 1;
+      min-height: 0;
       width: 100%;
-      height: 100%;
-      border-radius: 32px;
       object-fit: cover;
       object-position: top center;
       display: block;
-      background: #e9e6df;
     }
     .mock__island {
       position: absolute;
-      top: 15px;
+      top: calc(var(--phone-w) * 0.058);
       left: 50%;
       transform: translateX(-50%);
-      width: 76px;
-      height: 22px;
+      width: 31%;
+      height: calc(var(--phone-w) * 0.088);
       background: #000;
       border-radius: 99px;
       z-index: 2;
@@ -353,49 +376,28 @@
     .nav__link--coach:hover { background: var(--sage-light); color: var(--sage-dark); }
 
     /* ─── L'application : fonctionnalités + téléphone ─── */
-    .feat {
-      --fade: 240px;
-      position: relative;
-      color: #fff;
-      /* Seul moment sombre de la page : entrée et sortie en dégradé long */
-      /* Paliers intermédiaires verts : évite le gris du mélange linéaire clair → sombre */
-      background: linear-gradient(180deg,
-        var(--sage-100) 0,
-        #C4D8C8 calc(var(--fade) * 0.3),
-        #6F8F76 calc(var(--fade) * 0.66),
-        var(--sage-900) var(--fade),
-        var(--sage-900) calc(100% - var(--fade)),
-        #6F8F76 calc(100% - var(--fade) * 0.66),
-        #C4D8C8 calc(100% - var(--fade) * 0.3),
-        var(--sage-100) 100%);
-    }
     .feat__inner {
-      position: relative;
-      z-index: 1;
       max-width: 1040px;
       margin: 0 auto;
-      padding: 210px 32px 230px;
+      padding: 72px 32px;
     }
-    /* Halo sage derrière le téléphone */
+    /* Halo sauge très léger derrière le téléphone */
     .feat .mock { position: relative; }
     .feat .mock::before {
       content: "";
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 170%;
+      width: 160%;
       aspect-ratio: 1;
       transform: translate(-50%, -50%);
-      background: radial-gradient(closest-side, rgba(159,196,164,0.28), rgba(159,196,164,0.08) 55%, transparent);
+      background: radial-gradient(closest-side, rgba(107,143,113,0.16), rgba(107,143,113,0.05) 55%, transparent);
       pointer-events: none;
     }
-    .feat .mock__device { position: relative; }
-    .feat__head .h2 { color: #fff; }
-    .feat__head .h2 em { color: #9fc4a4; }
     .feat__intro {
       font-size: 16px;
       line-height: 1.65;
-      color: rgba(255,255,255,0.72);
+      color: var(--ink-600);
       max-width: 520px;
       margin-top: 14px;
     }
@@ -412,15 +414,11 @@
       align-self: start;
       padding-top: 40px;
     }
-    .feat__stage .mock__device { width: 270px; }
+    .feat__stage .mock__device { --phone-w: 270px; display: grid; }
     .feat__stage .mock__screen {
-      position: absolute;
-      top: 9px;
-      left: 9px;
-      width: calc(100% - 18px);
-      height: calc(100% - 18px);
+      grid-area: 1 / 1;
       opacity: 0;
-      transition: opacity 0.45s ease;
+      transition: opacity var(--dur-ui) var(--ease);
     }
     .feat__stage .mock__screen.is-active { opacity: 1; }
     .feat__steps { display: flex; flex-direction: column; }
@@ -431,16 +429,16 @@
       justify-content: center;
       padding: 24px 0;
       opacity: 0.32;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--dur-ui) var(--ease);
     }
     .feat__step.is-active { opacity: 1; }
-    .feat__step .mock { display: none; } /* téléphone par carte : mobile uniquement */
+    .feat__step .mock { display: none; } /* téléphone par étape : mobile uniquement */
     .feat__num {
       font-family: var(--font-display);
       font-size: 68px;
       line-height: 1;
       letter-spacing: 0.01em;
-      color: #9fc4a4;
+      color: var(--sage);
       margin-bottom: 12px;
     }
     .feat__step h3 {
@@ -448,17 +446,15 @@
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1.2;
-      color: #fff;
+      color: var(--sage-900);
       margin-bottom: 10px;
     }
     .feat__step p {
       font-size: 16px;
       line-height: 1.65;
-      color: rgba(255,255,255,0.72);
+      color: var(--ink-600);
       max-width: 430px;
     }
-    .feat .swipe-dot { background: rgba(255,255,255,0.25); }
-    .feat .swipe-dot--active { background: #9fc4a4; }
     @media (prefers-reduced-motion: reduce) {
       .feat__stage .mock__screen,
       .feat__step { transition: none; }
@@ -1549,8 +1545,9 @@
       .brow { grid-template-columns: 1fr; gap: 0; }
     }
 
-    /* ─── WhatsApp FAB (desktop: hidden) ─────────────── */
-    .whatsapp-fab { display: none; }
+    /* ─── WhatsApp : icône dans la nav, mobile uniquement
+       (le desktop a déjà le lien « Contact ») — ne recouvre jamais le contenu */
+    .nav__wa { display: none; }
 
     /* ─── Footer ─────────────────────────────────────── */
     .footer {
@@ -1577,26 +1574,21 @@
       .offer-band__tag { font-size: 8.5px; letter-spacing: 0.06em; flex-shrink: 0; }
       .offer-band__cta { font-size: 9.5px; flex-shrink: 0; }
 
-      /* ── WhatsApp floating button ── */
-      .whatsapp-fab {
+      /* ── WhatsApp dans la nav ── */
+      .nav__wa {
         display: flex;
-        position: fixed;
-        bottom: calc(14px + env(safe-area-inset-bottom));
-        right: 14px;
-        z-index: 200;
-        width: 48px;
-        height: 48px;
-        background: #25D366;
-        border-radius: 50%;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        flex: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #25D366;
+        transition: transform var(--dur-ui) var(--ease);
       }
-      .whatsapp-fab:active { transform: scale(0.93); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-      .whatsapp-fab svg { width: 26px; height: 26px; }
-      /* Place sous le bouton WhatsApp pour que le bas de page reste lisible */
-      .footer { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+      .nav__wa:active { transform: scale(0.94); }
+      .nav__wa svg { width: 21px; height: 21px; }
+      .nav__right { gap: 8px; }
       section[id], header[id] { scroll-margin-top: 96px; }
 
       /* ── Nav ── */
@@ -1684,43 +1676,40 @@
       .solution__ctas { flex-direction: column; }
       .solution__ctas a { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; }
 
-      /* ── L'application : carrousel de cartes (mobile) ── */
-      .feat { --fade: 160px; }
+      /* ── L'application : carrousel (mobile) — téléphone libre, texte dessous ── */
       .tone { --fade: 80px; }
       .footer { --fade: 56px; }
-      .feat__inner { padding: 140px 0 150px; }
+      .feat__inner { padding: 56px 0 40px; }
       .feat__head { padding: 0 20px; }
-      .feat__layout { display: block; margin-top: 28px; }
+      .feat__layout { display: block; margin-top: 20px; }
       .feat__stage { display: none; }
       .feat__steps {
         flex-direction: row;
-        gap: 14px;
+        gap: 18px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         overscroll-behavior-x: contain;
         -webkit-overflow-scrolling: touch;
-        padding: 4px 20px 6px;
+        padding: 18px 20px 6px;
         scroll-padding-left: 20px;
         scrollbar-width: none;
       }
       .feat__steps::-webkit-scrollbar { display: none; }
       .feat__step {
-        flex: 0 0 82vw;
-        max-width: 340px;
+        flex: 0 0 78vw;
+        max-width: 320px;
         min-height: 0;
         justify-content: flex-start;
         opacity: 1;
         scroll-snap-align: start;
-        padding: 22px 20px 24px;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 22px;
+        padding: 0;
       }
-      .feat__step .mock { display: flex; margin-bottom: 20px; }
-      .feat__step .mock__device { width: 64%; max-width: 210px; }
-      .feat__num { font-size: 46px; margin-bottom: 8px; }
-      .feat__step h3 { font-size: 20px; }
+      /* Téléphone + numéro + titre tiennent dans un écran (barre du navigateur comprise) */
+      .feat__step .mock { display: flex; margin-bottom: 18px; }
+      .feat__step .mock__device { --phone-w: min(56vw, 210px, calc((100svh - 210px) / 2.2)); }
+      .feat__num { font-size: 40px; margin-bottom: 4px; }
+      .feat__step h3 { font-size: 19px; margin-bottom: 6px; }
       .feat__step p { font-size: 14.5px; }
 
       /* ── Studio phones ── */
@@ -1786,6 +1775,7 @@
       <a href="/espace-coach" class="nav__link nav__link--coach">Espace Coach</a>
     </nav>
     <div class="nav__right">
+      <a href="https://wa.me/message/XTHXENIOKE5FI1" class="nav__wa" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C9.373 3 4 8.373 4 15c0 2.385.68 4.61 1.857 6.496L4 29l7.723-1.826A12.94 12.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3Zm6.406 16.594c-.27.757-1.578 1.449-2.156 1.537-.551.084-1.234.119-1.992-.125-.459-.147-1.047-.343-1.8-.672-3.164-1.367-5.23-4.563-5.39-4.773-.16-.211-1.305-1.735-1.305-3.31 0-1.574.824-2.348 1.117-2.668.293-.32.641-.4.854-.4.213 0 .426.002.613.01.196.01.46-.074.72.549.267.641.906 2.215.985 2.375.08.16.133.347.027.558-.106.211-.16.342-.319.527-.16.187-.336.418-.48.561-.16.16-.326.334-.14.654.187.32.829 1.367 1.781 2.215 1.223 1.09 2.254 1.428 2.574 1.588.32.16.507.133.694-.08.188-.213.8-.934 1.014-1.254.213-.32.426-.267.72-.16.293.107 1.867.881 2.187 1.041.32.16.533.24.613.373.08.133.08.773-.187 1.53Z"/></svg></a>
       <button onclick="openBook()" class="nav__cta nav__cta-full">Mon appel découverte</button>
       <button onclick="openBook()" class="nav__cta nav__cta-short">Mon appel</button>
     </div>
@@ -1916,7 +1906,7 @@
   </section>
 
   <!-- ⑦ L'APPLICATION — fonctionnalités + téléphone ─── -->
-  <section class="feat" id="app" aria-labelledby="app-title">
+  <section class="feat tone tone--sand from-sage" id="app" aria-labelledby="app-title">
     <div class="feat__inner">
       <div class="feat__head">
         <h2 class="h2" id="app-title" data-reveal>Tout votre coaching,<br><em>dans une seule app.</em></h2>
@@ -1927,65 +1917,65 @@
           <div class="mock">
             <div class="mock__device">
               <span class="mock__island" aria-hidden="true"></span>
-              <img class="mock__screen is-active" src="app-programme.webp" alt="Écran Programme de l'app Studio Gym 360" width="305" height="660" loading="lazy" decoding="async">
-              <img class="mock__screen" src="app-seance-active.webp" alt="Écran Séance en cours de l'app Studio Gym 360" width="305" height="660" loading="lazy" decoding="async">
-              <img class="mock__screen" src="app-progres.webp" alt="Écran Progrès de l'app Studio Gym 360" width="305" height="660" loading="lazy" decoding="async">
-              <img class="mock__screen" src="app-messagerie.webp" alt="Écran Messagerie de l'app Studio Gym 360" width="305" height="660" loading="lazy" decoding="async">
+              <div class="mock__screen is-active" style="--sb:#F7F6F1" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-programme.webp" alt="Écran Programme de l'app Studio Gym 360" width="305" height="629" loading="lazy" decoding="async"></div>
+              <div class="mock__screen" style="--sb:#5A7A5F" data-fg="light"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-seance-active.webp" alt="Écran Séance en cours de l'app Studio Gym 360" width="760" height="1559" loading="lazy" decoding="async"></div>
+              <div class="mock__screen" style="--sb:#F7F6F1" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-progres.webp" alt="Écran Progrès de l'app Studio Gym 360" width="305" height="655" loading="lazy" decoding="async"></div>
+              <div class="mock__screen" style="--sb:#FBF8F3" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-messagerie.webp" alt="Écran Messagerie de l'app Studio Gym 360" width="390" height="808" loading="lazy" decoding="async"></div>
             </div>
           </div>
         </div>
         <div class="feat__steps" data-carousel data-reveal>
-        <article class="feat__step">
-          <div class="mock" aria-hidden="true">
-            <div class="mock__device">
-              <span class="mock__island"></span>
-              <img class="mock__screen" src="app-programme.webp" alt="" width="305" height="660" loading="lazy" decoding="async">
+          <article class="feat__step">
+            <div class="mock" aria-hidden="true">
+              <div class="mock__device">
+                <span class="mock__island"></span>
+                <div class="mock__screen" style="--sb:#F7F6F1" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-programme.webp" alt="" width="305" height="629" loading="lazy" decoding="async"></div>
+              </div>
             </div>
-          </div>
-          <div class="feat__num" aria-hidden="true">01</div>
-          <h3>Programme personnalisé</h3>
-          <p>Votre semaine et vos séances, construites par votre coach après l'appel découverte. Ouvrez l'app : votre séance du jour vous attend.</p>
-        </article>
-        <article class="feat__step">
-          <div class="mock" aria-hidden="true">
-            <div class="mock__device">
-              <span class="mock__island"></span>
-              <img class="mock__screen" src="app-seance-active.webp" alt="" width="305" height="660" loading="lazy" decoding="async">
+            <div class="feat__num" aria-hidden="true">01</div>
+            <h3>Programme personnalisé</h3>
+            <p>Votre semaine et vos séances, construites par votre coach après l'appel découverte. Ouvrez l'app : votre séance du jour vous attend.</p>
+          </article>
+          <article class="feat__step">
+            <div class="mock" aria-hidden="true">
+              <div class="mock__device">
+                <span class="mock__island"></span>
+                <div class="mock__screen" style="--sb:#5A7A5F" data-fg="light"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-seance-active.webp" alt="" width="760" height="1559" loading="lazy" decoding="async"></div>
+              </div>
             </div>
-          </div>
-          <div class="feat__num" aria-hidden="true">02</div>
-          <h3>Suivi des performances</h3>
-          <p>Charges et répétitions notées à chaque séance. Vous voyez précisément ce que vous soulevez, semaine après semaine.</p>
-        </article>
-        <article class="feat__step">
-          <div class="mock" aria-hidden="true">
-            <div class="mock__device">
-              <span class="mock__island"></span>
-              <img class="mock__screen" src="app-progres.webp" alt="" width="305" height="660" loading="lazy" decoding="async">
+            <div class="feat__num" aria-hidden="true">02</div>
+            <h3>Suivi des performances</h3>
+            <p>Charges et répétitions notées à chaque séance. Vous voyez précisément ce que vous soulevez, semaine après semaine.</p>
+          </article>
+          <article class="feat__step">
+            <div class="mock" aria-hidden="true">
+              <div class="mock__device">
+                <span class="mock__island"></span>
+                <div class="mock__screen" style="--sb:#F7F6F1" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-progres.webp" alt="" width="305" height="655" loading="lazy" decoding="async"></div>
+              </div>
             </div>
-          </div>
-          <div class="feat__num" aria-hidden="true">03</div>
-          <h3>Progression &amp; pesées</h3>
-          <p>Régularité, volume d'entraînement et courbe de poids réunis au même endroit. Vous mesurez vos progrès au lieu de les deviner.</p>
-        </article>
-        <article class="feat__step">
-          <div class="mock" aria-hidden="true">
-            <div class="mock__device">
-              <span class="mock__island"></span>
-              <img class="mock__screen" src="app-messagerie.webp" alt="" width="305" height="660" loading="lazy" decoding="async">
+            <div class="feat__num" aria-hidden="true">03</div>
+            <h3>Progression &amp; pesées</h3>
+            <p>Régularité, volume d'entraînement et courbe de poids réunis au même endroit. Vous mesurez vos progrès au lieu de les deviner.</p>
+          </article>
+          <article class="feat__step">
+            <div class="mock" aria-hidden="true">
+              <div class="mock__device">
+                <span class="mock__island"></span>
+                <div class="mock__screen" style="--sb:#FBF8F3" data-fg="dark"><div class="mock__status" aria-hidden="true"><span>9:41</span><svg class="mock__icons" viewBox="0 0 64 12" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M30 11.5l-2.4-2.6a3.4 3.4 0 0 1 4.8 0zM25.8 7a6 6 0 0 1 8.4 0l-1.3 1.4a4.1 4.1 0 0 0-5.8 0zM23.5 4.6a9.4 9.4 0 0 1 13 0l-1.3 1.4a7.5 7.5 0 0 0-10.4 0z"/><rect x="42" y="1" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="3" width="15" height="6" rx="1.6"/><rect x="62.2" y="4" width="1.5" height="4" rx=".7"/></svg></div><img src="app-messagerie.webp" alt="" width="390" height="808" loading="lazy" decoding="async"></div>
+              </div>
             </div>
-          </div>
-          <div class="feat__num" aria-hidden="true">04</div>
-          <h3>Messagerie avec votre coach</h3>
-          <p>Une question, un ajustement ? Écrivez à votre coach directement dans l'app, et recevez ses réponses aussi par e-mail.</p>
-        </article>
+            <div class="feat__num" aria-hidden="true">04</div>
+            <h3>Messagerie avec votre coach</h3>
+            <p>Une question, un ajustement ? Écrivez à votre coach directement dans l'app, et recevez ses réponses aussi par e-mail.</p>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
   <!-- STUDIO WORK — contenu de l'app ───────────────── -->
-  <section class="studio-work tone tone--sage" aria-labelledby="content-title">
+  <section class="studio-work tone tone--sage from-sand" aria-labelledby="content-title">
     <div class="section-inner" style="padding-bottom:30px">
       <h2 class="h2" style="margin-bottom:14px" id="content-title" data-reveal>
         Le contenu disponible<br><em>dans l'app.</em>
@@ -2342,11 +2332,6 @@
     </div>
   </div>
 
-  <a href="https://wa.me/message/XTHXENIOKE5FI1" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
-    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#fff" d="M16 3C9.373 3 4 8.373 4 15c0 2.385.68 4.61 1.857 6.496L4 29l7.723-1.826A12.94 12.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3Zm6.406 16.594c-.27.757-1.578 1.449-2.156 1.537-.551.084-1.234.119-1.992-.125-.459-.147-1.047-.343-1.8-.672-3.164-1.367-5.23-4.563-5.39-4.773-.16-.211-1.305-1.735-1.305-3.31 0-1.574.824-2.348 1.117-2.668.293-.32.641-.4.854-.4.213 0 .426.002.613.01.196.01.46-.074.72.549.267.641.906 2.215.985 2.375.08.16.133.347.027.558-.106.211-.16.342-.319.527-.16.187-.336.418-.48.561-.16.16-.326.334-.14.654.187.32.829 1.367 1.781 2.215 1.223 1.09 2.254 1.428 2.574 1.588.32.16.507.133.694-.08.188-.213.8-.934 1.014-1.254.213-.32.426-.267.72-.16.293.107 1.867.881 2.187 1.041.32.16.533.24.613.373.08.133.08.773-.187 1.53Z"/>
-    </svg>
-  </a>
 
   <footer class="footer tone tone--cream from-sand">
     <p class="footer__member"><a href="https://studiogym360.ch" target="_blank" rel="noopener noreferrer">Déjà membre ? Accéder à l'app</a></p>
