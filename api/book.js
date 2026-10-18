@@ -97,7 +97,7 @@ async function sendEmails(booking, slot) {
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  cors(res);
+  cors(res, req);
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -107,7 +107,7 @@ module.exports = async (req, res) => {
     return res.status(429).json({ error: 'Trop de tentatives — réessaie dans quelques minutes.' });
   }
 
-  const { slot_id, first_name, last_name, email, phone, objective, level, weekly_time, injuries, referral } = req.body;
+  const { slot_id, first_name, last_name, email, phone, objective, level, weekly_time, injuries, referral } = req.body || {};
 
   if (!slot_id || !first_name || !last_name || !email || !phone || !objective || !level || !weekly_time) {
     return res.status(400).json({ error: 'Champs obligatoires manquants' });
@@ -117,28 +117,63 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Créneau invalide' });
   }
 
-  if (!EMAIL_RE.test(email)) {
+  const text = { first_name, last_name, email, phone, objective, level, weekly_time };
+  if (Object.values(text).some(v => typeof v !== 'string')) {
+    return res.status(400).json({ error: 'Champs invalides' });
+  }
+  if (email.length > 200 || !EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Email invalide' });
+  }
+  if (
+    first_name.length > 80 || last_name.length > 80 || phone.length > 40 ||
+    objective.length > 300 || level.length > 100 || weekly_time.length > 100 ||
+    (injuries != null && (typeof injuries !== 'string' || injuries.length > 1000)) ||
+    (referral != null && (typeof referral !== 'string' || referral.length > 200))
+  ) {
+    return res.status(400).json({ error: 'Champs trop longs' });
   }
 
   try {
-    const slots = await query(`/slots?id=eq.${slot_id}&is_available=eq.true&select=id,date,time`);
-    if (!slots.length) return res.status(409).json({ error: 'Créneau plus disponible' });
-    const slot = slots[0];
+    // Limits shared by every serverless instance (the in-memory limiter above
+    // resets on cold start): one person can't take more than 2 slots a day,
+    // and the whole form can't take more than 15 in an hour.
+    const dayAgo = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+    const hourAgo = new Date(Date.now() - 3600 * 1000).toISOString();
+    const [sameEmail, lastHour] = await Promise.all([
+      query(`/bookings?email=eq.${encodeURIComponent(email.toLowerCase())}&created_at=gte.${dayAgo}&select=id`),
+      query(`/bookings?created_at=gte.${hourAgo}&select=id`),
+    ]);
+    if (sameEmail.length >= 2 || lastHour.length >= 15) {
+      return res.status(429).json({ error: 'Trop de réservations — réessaie plus tard ou écris-nous.' });
+    }
 
-    const [booking] = await query('/bookings', 'POST', {
-      slot_id, first_name, last_name, email, phone, objective, level, weekly_time,
-      injuries: injuries || null,
-      referral: referral || null,
-      status: 'confirmed',
-    });
+    // Claim the slot first, atomically: only one request can flip it from
+    // available to taken, so two people can't book the same call.
+    const claimed = await query(
+      `/slots?id=eq.${slot_id}&is_available=eq.true`, 'PATCH', { is_available: false }
+    );
+    if (!claimed.length) return res.status(409).json({ error: 'Créneau plus disponible' });
+    const slot = { id: claimed[0].id, date: claimed[0].date, time: claimed[0].time };
 
-    await query(`/slots?id=eq.${slot_id}`, 'PATCH', { is_available: false }, { prefer: 'return=minimal' });
+    let booking;
+    try {
+      [booking] = await query('/bookings', 'POST', {
+        slot_id, first_name, last_name, email: email.toLowerCase(), phone, objective, level, weekly_time,
+        injuries: injuries || null,
+        referral: referral || null,
+        status: 'confirmed',
+      });
+    } catch (err) {
+      // Booking failed: give the slot back.
+      await query(`/slots?id=eq.${slot_id}`, 'PATCH', { is_available: true }, { prefer: 'return=minimal' }).catch(() => {});
+      throw err;
+    }
 
     await sendEmails(booking, slot).catch(console.error);
 
     res.status(201).json({ success: true, booking_id: booking.id });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    console.error('book error:', e.message);
+    res.status(500).json({ error: 'Erreur interne' });
   }
 };

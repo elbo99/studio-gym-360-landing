@@ -4,7 +4,7 @@ const { checkAdminAuth } = require('../_auth');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  cors(res);
+  cors(res, req);
 
   if (!(await checkAdminAuth(req, res))) return;
 

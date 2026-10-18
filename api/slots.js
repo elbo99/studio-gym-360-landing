@@ -3,7 +3,7 @@ const { cors, handleOptions } = require('./_cors');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  cors(res);
+  cors(res, req);
 
   try {
     const today = new Date().toISOString().split('T')[0];
@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
     );
     res.status(200).json(slots);
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    console.error('slots error:', e.message);
+    res.status(500).json({ error: 'Erreur interne' });
   }
 };
