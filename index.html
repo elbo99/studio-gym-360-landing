@@ -1573,6 +1573,12 @@
       .offer-band__text { display: inline; font-size: 9.5px; }
       .offer-band__tag { font-size: 8.5px; letter-spacing: 0.06em; flex-shrink: 0; }
       .offer-band__cta { font-size: 9.5px; flex-shrink: 0; }
+      @media (max-width: 400px) {
+        .offer-band { font-size: 8.5px; padding: 7px 8px; gap: 3px; }
+        .offer-band__text { font-size: 8.5px; }
+        .offer-band__tag { font-size: 7.5px; letter-spacing: 0.03em; }
+        .offer-band__cta { font-size: 8.5px; gap: 3px; }
+      }
 
       /* ── WhatsApp dans la nav ── */
       .nav__wa {
@@ -1755,9 +1761,9 @@
 <body>
 
   <!-- ① BANDE OFFRE ───────────────────────────────── -->
-  <button type="button" onclick="openBook()" class="offer-band" aria-label="Offre de lancement : 1er mois à -50 %, limitée à 25 places. Réserver mon appel découverte">
+  <button type="button" onclick="openBook()" class="offer-band" aria-label="Offre de lancement : 1er mois à -50 %, 22 places restantes. Réserver mon appel découverte">
     <span class="offer-band__tag">Offre de lancement</span>
-    <span class="offer-band__text"><strong style="font-weight:700;color:#fdfbf7">1er mois à -50 %</strong>, limitée à 25 places</span>
+    <span class="offer-band__text"><strong style="font-weight:700;color:#fdfbf7">1er mois à -50 %</strong>, 22 places restantes</span>
     <span class="offer-band__cta">J'en profite <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </button>
 
@@ -2068,7 +2074,7 @@
           </div>
           <div class="pricing-card__price"><sup>CHF</sup> 44.50 <span>/ mois</span></div>
           <p class="pricing-card__price-note">Le 1er mois seulement, puis CHF 89/mois</p>
-          <span class="pricing-card__offer">Offre de lancement · 25 places disponibles</span>
+          <span class="pricing-card__offer">Offre de lancement · 22 places restantes</span>
           <p class="pricing-card__desc">Le cadre et la structure pour progresser efficacement, où que tu t'entraînes.</p>
           <ul class="pricing-card__features" aria-label="Inclus dans Studio Online">
             <li class="pricing-card__feature">
@@ -2145,7 +2151,7 @@
           <summary>Combien ça coûte, et que se passe-t-il après le premier mois ?
             <span class="faq-item__icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
           </summary>
-          <p class="faq-item__answer">L'abonnement coûte 89.-/mois, sans engagement. Avec l'offre de lancement, ton premier mois est à moitié prix (44.50). Cette offre est limitée à 25 places. Ensuite, l'abonnement continue à 89.-/mois jusqu'à ce que tu résilies.</p>
+          <p class="faq-item__answer">L'abonnement coûte 89.-/mois, sans engagement. Avec l'offre de lancement, ton premier mois est à moitié prix (44.50). Cette offre est limitée : il reste 22 places. Ensuite, l'abonnement continue à 89.-/mois jusqu'à ce que tu résilies.</p>
         </details>
         <details class="faq-item">
           <summary>L'appel découverte est-il obligatoire ?
